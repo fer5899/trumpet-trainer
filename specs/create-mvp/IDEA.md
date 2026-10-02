@@ -9,7 +9,8 @@ on their trumpet. The app listens through the microphone and marks each correct 
 ## 2. MVP goal
 
 Validate the core loop **listen → play it back on the trumpet → immediate feedback**
-with the smallest possible interface: no accounts, no persistence and no settings.
+with the smallest possible interface: no accounts, no persistence and only one setting
+(the microphone volume threshold).
 
 ## 3. Audience
 
@@ -17,11 +18,14 @@ Beginner and intermediate players of the B♭ trumpet.
 
 ## 4. User flow
 
-1. **Home screen**: a single **"Start training"** button.
+1. **Home screen**:
+   - A **"Start training"** button.
+   - A **microphone level meter with a threshold slider** (see 5.5).
 2. **Melody playback**:
    - 5 random notes are generated.
    - They are played back to back, **0.5 s each**.
-   - The microphone does **not** listen during playback (so it doesn't pick up the speaker itself).
+   - The microphone does **not** listen during playback, so it doesn't pick up the speaker itself.
+     Speakers are the standard way to use the app; headphones are not required.
 3. **Listening phase**:
    - **5 grey boxes** are shown, one per note.
    - The **active note** (the one to play next) is highlighted with a border/frame.
@@ -63,7 +67,14 @@ Beginner and intermediate players of the B♭ trumpet.
 ### 5.3 Note names
 
 - Displayed in **Latin (solfège) notation**: Do, Re, Mi, Fa, Sol, La, Si, with an octave number (e.g. *Fa#3*, *Do5*).
-- Accidentals: shown with a **sharp** (#) by default. *(See open questions.)*
+- Accidentals are spelled **contextually**, according to the melodic direction:
+  - If the note is **higher** than the previous note (the melody goes up), it is shown with a **sharp** (e.g. *Fa#4*).
+  - If the note is **lower** than the previous note (the melody goes down), it is shown with a **flat** (e.g. *Sol♭4*).
+  - If the note **repeats** the previous one, it keeps the previous note's spelling.
+  - The **first note** uses the direction towards the second note (sharp if the melody goes up, flat if it goes down).
+    If the whole melody is the same note, it is shown with a sharp.
+  - Natural notes are always shown without accidentals.
+- It's acceptable that the spelling gives a hint about the direction of the next note.
 
 ### 5.4 Success criteria
 
@@ -72,16 +83,28 @@ Beginner and intermediate players of the B♭ trumpet.
   If it leaves the tolerance, the timer resets.
 - The octave matters: playing the correct note in a different octave does not count.
 
+### 5.5 Volume threshold
+
+- Sounds below a **minimum volume threshold** are ignored by the pitch detection, to filter out ambient noise.
+- The threshold is set on the home screen:
+  - A **"Test microphone"** toggle activates the microphone (asking for permission if needed).
+  - While active, a **horizontal level bar** shows the current input volume in real time.
+  - A **threshold slider** sits on the same bar, so the user can see whether their playing
+    exceeds the threshold and the background noise does not.
+  - The microphone is released when the test is turned off or the training starts.
+- The value is kept in memory while the page is open (no persistence in the MVP) and has a sensible default.
+
 ## 6. Interface (sketch)
 
 ```
  Home                         Listening
 ┌──────────────────────┐     ┌───────────────────────────────────────┐
-│                      │     │  [Fa#3] [ Sol4 ] ┏━━━━┓ [    ] [    ] │
-│  [Start training]    │     │  green   green   ┃    ┃  grey   grey  │
-│                      │     │                  ┗━━━━┛ ← active note │
-└──────────────────────┘     │  [Repeat melody]        [Give up]     │
-                             └───────────────────────────────────────┘
+│  [Start training]    │     │  [Fa#3] [ Sol4 ] ┏━━━━┓ [    ] [    ] │
+│                      │     │  green   green   ┃    ┃  grey   grey  │
+│  [Test microphone]   │     │                  ┗━━━━┛ ← active note │
+│  ▇▇▇▇▇▇░░░│░░░░░░░░  │     │  [Repeat melody]        [Give up]     │
+│  level    ▲threshold │     └───────────────────────────────────────┘
+└──────────────────────┘
 ```
 
 ## 7. Technical requirements (proposal)
@@ -100,20 +123,22 @@ Beginner and intermediate players of the B♭ trumpet.
 - Instrument/transposition choice (C, F, E♭...).
 - Sheet music / staff.
 - Rhythm: only pitch matters, not duration or the time between notes.
+- Limiting the maximum interval between consecutive notes (leaps of up to 18 semitones can come up).
 
 ## 9. Future ideas
 
 - Show the detected note live, plus a tuner (cents of deviation).
 - Mistake/attempt counter and time per exercise.
-- Progressive difficulty: range, maximum intervals, keys, melody length.
+- Progressive difficulty: range, maximum interval between consecutive notes, keys, melody length.
+- Persist the volume threshold between visits.
 - Scale-based melodies instead of purely chromatic ones.
 - Realistic trumpet sound for the melody.
 - Transposition and notation selector (Latin/English).
 - Show the melody on a staff once completed.
 
-## 10. Open questions
+## 10. Resolved questions
 
-- **Enharmonics**: always show sharps (Fa#, Do#...) or use flats in some cases (Si♭, Mi♭)?
-- **Volume / noise**: minimum volume threshold to ignore ambient noise? (proposal: yes, calibratable later on).
-- **Using speakers**: the microphone may pick up the melody; this is mitigated by not listening during playback. Should we recommend headphones?
-- **Large leaps**: with fully random notes, intervals of up to 18 semitones can come up. Should we limit the maximum interval between consecutive notes?
+- **Enharmonics**: spelled contextually — sharps when the melody goes up, flats when it goes down (see 5.3).
+- **Volume / noise**: yes, a minimum volume threshold, configurable on the home screen with a live level bar (see 5.5).
+- **Using speakers**: speakers are the standard setup; the app simply doesn't listen during playback.
+- **Large leaps**: not limited in the MVP (see section 8).
