@@ -125,6 +125,10 @@ src/test/fakeAudioServices.ts       # fakes for RTL tests (prd2.md)
 
 - `defineConfig(({ command }) => ({ base: command === 'build' ? '/trumpet-trainer/' : '/', plugins: [react()], test: { environment: 'jsdom', setupFiles: ['./src/test/setup.ts'], include: ['src/**/*.test.{ts,tsx}'], restoreMocks: true } }))`. The `base` assumes the GitHub repo is named `trumpet-trainer` (Pages URL `https://<user>.github.io/trumpet-trainer/`); change it if the repo name differs.
 - Vitest must not pick up `e2e/**` (Playwright owns it).
+<!-- Added: fix for production preview served at / instead of /trumpet-trainer/ -->
+- **Addendum — preview base:** `vite preview` resolves the config with `command === 'serve'` and `isPreview === true`, so the condition must be `command === 'build' || isPreview` (destructure `isPreview` from `ConfigEnv`). Only the dev server (`npm run dev`, `npm run dev:e2e`) serves at `/`. Covered by `src/config/viteConfig.test.ts`.
+<!-- Added: fix for two dev servers sharing the dependency cache (two copies of React) -->
+- **Addendum — e2e cache dir:** the e2e-mode dev server (`--mode e2e`) must use its own dependency cache, `cacheDir: 'node_modules/.vite-e2e'`. Other modes keep Vite's default `node_modules/.vite`. Both dev servers resolve to the same optimizer hash, because `NODE_ENV` is `development` for both and Vite uses it in place of `mode`. If they share a cache and run at the same time (as `create-environment.sh` does on 5173 and 5174), they overwrite each other's pre-bundled dependencies. The page can then load two copies of React and crash with `Cannot read properties of null (reading 'useContext')`. Covered by `src/config/viteConfig.test.ts`.
 
 ### Constants — `src/config/constants.ts`
 
@@ -304,6 +308,8 @@ export function createBrowserAudioServices(): AudioServices; // wires unlockAudi
 #### Acceptance Criteria — Part 1
 
 - [ ] `npm run dev`, `build`, `preview`, `test`, `test:e2e`, `lint`, `typecheck` all exist and succeed on a clean checkout after `npm ci`.
+- [ ] `npm run preview` serves the production build at http://localhost:4173/trumpet-trainer/ (assets load, app renders); the resolved Vite `base` is `/trumpet-trainer/` for build and preview and `/` for the dev server. <!-- Added: fix for preview base -->
+- [ ] The normal dev server and the e2e-mode dev server can run at the same time from a freshly emptied dependency cache (as `create-environment.sh` starts them), and both render the app without errors; the e2e mode resolves `cacheDir` to `node_modules/.vite-e2e`, separate from the default. <!-- Added: fix for shared dependency cache -->
 - [ ] TypeScript strict mode is on; `npm run typecheck` reports 0 errors; `npm run lint` reports 0 errors.
 - [ ] All constants listed above exist in `src/config/constants.ts` with the given values and are the only source of these numbers.
 - [ ] `WRITTEN_RANGE` has 19 entries 54..72; `writtenToConcert(54) === 52`, `writtenToConcert(72) === 70`.

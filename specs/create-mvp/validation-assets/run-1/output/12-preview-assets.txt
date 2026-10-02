@@ -1,0 +1,7 @@
+Requests made by http://localhost:4173/trumpet-trainer/:
+404 script                                  http://localhost:4173/trumpet-trainer/assets/index-l9Jvc4TA.js
+200 stylesheet text/html                    http://localhost:4173/trumpet-trainer/assets/index-D2RuqXiL.css
+
+Diagnostic — same assets requested without the /trumpet-trainer prefix:
+200 text/javascript http://localhost:4173/assets/index-l9Jvc4TA.js
+200 text/css http://localhost:4173/assets/index-D2RuqXiL.css

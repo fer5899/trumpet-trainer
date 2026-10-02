@@ -1,0 +1,9 @@
+$ npm run typecheck
+
+
+> trumpet-trainer@0.0.0 typecheck
+> tsc --noEmit
+
+
+
+[exit code: 0] [duration: 2679 ms]

@@ -1,0 +1,39 @@
+$ npm test
+
+
+> trumpet-trainer@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/audio/audioContext.test.ts (5 tests) 54ms
+ ✓ src/music/spelling.test.ts (17 tests) 10ms
+ ✓ src/training/sustainTracker.test.ts (15 tests) 10ms
+ ✓ src/music/notes.test.ts (45 tests) 14ms
+ ✓ src/testing/testMelody.test.ts (19 tests) 22ms
+ ✓ src/audio/microphone.test.ts (19 tests) 25ms
+ ✓ src/test/fakeAudioServices.test.ts (5 tests) 12ms
+ ✓ src/training/trainingReducer.test.ts (32 tests) 14ms
+ ✓ src/audio/synth.test.ts (12 tests) 36ms
+ ✓ src/music/melody.test.ts (10 tests) 91ms
+ ✓ src/audio/pitchDetector.test.ts (28 tests) 81ms
+ ✓ src/audio/services.test.ts (5 tests) 11ms
+ ✓ src/training/useTrainingSession.test.tsx (19 tests) 232ms
+ ✓ src/components/MicLevelMeter.test.tsx (5 tests) 392ms
+ ✓ src/config/viteConfig.test.ts (7 tests) 5ms
+ ✓ src/components/App.test.tsx (21 tests) 1174ms
+ ✓ src/config/constants.test.ts (28 tests) 7ms
+ ✓ src/audio/AudioServicesContext.test.tsx (3 tests) 47ms
+ ✓ src/components/micErrorMessage.test.ts (3 tests) 3ms
+ ✓ src/components/NoteBox.test.tsx (3 tests) 79ms
+ ✓ src/audio/level.test.ts (8 tests) 10ms
+
+ Test Files  21 passed (21)
+      Tests  309 passed (309)
+   Start at  00:25:13
+   Duration  4.58s (transform 1.84s, setup 8.84s, collect 4.36s, tests 2.33s, environment 27.49s, prepare 4.11s)
+
+
+
+[exit code: 0] [duration: 5609 ms]

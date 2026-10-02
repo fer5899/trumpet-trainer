@@ -1,0 +1,6 @@
+$ git remote -v
+origin	https://github.com/fer5899/trumpet-trainer.git (fetch)
+origin	https://github.com/fer5899/trumpet-trainer.git (push)
+
+$ git rev-parse --abbrev-ref HEAD
+create-mvp

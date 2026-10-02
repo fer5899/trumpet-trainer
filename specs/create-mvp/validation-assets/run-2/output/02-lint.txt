@@ -1,0 +1,9 @@
+$ npm run lint
+
+
+> trumpet-trainer@0.0.0 lint
+> eslint .
+
+
+
+[exit code: 0] [duration: 2899 ms]

@@ -1,0 +1,118 @@
+OK   on: push
+OK   on: pull_request
+OK   node-version 22 in every setup-node
+OK   check: lint
+OK   check: typecheck
+OK   check: test
+OK   check: build
+OK   e2e: playwright install
+OK   e2e: runs test:e2e
+OK   e2e: uploads report
+OK   e2e: upload if: failure()
+OK   deploy: needs [check, e2e]
+OK   deploy: only on push
+OK   deploy: branch vars.DEPLOY_BRANCH || 'main'
+OK   deploy: upload-pages-artifact path dist
+OK   deploy: deploy-pages
+
+--- deploy job excerpt ---
+  deploy:
+    needs: [check, e2e]
+    # Deploys from `main` unless the repository variable DEPLOY_BRANCH names another branch.
+    if: github.event_name == 'push' && github.ref_name == (vars.DEPLOY_BRANCH || 'main')
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+
+--- full ci.yml ---
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  deploy:
+    needs: [check, e2e]
+    # Deploys from `main` unless the repository variable DEPLOY_BRANCH names another branch.
+    if: github.event_name == 'push' && github.ref_name == (vars.DEPLOY_BRANCH || 'main')
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
