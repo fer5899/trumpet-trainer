@@ -27,6 +27,7 @@ No UI framework, router or state library.
 | `npm run preview` | Serve the build (http://localhost:4173/trumpet-trainer/) |
 | `npm test` | Vitest, single run (`src/**/*.test.{ts,tsx}` only) |
 | `npm run test:watch` | Vitest watch mode |
+| `npm run test:scripts` | `node:test` unit tests for `scripts/release.mjs` |
 | `npm run generate:tones` | Writes `e2e/fixtures/tone-a4-440hz.wav` (440 Hz, 4 s, 16-bit mono 48 kHz) |
 | `npm run test:e2e` | Generates the tone, then `playwright test` (starts `dev:e2e` itself; stop any other server on 5173 first) |
 | `npm run lint` | ESLint |
@@ -74,9 +75,11 @@ src/test/                      setup.ts (jest-dom + RTL cleanup), signals.ts (si
                                tests), appTestUtils.tsx (renderApp = driver + click/startTraining)
 e2e/                           training.spec.ts, mic-meter.spec.ts (fake mic = looping 440 Hz tone)
 scripts/generate-test-tones.mjs  fake-mic WAV fixture (Node built-ins only)
+scripts/release.mjs            release versioning: validate | release | notes (Node built-ins only)
 vite.config.ts                 base (/ dev, /trumpet-trainer/ build+preview), e2e mode uses its own cacheDir
 playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stream + the WAV
-.github/workflows/ci.yml       check (lint/typecheck/test/build), e2e, deploy to GitHub Pages
+.github/workflows/ci.yml       check (lint/typecheck/test/build), release-metadata (PRs), e2e,
+                               release (version bump + tag + GitHub release), deploy to GitHub Pages
 ```
 
 ## Conventions
@@ -106,6 +109,14 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
   numbers replaces the random melody; production builds ignore it.
 - **Deploy:** `ci.yml` deploys on push to `vars.DEPLOY_BRANCH || 'main'`; Pages source must be
   "GitHub Actions".
+- **Versioning (CI-owned):** `version.txt` is `X.Y.Z` on the deploy branch and
+  `X.Y.Z-SNAPSHOT-<branch>` on feature branches. Before a PR, add `bump.txt` (`patch`/`minor`/`major`)
+  and entries under `## [Unreleased]` in `CHANGELOG.md`; the `release-metadata` job enforces this on
+  PRs. On push to the deploy branch the `release` job (only if `bump.txt` exists) bumps `version.txt`,
+  `package.json` and `package-lock.json`, renames `## [Unreleased]` to
+  `## [X.Y.Z] - Released on <date> by <author>`, deletes `bump.txt`, pushes a
+  `chore(release): vX.Y.Z [skip ci]` commit and tag `vX.Y.Z`, and creates the GitHub release.
+  Never bump versions by hand.
 - Vitest only picks up `src/**/*.test.{ts,tsx}`; `e2e/**` belongs to Playwright.
 - TypeScript strict, ESM, function components, plain CSS, named exports.
 - `vite.config.ts` uses `base: '/trumpet-trainer/'` for builds (GitHub Pages repo name).

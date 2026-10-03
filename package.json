@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:scripts": "node --test scripts/release.test.mjs",
     "generate:tones": "node scripts/generate-test-tones.mjs",
     "test:e2e": "npm run generate:tones && playwright test",
     "lint": "eslint .",
