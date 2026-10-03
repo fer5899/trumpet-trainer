@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.1.0] - Released on 2026-10-03 by fer5899
+
 ### Added
 - B♭ trumpet ear-training web app, published to GitHub Pages.
 - Home screen with a "Start training" button and a "Test microphone" level meter. The meter has an adjustable threshold slider that sets the input level counted as playing.
