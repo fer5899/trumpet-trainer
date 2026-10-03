@@ -1,0 +1,3 @@
+Real denial (headless Chromium, --deny-permission-prompts, no fake-ui flag): unknown
+Simulated denial (getUserMedia rejects with DOMException NotAllowedError, as the browser does when blocked): permission-denied
+microphone.ts maps NotAllowedError → permission-denied: true

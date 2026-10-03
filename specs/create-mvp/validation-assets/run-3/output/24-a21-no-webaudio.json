@@ -1,0 +1,49 @@
+{
+  "expectedMessage": "This browser can't access the microphone. Use an up-to-date Chrome, Firefox, Safari or Edge over HTTPS.",
+  "console": {
+    "removed1": "AudioContext: undefined, webkitAudioContext: undefined",
+    "alertsTestMic": [
+      "This browser can't access the microphone. Use an up-to-date Chrome, Firefox, Safari or Edge over HTTPS."
+    ],
+    "pressedTestMic": "false",
+    "errorsTestMic": {
+      "unhandled": [],
+      "uncaught": []
+    },
+    "removed2": "AudioContext: undefined, webkitAudioContext: undefined",
+    "alertsStart": [
+      "This browser can't access the microphone. Use an up-to-date Chrome, Firefox, Safari or Edge over HTTPS."
+    ],
+    "startEnabled": true,
+    "onTraining": false,
+    "pressedStart": "false",
+    "errorsStart": {
+      "unhandled": [],
+      "uncaught": []
+    },
+    "consoleErrors": []
+  },
+  "init-script": {
+    "removed1": "AudioContext: undefined, webkitAudioContext: undefined",
+    "alertsTestMic": [
+      "This browser can't access the microphone. Use an up-to-date Chrome, Firefox, Safari or Edge over HTTPS."
+    ],
+    "pressedTestMic": "false",
+    "errorsTestMic": {
+      "unhandled": [],
+      "uncaught": []
+    },
+    "removed2": "AudioContext: undefined, webkitAudioContext: undefined",
+    "alertsStart": [
+      "This browser can't access the microphone. Use an up-to-date Chrome, Firefox, Safari or Edge over HTTPS."
+    ],
+    "startEnabled": true,
+    "onTraining": false,
+    "pressedStart": "false",
+    "errorsStart": {
+      "unhandled": [],
+      "uncaught": []
+    },
+    "consoleErrors": []
+  }
+}

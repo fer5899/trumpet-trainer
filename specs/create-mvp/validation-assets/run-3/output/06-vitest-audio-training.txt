@@ -1,0 +1,167 @@
+$ npx vitest run src/audio src/training --reporter=verbose
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > lazily creates a single AudioContext and returns it on every call
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > falls back to webkitAudioContext
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio resumes a suspended context synchronously
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio does not resume a running context
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > without Web Audio support (neither AudioContext nor webkitAudioContext) > unlockAudio is a no-op and does not throw
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > without Web Audio support (neither AudioContext nor webkitAudioContext) > getAudioContext throws WebAudioUnsupportedError
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio swallows a rejected resume()
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > matches exactly when the run reaches 500 ms (false up to 480, true at 500)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > resets on one drifting frame (446.5 Hz, +25.4 c) at t=260; next run starts at 280, true at 780
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > resets on one null-pitch frame
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > resets on one frame below threshold (−45 dB)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > treats a level exactly at the threshold as qualifying
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > never matches the wrong octave (220 Hz)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > never matches the wrong octave (880 Hz)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > never matches a wrong note (a semitone off)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > accepts a slightly sharp note (443 Hz, +11.8 c) at t=500
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > includes the tolerance boundary (exactly 25 cents)
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > keeps returning true for further qualifying frames until reset()
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > resets the run when the target changes
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > reset() clears the remembered target
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > honours custom toleranceCents and requiredMs
+ ✓ src/training/sustainTracker.test.ts > createSustainTracker > respects a custom threshold
+ ✓ src/audio/level.test.ts > computeLevelDb > is 0 dBFS for a constant 1.0
+ ✓ src/audio/level.test.ts > computeLevelDb > is −20 dBFS for a constant 0.1
+ ✓ src/audio/level.test.ts > computeLevelDb > is ≈ −3.01 dBFS for a full-scale sine
+ ✓ src/audio/level.test.ts > computeLevelDb > returns the floor (−100) for zeros
+ ✓ src/audio/level.test.ts > computeLevelDb > returns the floor (−100) for an empty buffer, never NaN
+ ✓ src/audio/level.test.ts > computeLevelDb > clamps very quiet signals to the floor instead of going below it
+ ✓ src/audio/level.test.ts > computeLevelDb > clamps signals above full scale to 0
+ ✓ src/audio/level.test.ts > computeLevelDb > never returns NaN or -Infinity
+ ✓ src/training/trainingReducer.test.ts > createInitialTrainingState > starts playing with nothing matched and the spelled names
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > playing + playbackEnded → guard
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > guard + guardElapsed → listening
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + repeatRequested → playing
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + noteMatched with 0 matched increments and keeps listening
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + noteMatched with 1 matched increments and keeps listening
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + noteMatched with 2 matched increments and keeps listening
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + noteMatched with 3 matched increments and keeps listening
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > the 5th noteMatched completes the exercise
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > repeatRequested keeps matchedCount
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > playing + guardElapsed is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > playing + noteMatched is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > playing + repeatRequested is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > guard + playbackEnded is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > guard + noteMatched is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > guard + repeatRequested is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + playbackEnded is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > listening + guardElapsed is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > complete + playbackEnded is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > complete + guardElapsed is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > complete + noteMatched is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > complete + repeatRequested is ignored (same reference)
+ ✓ src/training/trainingReducer.test.ts > trainingReducer transitions > covers 12 ignored phase/action pairs
+ ✓ src/training/trainingReducer.test.ts > selectNoteBoxes > first box active, others pending, at the start
+ ✓ src/training/trainingReducer.test.ts > selectNoteBoxes > done boxes show names and the next is active in playing
+ ✓ src/training/trainingReducer.test.ts > selectNoteBoxes > done boxes show names and the next is active in guard
+ ✓ src/training/trainingReducer.test.ts > selectNoteBoxes > done boxes show names and the next is active in listening
+ ✓ src/training/trainingReducer.test.ts > selectNoteBoxes > all done when complete
+ ✓ src/training/trainingReducer.test.ts > selectCanAct > playing → false
+ ✓ src/training/trainingReducer.test.ts > selectCanAct > guard → false
+ ✓ src/training/trainingReducer.test.ts > selectCanAct > listening → true
+ ✓ src/training/trainingReducer.test.ts > selectCanAct > complete → false
+ ✓ src/audio/AudioServicesContext.test.tsx > AudioServicesContext > useAudioServices returns the provided services
+ ✓ src/audio/AudioServicesContext.test.tsx > AudioServicesContext > useAudioServices throws a helpful error without a provider
+ ✓ src/audio/AudioServicesContext.test.tsx > AudioServicesContext > renders its children
+ ✓ src/audio/synth.test.ts > playSequence > creates one sawtooth oscillator per note with the given frequency
+ ✓ src/audio/synth.test.ts > playSequence > wires oscillator → note gain → shared low-pass → master gain → destination
+ ✓ src/audio/synth.test.ts > playSequence > schedules the notes back to back after the start delay, without gaps
+ ✓ src/audio/synth.test.ts > playSequence > applies the per-note envelope 0 → peak (attack) → hold → 0 (release)
+ ✓ src/audio/synth.test.ts > playSequence > resolves done when the last oscillator fires ended (not earlier ones)
+ ✓ src/audio/synth.test.ts > playSequence > falls back to a timer of start delay + total duration + 200 ms if ended never fires
+ ✓ src/audio/synth.test.ts > playSequence > disconnects the graph after finishing naturally
+ ✓ src/audio/synth.test.ts > playSequence > stop() fades the master gain over 20 ms, stops and disconnects the oscillators and resolves done
+ ✓ src/audio/synth.test.ts > playSequence > stop() is idempotent
+ ✓ src/audio/synth.test.ts > playSequence > stop() after natural completion does nothing
+ ✓ src/audio/synth.test.ts > playSequence > tolerates oscillators that throw on stop()
+ ✓ src/audio/synth.test.ts > playSequence > resolves done immediately for an empty sequence
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > rejects with "unsupported" when navigator.mediaDevices is missing
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > rejects with "unsupported" when getUserMedia is missing
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotAllowedError to "permission-denied" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps SecurityError to "permission-denied" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotFoundError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotReadableError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps AbortError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps a non-Error rejection to "unknown"
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps an error thrown synchronously by getUserMedia to "unknown"
+ ✓ src/audio/microphone.test.ts > openMicrophone > stops the tracks and rejects with "unknown" if building the audio graph fails
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > requests raw audio: echo cancellation, noise suppression and AGC disabled
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > connects source → analyser with fftSize ≥ 2048 and never to the destination
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > exposes the context sample rate
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > does not run the frame loop without listeners
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > emits frames with performance.now() and a reused fftSize-long buffer to every listener
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > reuses one frame object across frames (no per-frame allocation)
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > a listener subscribed or unsubscribed during a frame takes effect from the next frame
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > keeps the frame loop running when a listener throws
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > stops emitting to an unsubscribed listener and stops the loop when none are left
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > release() cancels the frame loop, stops tracks, disconnects nodes and drops listeners
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > release() is idempotent and subscribing afterwards is a no-op
+ ✓ src/audio/microphone.test.ts > MicrophoneError > carries its kind and a descriptive name
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > does not create the AudioContext eagerly (it must be created in a click handler)
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > unlock() delegates to unlockAudio synchronously
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() opens the mic on the shared context
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() rejects (never throws synchronously) with "unsupported" when Web Audio is missing
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() rejects with "unknown" when creating the AudioContext fails otherwise
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > playMelody() plays the sequence on the shared context
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > detectPitch() is the real pitch detector
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert E3 (164.81 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert E3 (164.81 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert A4 (440 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert A4 (440 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert B♭4 (466.16 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > concert B♭4 (466.16 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for silence
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for seeded white noise (seed 1)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for seeded white noise (seed 2)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for seeded white noise (seed 3)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for seeded white noise (seed 42)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for a 100 Hz tone (below range)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 48000 Hz sample rate > returns null for an 800 Hz tone (above range)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert E3 (164.81 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert E3 (164.81 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert A4 (440 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert A4 (440 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert B♭4 (466.16 Hz) > detects a sine within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > concert B♭4 (466.16 Hz) > detects a sawtooth within ±5 cents
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for silence
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for seeded white noise (seed 1)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for seeded white noise (seed 2)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for seeded white noise (seed 3)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for seeded white noise (seed 42)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for a 100 Hz tone (below range)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > at 44100 Hz sample rate > returns null for an 800 Hz tone (above range)
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > accepts tones at the edges of the detection range
+ ✓ src/audio/pitchDetector.test.ts > detectPitch > works with other buffer lengths (detector cached per length)
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > plays the melody once in concert pitch on mount
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > goes to guard when playback ends and to listening after the guard
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > does not listen during playing or guard
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > matches a correct tone held for SUSTAIN_MS and advances
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > calls the detector with the session sample rate above the threshold
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > a wrong note does nothing
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > the right note an octave up does nothing
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > the right note an octave down does nothing
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > no pitch does nothing
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > below threshold does nothing and never calls the detector
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > a single held tone counts only once even if the next note is the same
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > repeat replays, keeps progress, resets the sustain and keeps the mic
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > repeat is ignored unless listening
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > give up during playback stops playback, releases the mic and exits
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > give up while listening releases the mic and exits once
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > completes after the 5th match and exits after COMPLETE_PAUSE_MS
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > unmount stops active playback and releases the mic
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > unmount during guard clears the timer and does not stop finished playback
+ ✓ src/training/useTrainingSession.test.tsx > useTrainingSession > survives a StrictMode remount without releasing the mic
+
+ Test Files  10 passed (10)
+      Tests  153 passed (153)
+   Start at  17:41:39
+   Duration  2.48s (transform 762ms, setup 3.60s, collect 1.63s, tests 344ms, environment 11.34s, prepare 1.81s)
+
+
+
+[exit code: 0] [duration: 4284 ms]

@@ -1,0 +1,5 @@
+http://localhost:5173/ attempt 1: rendered
+http://localhost:5174/ attempt 1: NOT rendered — pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext')
+http://localhost:5174/ attempt 2: NOT rendered — pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext')
+http://localhost:5174/ attempt 3: NOT rendered — pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext')
+http://localhost:5174/ attempt 4: NOT rendered — pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext'); pageerror Cannot read properties of null (reading 'useContext')

@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# Least privilege for check and e2e; deploy declares its own Pages permissions.
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run test:scripts
+      - run: npm run build
+
+  # PR gate: version.txt, bump.txt (patch/minor/major) and a non-empty "## [Unreleased]" changelog.
+  release-metadata:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/release.mjs validate
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # On the deploy branch, a merged bump.txt becomes a release: version.txt/package.json bumped,
+  # CHANGELOG.md tagged, bump.txt removed, commit + tag vX.Y.Z pushed, GitHub release created.
+  # Without bump.txt (e.g. a direct push) nothing is released and the current commit is deployed.
+  release:
+    needs: [check, e2e]
+    # Releases from `main` unless the repository variable DEPLOY_BRANCH names another branch.
+    if: github.event_name == 'push' && github.ref_name == (vars.DEPLOY_BRANCH || 'main')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - id: release
+        if: hashFiles('bump.txt') != ''
+        env:
+          RELEASE_AUTHOR: ${{ github.event.head_commit.author.name || github.actor }}
+        run: |
+          version="$(node scripts/release.mjs release)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - id: commit
+        if: steps.release.outputs.version != ''
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A version.txt bump.txt package.json package-lock.json CHANGELOG.md
+          git commit -m "chore(release): v$VERSION [skip ci]"
+          git tag -a "v$VERSION" -m "v$VERSION"
+          git push origin "HEAD:$GITHUB_REF_NAME" "v$VERSION"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          node scripts/release.mjs notes "$VERSION" > release-notes.md
+          gh release create "v$VERSION" --title "v$VERSION" --notes-file release-notes.md
+
+  deploy:
+    needs: [release]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The release commit when one was made, so the deployed build matches the tag.
+          ref: ${{ needs.release.outputs.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,86 @@
+$ npx vitest run src/music --reporter=verbose
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [54,61,61,58,72] → ["Fa#3","Do#4","Do#4","Si♭3","Do5"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [56,56,56,56,56] → ["Sol#3","Sol#3","Sol#3","Sol#3","Sol#3"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [70,63,63,66,60] → ["Si♭4","Mi♭4","Mi♭4","Fa#4","Do4"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [61,61,58,58,58] → ["Re♭4","Re♭4","Si♭3","Si♭3","Si♭3"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [60,61,60,59,58] → ["Do4","Do#4","Do4","Si3","Si♭3"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [72,72,54,55,54] → ["Do5","Do5","Sol♭3","Sol3","Sol♭3"]
+ ✓ src/music/spelling.test.ts > spellMelody — PRD worked examples > [66] → ["Fa#4"]
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > returns [] for an empty melody
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > returns one name per note
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > spells a note reached upwards with a sharp
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > spells a note reached downwards with a flat
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > keeps the previous spelling for a repeated note
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > keeps a flat spelling across a repeat after a downward step
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > spells the first note by the direction towards the second note
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > uses the first differing note when the second repeats the first
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > uses a sharp when the whole melody is the same note
+ ✓ src/music/spelling.test.ts > spellMelody — individual rules (IDEA §5.3) > never shows an accidental on natural notes
+ ✓ src/music/notes.test.ts > WRITTEN_RANGE > has the 19 chromatic notes 54..72 in order
+ ✓ src/music/notes.test.ts > isInWrittenRange > accepts 54
+ ✓ src/music/notes.test.ts > isInWrittenRange > accepts 60
+ ✓ src/music/notes.test.ts > isInWrittenRange > accepts 72
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects 53
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects 73
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects 60.5
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects NaN
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects Infinity
+ ✓ src/music/notes.test.ts > isInWrittenRange > rejects -1
+ ✓ src/music/notes.test.ts > writtenToConcert > sounds a whole step below the written note
+ ✓ src/music/notes.test.ts > midiToHz > maps A4 to exactly 440 Hz
+ ✓ src/music/notes.test.ts > midiToHz > maps concert E3 and B♭4
+ ✓ src/music/notes.test.ts > midiToHz > doubles per octave
+ ✓ src/music/notes.test.ts > centsFrom > is 0 at the target frequency
+ ✓ src/music/notes.test.ts > centsFrom > is signed and ±1200 for an octave error
+ ✓ src/music/notes.test.ts > centsFrom > is ±100 for a semitone
+ ✓ src/music/notes.test.ts > centsFrom > matches the sustain reference examples
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 60 is Do4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 61 is Do#4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 62 is Re4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 63 is Re#4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 64 is Mi4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 65 is Fa4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 66 is Fa#4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 67 is Sol4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 68 is Sol#4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 69 is La4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 70 is La#4
+ ✓ src/music/notes.test.ts > noteName > sharp spelling of 71 is Si4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 60 is Do4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 61 is Re♭4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 62 is Re4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 63 is Mi♭4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 64 is Mi4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 65 is Fa4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 66 is Sol♭4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 67 is Sol4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 68 is La♭4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 69 is La4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 70 is Si♭4
+ ✓ src/music/notes.test.ts > noteName > flat spelling of 71 is Si4
+ ✓ src/music/notes.test.ts > noteName > matches the PRD examples
+ ✓ src/music/notes.test.ts > noteName > uses U+0023 for sharp and U+266D for flat
+ ✓ src/music/notes.test.ts > noteName > uses octave = floor(m / 12) - 1
+ ✓ src/music/melody.test.ts > generateMelody > maps rng 0 to written MIDI 54
+ ✓ src/music/melody.test.ts > generateMelody > maps rng 0.5 to written MIDI 63
+ ✓ src/music/melody.test.ts > generateMelody > maps rng 0.9999 to written MIDI 72
+ ✓ src/music/melody.test.ts > generateMelody > maps rng 0.05 to written MIDI 54
+ ✓ src/music/melody.test.ts > generateMelody > maps rng 0.06 to written MIDI 55
+ ✓ src/music/melody.test.ts > generateMelody > returns MELODY_LENGTH notes by default
+ ✓ src/music/melody.test.ts > generateMelody > calls rng exactly `length` times and picks each note independently
+ ✓ src/music/melody.test.ts > generateMelody > honours a custom length
+ ✓ src/music/melody.test.ts > generateMelody > never exceeds 72 even if rng misbehaves and returns 1
+ ✓ src/music/melody.test.ts > generateMelody > defaults to Math.random and stays within 54..72 as integers
+
+ Test Files  3 passed (3)
+      Tests  72 passed (72)
+   Start at  17:41:35
+   Duration  1.51s (transform 124ms, setup 603ms, collect 210ms, tests 85ms, environment 1.99s, prepare 502ms)
+
+
+
+[exit code: 0] [duration: 3811 ms]

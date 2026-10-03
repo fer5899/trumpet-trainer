@@ -1,0 +1,36 @@
+$ npx vitest run src/audio/microphone.test.ts --reporter=verbose
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > rejects with "unsupported" when navigator.mediaDevices is missing
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > rejects with "unsupported" when getUserMedia is missing
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotAllowedError to "permission-denied" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps SecurityError to "permission-denied" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotFoundError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps NotReadableError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps AbortError to "unknown" and keeps the cause
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps a non-Error rejection to "unknown"
+ ✓ src/audio/microphone.test.ts > openMicrophone > errors > maps an error thrown synchronously by getUserMedia to "unknown"
+ ✓ src/audio/microphone.test.ts > openMicrophone > stops the tracks and rejects with "unknown" if building the audio graph fails
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > requests raw audio: echo cancellation, noise suppression and AGC disabled
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > connects source → analyser with fftSize ≥ 2048 and never to the destination
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > exposes the context sample rate
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > does not run the frame loop without listeners
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > emits frames with performance.now() and a reused fftSize-long buffer to every listener
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > reuses one frame object across frames (no per-frame allocation)
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > a listener subscribed or unsubscribed during a frame takes effect from the next frame
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > keeps the frame loop running when a listener throws
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > stops emitting to an unsubscribed listener and stops the loop when none are left
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > release() cancels the frame loop, stops tracks, disconnects nodes and drops listeners
+ ✓ src/audio/microphone.test.ts > openMicrophone > session > release() is idempotent and subscribing afterwards is a no-op
+ ✓ src/audio/microphone.test.ts > MicrophoneError > carries its kind and a descriptive name
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  17:42:01
+   Duration  1.65s (transform 104ms, setup 259ms, collect 191ms, tests 32ms, environment 725ms, prepare 135ms)
+
+
+
+[exit code: 0] [duration: 3528 ms]

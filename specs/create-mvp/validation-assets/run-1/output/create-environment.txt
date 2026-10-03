@@ -1,0 +1,62 @@
+$ C:\Program Files\Git\usr\bin\bash.exe specs/create-mvp/create-environment.sh
+
+Installing dependencies...
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'eslint-visitor-keys@5.0.1',
+npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.13.0 || >=24' },
+npm warn EBADENGINE   current: { node: 'v20.16.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 290 packages, and audited 291 packages in 7s
+
+68 packages are looking for funding
+  run `npm fund` for details
+
+5 vulnerabilities (3 moderate, 1 high, 1 critical)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+Generating fake-mic tone fixture...
+
+> trumpet-trainer@0.0.0 generate:tones
+> node scripts/generate-test-tones.mjs
+
+Wrote C:\repos\trumpet-trainer\e2e\fixtures\tone-a4-440hz.wav (384044 bytes)
+Building production bundle...
+
+> trumpet-trainer@0.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 53 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.43 kB │ gzip:  0.28 kB
+dist/assets/index-D2RuqXiL.css    3.44 kB │ gzip:  1.21 kB
+dist/assets/index-l9Jvc4TA.js   162.64 kB │ gzip: 53.29 kB
+✓ built in 9.78s
+Starting Vite dev server on port 5173...
+Starting e2e-mode dev server (VITE_E2E=true) on port 5174...
+Starting production preview on port 4173...
+
+============================================================
+ Trumpet Trainer test environment is running
+------------------------------------------------------------
+ Dev server:          http://localhost:5173/
+ Deterministic mode:  http://localhost:5174/?melody=71,71,71,71,71
+                      (?melody= hook enabled; 71 = written Si4 = concert A4 440 Hz)
+ Production preview:  http://localhost:4173/trumpet-trainer/
+ Fake-mic fixture:    e2e/fixtures/tone-a4-440hz.wav
+============================================================
+ Note: stop this script before running npm run test:e2e (it needs port 5173
+ for its own e2e-mode server).
+ Press Ctrl+C to stop all services.
+
+[create-environment.sh exited with code 1]
+
+[validate.mjs cleanup] cleanup: port 5173 still had listener(s) 4728 — killing; cleanup: port 5174 still had listener(s) 9360 — killing; cleanup: port 4173 still had listener(s) 16188 — killing; ports busy after cleanup: none

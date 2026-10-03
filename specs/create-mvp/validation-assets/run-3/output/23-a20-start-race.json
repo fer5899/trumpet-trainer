@@ -1,0 +1,21 @@
+{
+  "pressedInitial": "false",
+  "toggleDisabled": true,
+  "startDisabled": true,
+  "forceClick": "clicked",
+  "pressedPending": "false",
+  "callsPending": {
+    "gated": 1,
+    "gum": 1
+  },
+  "giveEnabled": true,
+  "gumAtHome": 1,
+  "gumAfterWait": 1,
+  "pressedHome": "false",
+  "toggleEnabledHome": true,
+  "meterHome": "-60",
+  "tracks": [
+    "ended"
+  ],
+  "consoleErrors": []
+}

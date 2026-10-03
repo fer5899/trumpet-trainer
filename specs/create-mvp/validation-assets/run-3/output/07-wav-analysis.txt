@@ -1,0 +1,7 @@
+file: C:\repos\trumpet-trainer\e2e\fixtures\tone-a4-440hz.wav
+size: 384044 bytes (expected 384044 = 44 + 4 s × 48000 × 2)
+header: RIFF/WAVE, format 1 (PCM), 1 channel(s), 48000 Hz, 16-bit, data 384000 bytes
+duration: 4.000 s
+estimated frequency (positive zero crossings / s): 439.75 Hz
+per-0.5 s window estimates: 438, 438, 438, 438, 438, 438, 438, 438 Hz
+peak: -16383..16384, RMS: -9.03 dBFS

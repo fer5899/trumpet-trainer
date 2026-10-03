@@ -1,0 +1,24 @@
+{
+  "afterTestMic": [
+    {
+      "text": "Microphone access is blocked. Allow the microphone for this site (usually via the icon in the address bar or your browser's site settings), then press Start training again.",
+      "inMeterSection": true,
+      "afterMeter": true,
+      "afterStart": true,
+      "top": 322,
+      "meterBottom": 277,
+      "startBottom": 153
+    }
+  ],
+  "afterStart": [
+    {
+      "text": "Microphone access is blocked. Allow the microphone for this site (usually via the icon in the address bar or your browser's site settings), then press Start training again.",
+      "inMeterSection": false,
+      "afterMeter": false,
+      "afterStart": true,
+      "top": 181,
+      "meterBottom": 401,
+      "startBottom": 153
+    }
+  ]
+}

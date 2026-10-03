@@ -1,0 +1,31 @@
+=== A-26 return types ===
+OK   src/components/App.tsx: App → JSX.Element
+OK   src/components/HomeScreen.tsx: HomeScreen → JSX.Element
+OK   src/components/MicLevelMeter.tsx: MicLevelMeter → JSX.Element
+OK   src/components/TrainingScreen.tsx: TrainingScreen → JSX.Element
+OK   src/components/NoteBox.tsx: NoteBox → JSX.Element
+OK   src/audio/AudioServicesContext.tsx: AudioServicesProvider → JSX.Element
+
+=== A-27 session helpers ===
+sessionDriver.ts defines: FRAME_MS, LOUD_DB, concertHz, finishPlayback, elapse, toListening, hold
+Definitions outside sessionDriver.ts that re-implement helpers: none
+Thin delegates (allowed): src/training/useTrainingSession.test.tsx: finishPlayback (delegates to driver.finishPlayback); src/training/useTrainingSession.test.tsx: elapse (delegates to driver.elapse); src/training/useTrainingSession.test.tsx: toListening (delegates to driver.toListening); src/training/useTrainingSession.test.tsx: hold (delegates to driver.hold)
+createSessionDriver used: {"appTestUtils.tsx":true,"useTrainingSession.test.tsx":true}
+Info: {"appTestUtils.tsx emitTone( calls":0,"useTrainingSession.test.tsx emitTone( calls":0}
+
+=== A-28 / A-29 appTestUtils.tsx ===
+boxStates built with Array.from({ length: MELODY_LENGTH }): true; hard-coded [0, 1, 2, 3, 4]: false
+renderApp return object: { ...utils, ...createSessionDriver(fake), fake, click, startTraining: () => click('Start training'),}
+returns user: false; click uses user.click: true; userEvent.setup in renderApp: true
+
+=== A-30 implementation-notes.md ===
+OK   section found
+OK   mentions HomeScreen.test.tsx
+OK   mentions TrainingScreen.test.tsx
+OK   says intentional deviation
+OK   covered by src/components/App.test.tsx
+Paragraph: - **Missing component test files (intentional deviation):** the PRD file tree lists `src/components/HomeScreen.test.tsx` and `src/components/TrainingScreen.test.tsx`. They were not created: every HomeScreen and TrainingScreen acceptance criterion is exercised through `App` in `src/components/App.test.tsx`, which already renders both screens with the fake services. Separate files would only duplicate those tests.
+
+=== A-31 ci.yml permissions ===
+top-level permissions (before jobs:): contents: read
+deploy permissions: pages: write id-token: write contents: read
