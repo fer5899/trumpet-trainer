@@ -59,6 +59,24 @@ describe('audioContext adapter', () => {
     expect(ctx.resume).not.toHaveBeenCalled();
   });
 
+  describe('without Web Audio support (neither AudioContext nor webkitAudioContext)', () => {
+    beforeEach(() => {
+      vi.stubGlobal('AudioContext', undefined);
+      vi.stubGlobal('webkitAudioContext', undefined);
+    });
+
+    it('unlockAudio is a no-op and does not throw', async () => {
+      const { unlockAudio } = await loadModule();
+      expect(() => unlockAudio()).not.toThrow();
+    });
+
+    it('getAudioContext throws WebAudioUnsupportedError', async () => {
+      const { getAudioContext, WebAudioUnsupportedError } = await loadModule();
+      expect(WebAudioUnsupportedError).toBeTypeOf('function');
+      expect(() => getAudioContext()).toThrow(WebAudioUnsupportedError);
+    });
+  });
+
   it('unlockAudio swallows a rejected resume()', async () => {
     vi.stubGlobal('AudioContext', FakeAudioContext);
     const { getAudioContext, unlockAudio } = await loadModule();

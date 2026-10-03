@@ -24,7 +24,7 @@ function statusText({ phase, matchedCount, melody }: TrainingState): string {
   }
 }
 
-export function TrainingScreen({ melody, mic, thresholdDb, onExit }: TrainingScreenProps) {
+export function TrainingScreen({ melody, mic, thresholdDb, onExit }: TrainingScreenProps): JSX.Element {
   const { state, boxes, canAct, repeat, giveUp } = useTrainingSession({ melody, mic, thresholdDb, onExit });
   return (
     <div className="training">

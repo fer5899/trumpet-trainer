@@ -1,13 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getAudioContext, unlockAudio } from './audioContext';
-import { openMicrophone, type MicrophoneSession } from './microphone';
+import { getAudioContext, unlockAudio, WebAudioUnsupportedError } from './audioContext';
+import { MicrophoneError, openMicrophone, type MicrophoneSession } from './microphone';
 import { detectPitch } from './pitchDetector';
 import { createBrowserAudioServices } from './services';
 import { playSequence, type Playback } from './synth';
 
 const fakeContext = { id: 'ctx' } as unknown as AudioContext;
 
-vi.mock('./audioContext', () => ({
+vi.mock('./audioContext', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('./audioContext')>()),
   getAudioContext: vi.fn(() => fakeContext),
   unlockAudio: vi.fn(),
 }));
@@ -21,6 +22,7 @@ describe('createBrowserAudioServices', () => {
   beforeEach(() => {
     vi.mocked(getAudioContext).mockClear();
     vi.mocked(unlockAudio).mockClear();
+    vi.mocked(openMicrophone).mockClear();
   });
 
   it('does not create the AudioContext eagerly (it must be created in a click handler)', () => {
@@ -38,6 +40,27 @@ describe('createBrowserAudioServices', () => {
     vi.mocked(openMicrophone).mockResolvedValueOnce(session);
     await expect(createBrowserAudioServices().openMicrophone()).resolves.toBe(session);
     expect(openMicrophone).toHaveBeenCalledWith(fakeContext);
+  });
+
+  it('openMicrophone() rejects (never throws synchronously) with "unsupported" when Web Audio is missing', async () => {
+    const cause = new WebAudioUnsupportedError();
+    vi.mocked(getAudioContext).mockImplementationOnce(() => {
+      throw cause;
+    });
+    let result!: Promise<MicrophoneSession>;
+    expect(() => (result = createBrowserAudioServices().openMicrophone())).not.toThrow();
+    const error = await result.catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(MicrophoneError);
+    expect(error).toMatchObject({ kind: 'unsupported', cause });
+    expect(openMicrophone).not.toHaveBeenCalled();
+  });
+
+  it('openMicrophone() rejects with "unknown" when creating the AudioContext fails otherwise', async () => {
+    const cause = new Error('too many contexts');
+    vi.mocked(getAudioContext).mockImplementationOnce(() => {
+      throw cause;
+    });
+    await expect(createBrowserAudioServices().openMicrophone()).rejects.toMatchObject({ kind: 'unknown', cause });
   });
 
   it('playMelody() plays the sequence on the shared context', () => {

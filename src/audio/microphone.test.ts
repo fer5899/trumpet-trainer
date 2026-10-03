@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FakeNode } from '../test/fakeWebAudio';
-import { MicrophoneError, openMicrophone } from './microphone';
+import { MicrophoneError, openMicrophone, type MicFrame } from './microphone';
 
 class FakeAnalyserNode extends FakeNode {
   fftSize = 32;
@@ -176,7 +176,9 @@ describe('openMicrophone', () => {
     it('emits frames with performance.now() and a reused fftSize-long buffer to every listener', async () => {
       const { session } = await open();
       const now = vi.spyOn(performance, 'now').mockReturnValueOnce(1000).mockReturnValueOnce(1016);
-      const a = vi.fn();
+      // The frame object is reused, so read it synchronously (as real listeners must).
+      const seenByA: Array<{ frame: MicFrame; timeMs: number }> = [];
+      const a = vi.fn((frame: MicFrame) => seenByA.push({ frame, timeMs: frame.timeMs }));
       const b = vi.fn();
       session.subscribe(a);
       session.subscribe(b);
@@ -184,16 +186,61 @@ describe('openMicrophone', () => {
       raf.tick();
       expect(a).toHaveBeenCalledTimes(2);
       expect(b).toHaveBeenCalledTimes(2);
-      const [first] = a.mock.calls[0];
-      const [second] = a.mock.calls[1];
+      const [first, second] = seenByA;
       expect(first.timeMs).toBe(1000);
       expect(second.timeMs).toBe(1016);
-      expect(first.samples).toBeInstanceOf(Float32Array);
-      expect(first.samples).toHaveLength(2048);
-      expect(first.samples[0]).toBeCloseTo(0.25);
-      expect(second.samples).toBe(first.samples);
-      expect(b.mock.calls[0][0]).toBe(first);
+      expect(first.frame.samples).toBeInstanceOf(Float32Array);
+      expect(first.frame.samples).toHaveLength(2048);
+      expect(first.frame.samples[0]).toBeCloseTo(0.25);
+      expect(second.frame.samples).toBe(first.frame.samples);
+      expect(b.mock.calls[0][0]).toBe(first.frame);
       now.mockRestore();
+    });
+
+    it('reuses one frame object across frames (no per-frame allocation)', async () => {
+      const { session } = await open();
+      const listener = vi.fn();
+      session.subscribe(listener);
+      raf.tick();
+      raf.tick();
+      expect(listener.mock.calls[1][0]).toBe(listener.mock.calls[0][0]);
+    });
+
+    it('a listener subscribed or unsubscribed during a frame takes effect from the next frame', async () => {
+      const { session } = await open();
+      const late = vi.fn();
+      const b = vi.fn();
+      let unsubscribeB: () => void = () => undefined;
+      const a = vi.fn(() => {
+        session.subscribe(late);
+        unsubscribeB();
+      });
+      session.subscribe(a);
+      unsubscribeB = session.subscribe(b);
+      raf.tick();
+      expect(late).not.toHaveBeenCalled();
+      expect(b).toHaveBeenCalledTimes(1);
+      raf.tick();
+      expect(late).toHaveBeenCalled();
+      expect(b).toHaveBeenCalledTimes(1);
+    });
+
+    it('keeps the frame loop running when a listener throws', async () => {
+      const { session } = await open();
+      const failure = new Error('listener bug');
+      const bad = vi.fn((): void => {
+        throw failure;
+      });
+      const good = vi.fn();
+      session.subscribe(bad);
+      session.subscribe(good);
+      expect(() => raf.tick()).toThrow(failure);
+      expect(raf.pendingCount).toBe(1);
+      bad.mockImplementation(() => undefined);
+      raf.tick();
+      expect(good).toHaveBeenCalledTimes(1);
+      expect(bad).toHaveBeenCalledTimes(2);
+      expect(raf.pendingCount).toBe(1);
     });
 
     it('stops emitting to an unsubscribed listener and stops the loop when none are left', async () => {

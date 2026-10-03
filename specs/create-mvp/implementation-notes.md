@@ -270,3 +270,50 @@ Not covered automatically (manual checklist): real trumpet detection, the synth'
 - **PRD:** `prd.md` § vite.config.ts gained an "e2e cache dir" addendum, and Acceptance Criteria — Part 1 gained a matching criterion.
 - **Test:** `src/config/viteConfig.test.ts` gained a `cacheDir` table (development → default, e2e → `node_modules/.vite-e2e`, build → default).
 - **Verified:** emptied both caches, started `vite` and `vite --mode e2e` at the same time, and loaded both pages and reloaded the first. Both rendered with no console errors, and the caches were separate (`node_modules/.vite/deps` and `node_modules/.vite-e2e/deps`). Unit tests: 21 files, 309 tests pass. Lint and typecheck are clean.
+
+## Tech-debt fixes (/t-review #1)
+
+All 12 TODO items in `specs/create-mvp/review.md` (2 warnings, 10 suggestions) are fixed and checked off. Each testable item got a failing test first.
+
+### Warnings
+
+- **Test microphone could be re-enabled while Start was pending** (`App.tsx`, `HomeScreen.tsx`, `MicLevelMeter.tsx`):
+  - `MicLevelMeter` takes an optional `disabled` prop for its toggle, and `HomeScreen` passes `starting`.
+  - As a second safeguard, Start step 4 calls `setTestMicActive(false)` together with `setScreen(...)`, so going back Home can never reopen the test mic without a click.
+  - Test (`App.test.tsx`): with `openMicrophone` pending, the toggle is disabled and a click doesn't press it. After the open resolves and the user clicks Give up, the toggle is unpressed and enabled, and `openMicrophone` was called only once.
+- **No Web Audio threw synchronously** (`audioContext.ts`, `services.ts`):
+  - `getAudioContext()` now throws the new `WebAudioUnsupportedError`.
+  - `unlockAudio()` returns early (no-op) when there is no context and no constructor.
+  - `createBrowserAudioServices().openMicrophone` is now `async` and creates the context through `getMicrophoneContext()`. A `WebAudioUnsupportedError` becomes `MicrophoneError('unsupported')`; any other constructor failure becomes `MicrophoneError('unknown')`. Both keep `cause`. The call rejects instead of throwing in the caller, so `MicLevelMeter`'s `.then(…, onRejected)` and `App`'s `await` both show the "unsupported" message.
+  - The conversion lives in `services.ts` and not in `microphone.ts`, because `openMicrophone(ctx)` receives an existing context (PRD signature unchanged). The "microphone path" test is therefore in `services.test.ts`.
+  - Tests: `audioContext.test.ts` has a "without Web Audio support" block (`unlockAudio` doesn't throw; `getAudioContext` throws `WebAudioUnsupportedError`). `services.test.ts` covers the rejection with "unsupported" (never a synchronous throw, adapter not called) and with "unknown" for other failures. Its `./audioContext` mock now spreads `importOriginal` so the error class is real.
+
+### Suggestions
+
+- **Meter re-rendered every frame** (`MicLevelMeter.tsx`): the subscription stores `toDisplayDb(level) = Math.round(clamp(level))` and calls `setLevelDb` only when that value changes, tracked in a closure variable per subscription. A plain `useState` bail-out wasn't enough: React still re-rendered once per frame after an update. The bar, `aria-valuenow` and the threshold colour all use the stored whole-dB value. A level such as −40.4 dB therefore counts as −40 for the meter colour (±0.5 dB display tolerance); training gating still uses the raw level. Test: a `Profiler` counts commits, and −30.1/−30.2/−29.9 and −95/−100 add no extra commits.
+- **A throwing listener froze the frame loop** (`microphone.ts`): the listener loop is wrapped in `try { … } finally { re-arm rAF }`. The error still propagates (the browser reports it). Test: "keeps the frame loop running when a listener throws".
+- **Per-frame allocations** (`microphone.ts`):
+  - One `MicFrame` (`{ timeMs, samples }`) is allocated per session and updated in place.
+  - The listener `snapshot` array is rebuilt only in `subscribe`, a real unsubscribe and `release()`. It is replaced, not mutated, so changes made during a frame take effect from the next frame (same semantics as the old per-frame copy).
+  - `MicFrame`'s doc comment now says the whole frame is reused. Both consumers (`useTrainingSession`, `MicLevelMeter`) destructure the frame synchronously, and `SustainTracker.push` gets a fresh `PitchFrame`, so nothing retains frames.
+  - The existing frame test now records `timeMs` at call time. New tests: "reuses one frame object across frames", "a listener subscribed or unsubscribed during a frame takes effect from the next frame".
+- **Duplicate alerts** (`MicLevelMeter.tsx`, `HomeScreen.tsx`, `App.tsx`): the test-mic error is lifted into `App` (`testMicError`), passed down through `HomeScreen` (`testMicError` / `onTestMicErrorChange`) and into `MicLevelMeter` (`error` / `onErrorChange`). The meter still sets the error on rejection and clears it when turned on. Start clears it inside the same `flushSync` as `startError`. Resetting it "when `active` turns off" would not have worked, because after a rejection the toggle is already off. Tests (`App.test.tsx`): a denied test mic followed by a denied Start shows exactly one alert; a test-mic error is gone after a successful Start → Give up. The `MicLevelMeter.test.tsx` harness now owns the error state.
+- **Return types:** `App`, `HomeScreen`, `MicLevelMeter`, `TrainingScreen`, `NoteBox` and `AudioServicesProvider` declare `: JSX.Element`.
+- **Duplicated test helpers:** the new `src/test/sessionDriver.ts` exports `FRAME_MS`, `LOUD_DB`, `concertHz` and `createSessionDriver(fake, startTimeMs = 0)`, which returns the `act`-wrapped `finishPlayback`, `elapse`, `toListening` and `hold`, with a frame clock per driver. `renderApp` spreads a driver. `useTrainingSession.test.tsx` creates one per `setup()` (start time 1000 ms, as before) and delegates to it. `App.test.tsx` imports `concertHz` / `FRAME_MS` from `sessionDriver.ts`.
+- **`boxStates`** uses `Array.from({ length: MELODY_LENGTH }, …)`.
+- **`renderApp`** no longer returns `user`.
+- **Missing component test files (intentional deviation):** the PRD file tree lists `src/components/HomeScreen.test.tsx` and `src/components/TrainingScreen.test.tsx`. They were not created: every HomeScreen and TrainingScreen acceptance criterion is exercised through `App` in `src/components/App.test.tsx`, which already renders both screens with the fake services. Separate files would only duplicate those tests.
+- **CI permissions:** `.github/workflows/ci.yml` has a top-level `permissions: contents: read`. `deploy` keeps its own Pages block.
+
+### Tests
+
+There are 320 Vitest tests in 21 files (up from 309), all passing. The 11 new tests are: `App.test.tsx` +3, `MicLevelMeter.test.tsx` +1, `audioContext.test.ts` +2, `services.test.ts` +2, `microphone.test.ts` +3. The new helper `src/test/sessionDriver.ts` has no test file of its own; it is covered by the App and hook suites. Lint, typecheck and build are clean (JS 163.2 kB, 53.5 kB gzip), and `npm run test:e2e` passes 3 of 3.
+
+### Documentation
+
+- `CLAUDE.md`: the `audioContext.ts` line notes the no-op/unsupported behaviour, the `src/test/` line lists `sessionDriver.ts`, the microphone convention says `MicFrame` is reused, and the component-test convention points to `sessionDriver.ts`.
+- `validation.md`: Appendix A (steps 20-32).
+
+### Known issues
+
+- **Pre-existing flake:** `App.test.tsx` › "after the 5th match … after 1500 ms mic released and Home shown" fails now and then. It failed 1 run in 6 on the unchanged code (checked with `git stash`) and about as often after these fixes. The cause is that `vi.useFakeTimers({ shouldAdvanceTime: true })` also advances the fake clock with real time (in 20 ms steps), so the `COMPLETE_PAUSE_MS - 1` boundary check can see the timer fire early. These changes didn't touch it. Fixing it needs either fake timers that don't advance on their own for the boundary tests, or a looser boundary.

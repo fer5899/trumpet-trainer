@@ -1,0 +1,28 @@
+$ npx vitest run src/audio/audioContext.test.ts src/audio/services.test.ts --reporter=verbose
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > lazily creates a single AudioContext and returns it on every call
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > falls back to webkitAudioContext
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio resumes a suspended context synchronously
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio does not resume a running context
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > without Web Audio support (neither AudioContext nor webkitAudioContext) > unlockAudio is a no-op and does not throw
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > without Web Audio support (neither AudioContext nor webkitAudioContext) > getAudioContext throws WebAudioUnsupportedError
+ ✓ src/audio/audioContext.test.ts > audioContext adapter > unlockAudio swallows a rejected resume()
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > does not create the AudioContext eagerly (it must be created in a click handler)
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > unlock() delegates to unlockAudio synchronously
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() opens the mic on the shared context
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() rejects (never throws synchronously) with "unsupported" when Web Audio is missing
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > openMicrophone() rejects with "unknown" when creating the AudioContext fails otherwise
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > playMelody() plays the sequence on the shared context
+ ✓ src/audio/services.test.ts > createBrowserAudioServices > detectPitch() is the real pitch detector
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  17:41:53
+   Duration  1.56s (transform 160ms, setup 444ms, collect 282ms, tests 48ms, environment 1.31s, prepare 313ms)
+
+
+
+[exit code: 0] [duration: 3487 ms]

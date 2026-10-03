@@ -1,19 +1,22 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { useState } from 'react';
+import { Profiler, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { AudioServicesProvider } from '../audio/AudioServicesContext';
-import type { MicrophoneSession } from '../audio/microphone';
+import type { MicrophoneErrorKind, MicrophoneSession } from '../audio/microphone';
 import { createFakeAudioServices, type FakeAudioServices } from '../test/fakeAudioServices';
 import { MicLevelMeter } from './MicLevelMeter';
 
 function Harness({ fake, onThresholdChange }: { fake: FakeAudioServices; onThresholdChange?: (db: number) => void }) {
   const [active, setActive] = useState(false);
   const [threshold, setThreshold] = useState(-40);
+  const [error, setError] = useState<MicrophoneErrorKind | null>(null);
   return (
     <AudioServicesProvider services={fake.services}>
       <MicLevelMeter
         active={active}
         onActiveChange={setActive}
+        error={error}
+        onErrorChange={setError}
         thresholdDb={threshold}
         onThresholdChange={(db) => {
           onThresholdChange?.(db);
@@ -96,5 +99,29 @@ describe('MicLevelMeter', () => {
     await act(async () => fireEvent.click(toggle()));
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     expect(toggle()).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('re-renders only when the displayed (rounded, clamped) level changes', async () => {
+    const fake = createFakeAudioServices();
+    const onRender = vi.fn();
+    render(
+      <Profiler id="meter" onRender={onRender}>
+        <Harness fake={fake} />
+      </Profiler>,
+    );
+    await act(async () => fireEvent.click(toggle()));
+    act(() => fake.emitTone({ hz: null, levelDb: -30.1, timeMs: 0 }));
+    expect(meter()).toHaveAttribute('aria-valuenow', '-30');
+    const commits = onRender.mock.calls.length;
+
+    act(() => fake.emitTone({ hz: null, levelDb: -30.2, timeMs: 20 }));
+    act(() => fake.emitTone({ hz: null, levelDb: -29.9, timeMs: 40 }));
+    expect(onRender).toHaveBeenCalledTimes(commits);
+
+    act(() => fake.emitTone({ hz: null, levelDb: -95, timeMs: 60 }));
+    expect(onRender).toHaveBeenCalledTimes(commits + 1);
+    act(() => fake.emitTone({ hz: null, levelDb: -100, timeMs: 80 }));
+    expect(onRender).toHaveBeenCalledTimes(commits + 1);
+    expect(meter()).toHaveAttribute('aria-valuenow', '-60');
   });
 });

@@ -166,3 +166,48 @@ Steps marked **(real trumpet)** need a B♭ trumpet, or any instrument or tone g
 
 19. **Action**: (One-time repo setup) Enable GitHub Pages with source "GitHub Actions". Create `main`, or set the repository variable `DEPLOY_BRANCH`, then push.
     **Expected**: The workflow succeeds and the app loads at the Pages URL under `/trumpet-trainer/`.
+
+---
+
+## Appendix A: Re-validation after /t-review #1
+
+> Checks for the 12 items fixed from `specs/create-mvp/review.md`. Use the same environment (`bash specs/create-mvp/create-environment.sh`). Step numbers continue from the prd2.md checklist above.
+
+20. **Action** (review warning: App.tsx:43-44 / MicLevelMeter.tsx:82-89 / HomeScreen.tsx:35-40): Open http://localhost:5173/ with the microphone permission still set to "Ask". Click "Start training". While the permission prompt is open, try to click "Test microphone". Allow the microphone, click "Give up" once the buttons are enabled, and wait on Home for a few seconds.
+    **Expected**: While the prompt is open, "Test microphone" is greyed out and does not react. Back on Home the toggle is not pressed, the meter stays at −60, and the browser's mic-in-use indicator is off. No new permission request or mic activity appears until you click "Test microphone" yourself.
+
+21. **Action** (review warning: audioContext.ts:7-11,27-28): In DevTools on http://localhost:5173/, run `delete window.AudioContext; delete window.webkitAudioContext;` in the console (or use a browser without Web Audio), then click "Test microphone". Reload, run the same command again, then click "Start training".
+    **Expected**: The console shows no uncaught error and no unhandled promise rejection. Both clicks show the inline alert with the "unsupported" message from `micErrorMessage('unsupported')`, the toggle is not pressed, and "Start training" stays enabled. `npx vitest run src/audio/audioContext.test.ts src/audio/services.test.ts` passes, including the "without Web Audio support" and "rejects (never throws synchronously) with \"unsupported\"" cases.
+
+22. **Action** (review suggestion: MicLevelMeter.tsx:50): Turn on "Test microphone" and keep the room silent. Open React DevTools → Profiler, record for about 3 seconds, then stop.
+    **Expected**: While the level is steady (for example pinned at −60 in silence), `MicLevelMeter` records almost no commits instead of about 60 per second. The meter still follows your voice in whole-dB steps. `npx vitest run src/components/MicLevelMeter.test.tsx` passes "re-renders only when the displayed (rounded, clamped) level changes".
+
+23. **Action** (review suggestion: microphone.ts:89-93): Run `npx vitest run src/audio/microphone.test.ts`.
+    **Expected**: "keeps the frame loop running when a listener throws" passes: the error propagates, the next animation frame is still requested, and listeners keep receiving frames afterwards.
+
+24. **Action** (review suggestion: microphone.ts:89-90): Run `npx vitest run src/audio/microphone.test.ts`, then repeat validation step 12 of prd.md (log level and pitch from a subscribed listener in the console).
+    **Expected**: "reuses one frame object across frames (no per-frame allocation)" and "a listener subscribed or unsubscribed during a frame takes effect from the next frame" pass. In the browser, levels and pitches are still logged on every frame, as before.
+
+25. **Action** (review suggestion: MicLevelMeter.tsx:31,120-124): Block the microphone for localhost and reload. Click "Test microphone", then click "Start training".
+    **Expected**: After the first click, one alert appears below the meter. After "Start training", exactly one alert ("Microphone access is blocked…") is on the page, shown under the Start button. The meter's earlier alert is gone.
+
+26. **Action** (review suggestion: App.tsx:15, HomeScreen.tsx:15, …): Open `src/components/App.tsx`, `HomeScreen.tsx`, `MicLevelMeter.tsx`, `TrainingScreen.tsx`, `NoteBox.tsx` and `src/audio/AudioServicesContext.tsx`.
+    **Expected**: Every exported function component (`App`, `HomeScreen`, `MicLevelMeter`, `TrainingScreen`, `NoteBox`, `AudioServicesProvider`) declares `: JSX.Element` as its return type. `npm run typecheck` is clean.
+
+27. **Action** (review suggestion: useTrainingSession.test.tsx:17-61): Open `src/test/sessionDriver.ts`, `src/test/appTestUtils.tsx` and `src/training/useTrainingSession.test.tsx`.
+    **Expected**: `FRAME_MS`, `LOUD_DB`, `concertHz` and the `finishPlayback` / `elapse` / `toListening` / `hold` helpers are defined only in `sessionDriver.ts`. `appTestUtils.tsx` and the hook test both use `createSessionDriver`, and neither re-implements these helpers.
+
+28. **Action** (review suggestion: appTestUtils.tsx:72-73): Open `src/test/appTestUtils.tsx`.
+    **Expected**: `boxStates` is built with `Array.from({ length: MELODY_LENGTH }, …)` and has no hard-coded `[0, 1, 2, 3, 4]`.
+
+29. **Action** (review suggestion: appTestUtils.tsx:38): Open `src/test/appTestUtils.tsx`.
+    **Expected**: `renderApp` no longer returns `user`. `userEvent` is still used internally by `click`.
+
+30. **Action** (review suggestion: implementation-notes.md): Open `specs/create-mvp/implementation-notes.md` and go to "Tech-debt fixes (/t-review #1)".
+    **Expected**: It records that the missing `HomeScreen.test.tsx` and `TrainingScreen.test.tsx` from the PRD file tree are an intentional deviation, because their criteria are covered in `src/components/App.test.tsx`.
+
+31. **Action** (review suggestion: .github/workflows/ci.yml:1-7): Open `.github/workflows/ci.yml`.
+    **Expected**: There is a top-level `permissions:` block with `contents: read`. The `deploy` job still has its own block (`pages: write`, `id-token: write`, `contents: read`).
+
+32. **Action** (regression): Run `npm test`, `npm run lint`, `npm run typecheck`, `npm run build` and, with port 5173 free, `npm run test:e2e`. Then repeat every original validation step above (prd.md steps 1-13 and prd2.md steps 1-19).
+    **Expected**: 21 test files and 320 tests pass. Lint and typecheck print no errors, the build succeeds, and the 3 Playwright specs pass. Every original step still gives its expected result, except for the test counts quoted in prd.md step 1 and prd2.md step 1, which are now 21 files / 320 tests.

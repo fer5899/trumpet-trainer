@@ -48,7 +48,8 @@ src/music/melody.ts            generateMelody(rng, length)
 src/audio/level.ts             computeLevelDb: RMS in dBFS, clamped to [-100, 0]
 src/audio/pitchDetector.ts     detectPitch: pitchy wrapper + range/clarity filtering
 src/training/sustainTracker.ts clock-injected "held ±25 c for 500 ms" detector
-src/audio/audioContext.ts      ADAPTER: single shared AudioContext + unlockAudio()
+src/audio/audioContext.ts      ADAPTER: single shared AudioContext + unlockAudio() (no-op without
+                               Web Audio; services.openMicrophone then rejects 'unsupported')
 src/audio/synth.ts             ADAPTER: playSequence → Playback { done, stop() }
 src/audio/microphone.ts        ADAPTER: openMicrophone → MicrophoneSession, MicrophoneError
 src/audio/services.ts          AudioServices interface + createBrowserAudioServices()
@@ -67,8 +68,10 @@ src/components/NoteBox.tsx     pending / active / done box (data-testid note-box
 src/main.tsx                   createRoot + <AudioServicesProvider services={createBrowserAudioServices()}>
 src/test/                      setup.ts (jest-dom + RTL cleanup), signals.ts (sine/sawtooth/seeded
                                noise), fakeWebAudio.ts (recording Web Audio node fakes),
-                               fakeAudioServices.ts (createFakeAudioServices), appTestUtils.tsx
-                               (renderApp + act-wrapped click/finishPlayback/elapse/hold helpers)
+                               fakeAudioServices.ts (createFakeAudioServices), sessionDriver.ts
+                               (FRAME_MS, LOUD_DB, concertHz, createSessionDriver: act-wrapped
+                               finishPlayback/elapse/toListening/hold, shared by App and hook
+                               tests), appTestUtils.tsx (renderApp = driver + click/startTraining)
 e2e/                           training.spec.ts, mic-meter.spec.ts (fake mic = looping 440 Hz tone)
 scripts/generate-test-tones.mjs  fake-mic WAV fixture (Node built-ins only)
 vite.config.ts                 base (/ dev, /trumpet-trainer/ build+preview), e2e mode uses its own cacheDir
@@ -87,15 +90,16 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
 - **One AudioContext per page**, created lazily and resumed by `unlock()`, which must run
   synchronously in click handlers before any `await` (iOS Safari autoplay policy).
 - The microphone is opened raw (echo cancellation, noise suppression, AGC off), `fftSize` 2048,
-  and the analyser is never connected to the destination.
+  and the analyser is never connected to the destination. Each session reuses one `MicFrame`
+  object and sample buffer: listeners must read a frame synchronously and never retain it.
 - **TDD:** write the failing test first. Tests are co-located as `*.test.ts(x)` next to the code.
   Pure modules get table-driven unit tests; adapters get focused tests with mocked browser APIs
   (`src/test/fakeWebAudio.ts`, stubbed `navigator`/`requestAnimationFrame`).
 - **Component tests** render through `AudioServicesProvider` with `createFakeAudioServices()`
   (`src/test/fakeAudioServices.ts`: spies, `failNextMicrophone`, `sessions`, `emitTone`,
   `playCalls`, `finishPlayback`, `stop`) and `vi.useFakeTimers({ shouldAdvanceTime: true })`; wrap
-  async steps in `act` (see `src/test/appTestUtils.tsx`). Vitest runs without `globals`, so RTL
-  cleanup is registered in `src/test/setup.ts`.
+  async steps in `act` (see `src/test/appTestUtils.tsx` and `src/test/sessionDriver.ts`). Vitest
+  runs without `globals`, so RTL cleanup is registered in `src/test/setup.ts`.
 - **Effects must survive React StrictMode** (dev double-mount): `useTrainingSession` defers the
   unmount `mic.release()` by a microtask and stops playback only if it is still running.
 - **E2E melody hook:** in the `dev:e2e` build (`VITE_E2E=true`) `?melody=` with 5 written MIDI

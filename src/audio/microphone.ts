@@ -12,9 +12,9 @@ export class MicrophoneError extends Error {
   }
 }
 
+/** The frame object and its `samples` are reused between frames: read synchronously, do not retain. */
 export interface MicFrame {
   timeMs: number;
-  /** Reused between frames: do not retain. */
   samples: Float32Array;
 }
 
@@ -70,10 +70,17 @@ export async function openMicrophone(ctx: AudioContext): Promise<MicrophoneSessi
     throw new MicrophoneError('unknown', { cause: error });
   }
 
-  const buffer = new Float32Array(analyser.fftSize);
+  const samples = new Float32Array(analyser.fftSize);
+  const frame: MicFrame = { timeMs: 0, samples };
   const listeners = new Set<(frame: MicFrame) => void>();
+  // Rebuilt only on (un)subscribe, so a frame neither copies the set nor sees mid-frame changes.
+  let snapshot: ReadonlyArray<(frame: MicFrame) => void> = [];
   let frameId: number | null = null;
   let released = false;
+
+  const updateSnapshot = (): void => {
+    snapshot = [...listeners];
+  };
 
   const stopLoop = (): void => {
     if (frameId !== null) {
@@ -85,11 +92,15 @@ export async function openMicrophone(ctx: AudioContext): Promise<MicrophoneSessi
   const onFrame = (): void => {
     frameId = null;
     if (released || listeners.size === 0) return;
-    analyser.getFloatTimeDomainData(buffer);
-    const frame: MicFrame = { timeMs: performance.now(), samples: buffer };
-    for (const listener of [...listeners]) listener(frame);
-    if (!released && listeners.size > 0 && frameId === null) {
-      frameId = requestAnimationFrame(onFrame);
+    analyser.getFloatTimeDomainData(samples);
+    frame.timeMs = performance.now();
+    try {
+      for (const listener of snapshot) listener(frame);
+    } finally {
+      // Re-arm even if a listener threw, so one bad listener cannot freeze detection.
+      if (!released && listeners.size > 0 && frameId === null) {
+        frameId = requestAnimationFrame(onFrame);
+      }
     }
   };
 
@@ -102,9 +113,11 @@ export async function openMicrophone(ctx: AudioContext): Promise<MicrophoneSessi
     subscribe(listener) {
       if (released) return () => undefined;
       listeners.add(listener);
+      updateSnapshot();
       startLoop();
       return () => {
-        listeners.delete(listener);
+        if (!listeners.delete(listener)) return;
+        updateSnapshot();
         if (listeners.size === 0) stopLoop();
       };
     },
@@ -113,6 +126,7 @@ export async function openMicrophone(ctx: AudioContext): Promise<MicrophoneSessi
       released = true;
       stopLoop();
       listeners.clear();
+      updateSnapshot();
       for (const track of stream.getTracks()) track.stop();
       source.disconnect();
       analyser.disconnect();

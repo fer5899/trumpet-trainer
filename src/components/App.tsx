@@ -12,11 +12,12 @@ import { TrainingScreen } from './TrainingScreen';
 type Screen = { name: 'home' } | { name: 'training'; melody: Melody; mic: MicrophoneSession };
 
 /** Root: Home ⇄ Training. All state is in memory only (nothing is persisted). */
-export function App() {
+export function App(): JSX.Element {
   const services = useAudioServices();
   const [screen, setScreen] = useState<Screen>({ name: 'home' });
   const [thresholdDb, setThresholdDb] = useState(DEFAULT_THRESHOLD_DB);
   const [testMicActive, setTestMicActive] = useState(false);
+  const [testMicError, setTestMicError] = useState<MicrophoneErrorKind | null>(null);
   const [startError, setStartError] = useState<MicrophoneErrorKind | null>(null);
   const [starting, setStarting] = useState(false);
 
@@ -24,8 +25,10 @@ export function App() {
     // 1. Synchronously, before any await (iOS Safari autoplay policy).
     services.unlock();
     // 2. Commit synchronously so MicLevelMeter releases the test session before the new one opens.
+    //    A stale test-mic error is cleared too, so at most one alert is shown.
     flushSync(() => {
       setStartError(null);
+      setTestMicError(null);
       setTestMicActive(false);
       setStarting(true);
     });
@@ -39,7 +42,9 @@ export function App() {
       return;
     }
     // 4. Generate (or, in the e2e build, read) the melody and switch screens.
+    //    The test mic stays off so returning Home never reopens it without a click.
     const melody = getTestMelody() ?? generateMelody();
+    setTestMicActive(false);
     setScreen({ name: 'training', melody, mic });
     setStarting(false);
   };
@@ -59,6 +64,8 @@ export function App() {
           onThresholdChange={setThresholdDb}
           testMicActive={testMicActive}
           onTestMicActiveChange={setTestMicActive}
+          testMicError={testMicError}
+          onTestMicErrorChange={setTestMicError}
         />
       )}
     </main>

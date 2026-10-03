@@ -7,7 +7,7 @@ export interface NoteBoxProps {
 }
 
 /** One melody note: grey (pending), grey + highlighted border (active) or green with its name (done). */
-export function NoteBox({ index, state, name }: NoteBoxProps) {
+export function NoteBox({ index, state, name }: NoteBoxProps): JSX.Element {
   const description = state === 'done' ? `done ${name ?? ''}`.trim() : state;
   return (
     <li

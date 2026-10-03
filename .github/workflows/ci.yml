@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+# Least privilege for check and e2e; deploy declares its own Pages permissions.
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest

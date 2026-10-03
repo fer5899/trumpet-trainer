@@ -10,6 +10,8 @@ export interface HomeScreenProps {
   onThresholdChange(db: number): void;
   testMicActive: boolean;
   onTestMicActiveChange(active: boolean): void;
+  testMicError: MicrophoneErrorKind | null;
+  onTestMicErrorChange(error: MicrophoneErrorKind | null): void;
 }
 
 export function HomeScreen({
@@ -20,7 +22,9 @@ export function HomeScreen({
   onThresholdChange,
   testMicActive,
   onTestMicActiveChange,
-}: HomeScreenProps) {
+  testMicError,
+  onTestMicErrorChange,
+}: HomeScreenProps): JSX.Element {
   return (
     <div className="home">
       <h1>Trumpet Trainer</h1>
@@ -37,6 +41,9 @@ export function HomeScreen({
         onActiveChange={onTestMicActiveChange}
         thresholdDb={thresholdDb}
         onThresholdChange={onThresholdChange}
+        error={testMicError}
+        onErrorChange={onTestMicErrorChange}
+        disabled={starting}
       />
     </div>
   );

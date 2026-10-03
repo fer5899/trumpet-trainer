@@ -10,58 +10,36 @@ import {
   NOTE_DURATION_MS,
   SUSTAIN_MS,
 } from '../config/constants';
-import { midiToHz, writtenToConcert, type Melody } from '../music/notes';
+import type { Melody } from '../music/notes';
 import { createFakeAudioServices, type FakeAudioServices } from '../test/fakeAudioServices';
+import { concertHz, createSessionDriver, FRAME_MS, type SessionDriver } from '../test/sessionDriver';
 import { useTrainingSession } from './useTrainingSession';
 
 const MELODY = [71, 60, 72, 54, 66] as const;
-const FRAME_MS = 20;
-const LOUD_DB = -20;
-const concertHz = (written: number) => midiToHz(writtenToConcert(written));
 
 let fake: FakeAudioServices;
 let mic: MicrophoneSession;
 let onExit: ReturnType<typeof vi.fn<() => void>>;
-let clock: number;
+let driver: SessionDriver;
 
 async function setup(thresholdDb = DEFAULT_THRESHOLD_DB, melody: Melody = MELODY) {
   fake = createFakeAudioServices();
   mic = await fake.services.openMicrophone();
   onExit = vi.fn<() => void>();
+  driver = createSessionDriver(fake, 1000);
   const wrapper = ({ children }: { children?: ReactNode }) => (
     <AudioServicesProvider services={fake.services}>{children}</AudioServicesProvider>
   );
   return renderHook(() => useTrainingSession({ melody, mic, thresholdDb, onExit }), { wrapper });
 }
 
-async function finishPlayback() {
-  await act(async () => {
-    fake.finishPlayback();
-  });
-}
-
-async function elapse(ms: number) {
-  await act(async () => {
-    vi.advanceTimersByTime(ms);
-  });
-}
-
-async function toListening() {
-  await finishPlayback();
-  await elapse(LISTEN_GUARD_MS);
-}
-
-/** Emits frames every FRAME_MS spanning `durationMs` (both ends included). */
-async function hold(hz: number | null, durationMs: number, levelDb = LOUD_DB) {
-  await act(async () => {
-    const end = clock + durationMs;
-    for (; clock <= end; clock += FRAME_MS) fake.emitTone({ hz, levelDb, timeMs: clock });
-  });
-}
+const finishPlayback = () => driver.finishPlayback();
+const elapse = (ms: number) => driver.elapse(ms);
+const toListening = () => driver.toListening();
+const hold = (hz: number | null, durationMs: number, levelDb?: number) => driver.hold(hz, durationMs, levelDb);
 
 beforeEach(() => {
   vi.useFakeTimers({ shouldAdvanceTime: true });
-  clock = 1000;
 });
 afterEach(() => {
   vi.useRealTimers();
@@ -240,6 +218,7 @@ describe('useTrainingSession', () => {
     fake = createFakeAudioServices();
     mic = await fake.services.openMicrophone();
     onExit = vi.fn<() => void>();
+  driver = createSessionDriver(fake, 1000);
     const { StrictMode } = await import('react');
     const { result } = renderHook(
       () => useTrainingSession({ melody: MELODY, mic, thresholdDb: DEFAULT_THRESHOLD_DB, onExit }),

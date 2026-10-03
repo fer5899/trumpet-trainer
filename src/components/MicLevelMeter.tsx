@@ -10,6 +10,11 @@ export interface MicLevelMeterProps {
   onActiveChange(active: boolean): void;
   thresholdDb: number;
   onThresholdChange(db: number): void;
+  /** Last test-microphone failure, owned by the parent so Start can clear it (one alert at a time). */
+  error: MicrophoneErrorKind | null;
+  onErrorChange(error: MicrophoneErrorKind | null): void;
+  /** Disables the toggle (e.g. while Start is opening the training microphone). */
+  disabled?: boolean;
 }
 
 const PERCENT = 100;
@@ -17,6 +22,8 @@ const METER_SPAN_DB = METER_MAX_DB - METER_MIN_DB;
 const MINUS_SIGN = '−';
 
 const clampToMeter = (db: number): number => Math.min(METER_MAX_DB, Math.max(METER_MIN_DB, db));
+/** The value the meter shows: whole dB within the meter range. */
+const toDisplayDb = (db: number): number => Math.round(clampToMeter(db));
 const toPercent = (db: number): number => ((clampToMeter(db) - METER_MIN_DB) / METER_SPAN_DB) * PERCENT;
 /** "−40" with a typographic minus sign. */
 const formatDb = (db: number): string => (db < 0 ? `${MINUS_SIGN}${Math.abs(db)}` : `${db}`);
@@ -25,13 +32,22 @@ const formatDb = (db: number): string => (db < 0 ? `${MINUS_SIGN}${Math.abs(db)}
  * "Test microphone" toggle plus a live level bar with the threshold slider overlaid on it.
  * While active it holds its own microphone session, released when turned off or unmounted.
  */
-export function MicLevelMeter({ active, onActiveChange, thresholdDb, onThresholdChange }: MicLevelMeterProps) {
+export function MicLevelMeter({
+  active,
+  onActiveChange,
+  thresholdDb,
+  onThresholdChange,
+  error,
+  onErrorChange,
+  disabled = false,
+}: MicLevelMeterProps): JSX.Element {
   const services = useAudioServices();
+  // Stored already rounded and clamped, and only set when it changes, so a steady or silent
+  // input does not re-render the meter on every animation frame.
   const [levelDb, setLevelDb] = useState(METER_MIN_DB);
-  const [error, setError] = useState<MicrophoneErrorKind | null>(null);
-  const onActiveChangeRef = useRef(onActiveChange);
+  const callbacksRef = useRef({ onActiveChange, onErrorChange });
   useEffect(() => {
-    onActiveChangeRef.current = onActiveChange;
+    callbacksRef.current = { onActiveChange, onErrorChange };
   });
 
   useEffect(() => {
@@ -47,12 +63,18 @@ export function MicLevelMeter({ active, onActiveChange, thresholdDb, onThreshold
           return;
         }
         session = opened;
-        unsubscribe = opened.subscribe(({ samples }) => setLevelDb(computeLevelDb(samples)));
+        let shown = METER_MIN_DB;
+        unsubscribe = opened.subscribe(({ samples }) => {
+          const next = toDisplayDb(computeLevelDb(samples));
+          if (next === shown) return;
+          shown = next;
+          setLevelDb(next);
+        });
       },
       (err: unknown) => {
         if (cancelled) return;
-        setError(err instanceof MicrophoneError ? err.kind : 'unknown');
-        onActiveChangeRef.current(false);
+        callbacksRef.current.onErrorChange(err instanceof MicrophoneError ? err.kind : 'unknown');
+        callbacksRef.current.onActiveChange(false);
       },
     );
 
@@ -70,11 +92,11 @@ export function MicLevelMeter({ active, onActiveChange, thresholdDb, onThreshold
       return;
     }
     services.unlock(); // synchronous, inside the click handler (iOS autoplay policy)
-    setError(null);
+    onErrorChange(null);
     onActiveChange(true);
   };
 
-  const shownDb = active ? clampToMeter(levelDb) : METER_MIN_DB;
+  const shownDb = active ? levelDb : METER_MIN_DB;
   const aboveThreshold = active && levelDb >= thresholdDb;
 
   return (
@@ -83,6 +105,7 @@ export function MicLevelMeter({ active, onActiveChange, thresholdDb, onThreshold
         type="button"
         className="mic-meter__toggle"
         aria-pressed={active}
+        disabled={disabled}
         onClick={handleToggle}
       >
         Test microphone
@@ -94,7 +117,7 @@ export function MicLevelMeter({ active, onActiveChange, thresholdDb, onThreshold
           aria-label="Microphone level"
           aria-valuemin={METER_MIN_DB}
           aria-valuemax={METER_MAX_DB}
-          aria-valuenow={Math.round(shownDb)}
+          aria-valuenow={shownDb}
         >
           <div
             data-testid="mic-level-fill"

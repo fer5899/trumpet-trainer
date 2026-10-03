@@ -55,10 +55,10 @@ None
 
 ## TODO: Warnings (should fix)
 
-- [ ] **src/components/App.tsx:43-44 / src/components/MicLevelMeter.tsx:82-89 / src/components/HomeScreen.tsx:35-40** — The "Test microphone" toggle stays enabled while `starting` is true. Start sets `testMicActive = false`, but a click during the pending `openMicrophone()` (for example while the permission prompt is open) sets it back to `true`. Step 4 then switches screens without resetting it, so when the user returns Home, MicLevelMeter remounts with `active` and reopens the mic with no click. That breaks the IDEA §5.5 expectation that the mic is released on Home. Fix:
+- [x] **src/components/App.tsx:43-44 / src/components/MicLevelMeter.tsx:82-89 / src/components/HomeScreen.tsx:35-40** — The "Test microphone" toggle stays enabled while `starting` is true. Start sets `testMicActive = false`, but a click during the pending `openMicrophone()` (for example while the permission prompt is open) sets it back to `true`. Step 4 then switches screens without resetting it, so when the user returns Home, MicLevelMeter remounts with `active` and reopens the mic with no click. That breaks the IDEA §5.5 expectation that the mic is released on Home. Fix:
   - Pass `starting` through HomeScreen and use it as the toggle's `disabled` prop, and/or call `setTestMicActive(false)` alongside `setScreen(...)` in step 4.
   - Add an App test: click Test microphone while `openMicrophone` is pending, complete Start, Give up, then assert the toggle is unpressed and no new session was opened.
-- [ ] **src/audio/audioContext.ts:7-11,27-28** — On browsers without Web Audio support, `resolveConstructor()` throws a plain `Error`. `unlockAudio()` calls it synchronously from click handlers:
+- [x] **src/audio/audioContext.ts:7-11,27-28** — On browsers without Web Audio support, `resolveConstructor()` throws a plain `Error`. `unlockAudio()` calls it synchronously from click handlers:
   - In `App.handleStart` (invoked as `() => void handleStart()`), the throw becomes an unhandled promise rejection and no message is shown.
   - In `MicLevelMeter.handleToggle`, it is an uncaught exception.
 
@@ -69,16 +69,16 @@ None
 
 ## TODO: Suggestions (nice to have)
 
-- [ ] **src/components/MicLevelMeter.tsx:50** — `setLevelDb(computeLevelDb(samples))` runs on every animation frame (about 60 renders per second) even though the displayed value is rounded (`:97`). Store the rounded, clamped value and skip the update when it hasn't changed.
-- [ ] **src/audio/microphone.ts:89-93** — If a listener throws, `onFrame` never re-arms `requestAnimationFrame`, so detection freezes silently. Wrap the listener loop in `try { … } finally { re-arm }`.
-- [ ] **src/audio/microphone.ts:89-90** — Each frame allocates a new `MicFrame` and a copy of the listener array (`[...listeners]`). Reuse one frame object, and rebuild a listener snapshot only in `subscribe` and its unsubscribe.
-- [ ] **src/components/MicLevelMeter.tsx:31,120-124** — The meter keeps its own `error` state, which is cleared only when the toggle is pressed again. After a denied test mic followed by a denied Start, two `role="alert"` elements with the same text show at once. Clear the meter error when Start is pressed: lift it into App, or reset it when the parent turns `active` off.
-- [ ] **src/components/App.tsx:15, HomeScreen.tsx:15, MicLevelMeter.tsx:28, TrainingScreen.tsx:27, NoteBox.tsx:10, src/audio/AudioServicesContext.tsx:11** — Exported function components have no explicit return types. Add `: JSX.Element` to match the explicitly typed hooks and adapters.
-- [ ] **src/training/useTrainingSession.test.tsx:17-61** — These lines re-implement the `src/test/appTestUtils.tsx` helpers almost verbatim (`FRAME_MS`, `LOUD_DB`, `concertHz`, `finishPlayback`, `elapse`, `toListening`, `hold`). Extract the shared frame and clock helpers into `src/test/` and use them from both files.
-- [ ] **src/test/appTestUtils.tsx:72-73** — `boxStates` hard-codes `[0, 1, 2, 3, 4]`. Use `Array.from({ length: MELODY_LENGTH }, …)`.
-- [ ] **src/test/appTestUtils.tsx:38** — `renderApp` returns `user`, but no test uses it. Remove it.
-- [ ] **specs/create-mvp/implementation-notes.md** — The PRD file tree lists `src/components/HomeScreen.test.tsx` and `src/components/TrainingScreen.test.tsx`, which don't exist; their criteria are covered in `App.test.tsx`. Either add thin component tests or record the consolidation as an intentional deviation.
-- [ ] **.github/workflows/ci.yml:1-7** — There is no workflow-level `permissions:` block, so `check` and `e2e` inherit the repository's default token permissions. Add a top-level `permissions: { contents: read }` (the `deploy` job keeps its own block).
+- [x] **src/components/MicLevelMeter.tsx:50** — `setLevelDb(computeLevelDb(samples))` runs on every animation frame (about 60 renders per second) even though the displayed value is rounded (`:97`). Store the rounded, clamped value and skip the update when it hasn't changed.
+- [x] **src/audio/microphone.ts:89-93** — If a listener throws, `onFrame` never re-arms `requestAnimationFrame`, so detection freezes silently. Wrap the listener loop in `try { … } finally { re-arm }`.
+- [x] **src/audio/microphone.ts:89-90** — Each frame allocates a new `MicFrame` and a copy of the listener array (`[...listeners]`). Reuse one frame object, and rebuild a listener snapshot only in `subscribe` and its unsubscribe.
+- [x] **src/components/MicLevelMeter.tsx:31,120-124** — The meter keeps its own `error` state, which is cleared only when the toggle is pressed again. After a denied test mic followed by a denied Start, two `role="alert"` elements with the same text show at once. Clear the meter error when Start is pressed: lift it into App, or reset it when the parent turns `active` off.
+- [x] **src/components/App.tsx:15, HomeScreen.tsx:15, MicLevelMeter.tsx:28, TrainingScreen.tsx:27, NoteBox.tsx:10, src/audio/AudioServicesContext.tsx:11** — Exported function components have no explicit return types. Add `: JSX.Element` to match the explicitly typed hooks and adapters.
+- [x] **src/training/useTrainingSession.test.tsx:17-61** — These lines re-implement the `src/test/appTestUtils.tsx` helpers almost verbatim (`FRAME_MS`, `LOUD_DB`, `concertHz`, `finishPlayback`, `elapse`, `toListening`, `hold`). Extract the shared frame and clock helpers into `src/test/` and use them from both files.
+- [x] **src/test/appTestUtils.tsx:72-73** — `boxStates` hard-codes `[0, 1, 2, 3, 4]`. Use `Array.from({ length: MELODY_LENGTH }, …)`.
+- [x] **src/test/appTestUtils.tsx:38** — `renderApp` returns `user`, but no test uses it. Remove it.
+- [x] **specs/create-mvp/implementation-notes.md** — The PRD file tree lists `src/components/HomeScreen.test.tsx` and `src/components/TrainingScreen.test.tsx`, which don't exist; their criteria are covered in `App.test.tsx`. Either add thin component tests or record the consolidation as an intentional deviation.
+- [x] **.github/workflows/ci.yml:1-7** — There is no workflow-level `permissions:` block, so `check` and `e2e` inherit the repository's default token permissions. Add a top-level `permissions: { contents: read }` (the `deploy` job keeps its own block).
 
 ## Technical Debt Assessment
 

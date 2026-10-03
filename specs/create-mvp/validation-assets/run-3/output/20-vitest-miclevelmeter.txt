@@ -1,0 +1,20 @@
+$ npx vitest run src/components/MicLevelMeter.test.tsx --reporter=verbose
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > fill width follows the clamped level and uses the ok colour at or above the threshold
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > slider changes call onThresholdChange with a number and move the marker label
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > an open that resolves after the test was turned off is released immediately
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > unmounting while active unsubscribes and releases
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > turning the test on again clears a previous error
+ ✓ src/components/MicLevelMeter.test.tsx > MicLevelMeter > re-renders only when the displayed (rounded, clamped) level changes
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  17:41:57
+   Duration  2.01s (transform 138ms, setup 263ms, collect 273ms, tests 212ms, environment 791ms, prepare 149ms)
+
+
+
+[exit code: 0] [duration: 4105 ms]

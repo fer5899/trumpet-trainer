@@ -11,7 +11,8 @@ import {
   THRESHOLD_STEP_DB,
 } from '../config/constants';
 import * as melodyModule from '../music/melody';
-import { boxStates, concertHz, FRAME_MS, noteBox, renderApp } from '../test/appTestUtils';
+import { boxStates, noteBox, renderApp } from '../test/appTestUtils';
+import { concertHz, FRAME_MS } from '../test/sessionDriver';
 import { createFakeAudioServices } from '../test/fakeAudioServices';
 import { micErrorMessage } from './micErrorMessage';
 
@@ -148,6 +149,29 @@ describe('App — Home / microphone', () => {
     expect(noteBox(0)).toBeInTheDocument();
   });
 
+  it('Test microphone is disabled while Start is opening the mic; returning Home leaves it off', async () => {
+    const fake = createFakeAudioServices();
+    let resolveOpen!: () => void;
+    const trainingSession = { sampleRate: 48000, subscribe: vi.fn(() => () => undefined), release: vi.fn() };
+    fake.services.openMicrophone.mockImplementationOnce(
+      () => new Promise((resolve) => (resolveOpen = () => resolve(trainingSession))),
+    );
+    const { toListening, click } = renderApp(fake);
+    fireEvent.click(startButton());
+    expect(testMicButton()).toBeDisabled();
+    // A click while the permission prompt is open must not re-enable the test.
+    fireEvent.click(testMicButton());
+    expect(testMicButton()).toHaveAttribute('aria-pressed', 'false');
+
+    await act(async () => resolveOpen());
+    await toListening();
+    await click('Give up');
+    expect(trainingSession.release).toHaveBeenCalled();
+    expect(testMicButton()).toHaveAttribute('aria-pressed', 'false');
+    expect(testMicButton()).toBeEnabled();
+    expect(fake.services.openMicrophone).toHaveBeenCalledTimes(1);
+  });
+
   it('a rejected test microphone shows the message and turns the toggle off', async () => {
     const fake = createFakeAudioServices();
     fake.failNextMicrophone('permission-denied');
@@ -155,6 +179,32 @@ describe('App — Home / microphone', () => {
     await click('Test microphone');
     expect(screen.getByRole('alert')).toHaveTextContent(micErrorMessage('permission-denied'));
     expect(testMicButton()).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('a denied test microphone followed by a denied Start shows a single alert', async () => {
+    const fake = createFakeAudioServices();
+    fake.failNextMicrophone('permission-denied');
+    const { click, startTraining } = renderApp(fake);
+    await click('Test microphone');
+    expect(screen.getAllByRole('alert')).toHaveLength(1);
+
+    fake.failNextMicrophone('permission-denied');
+    await startTraining();
+    const alerts = screen.getAllByRole('alert');
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0]).toHaveTextContent(micErrorMessage('permission-denied'));
+  });
+
+  it('Start clears a previous test-microphone error even when Start succeeds and Home returns', async () => {
+    const fake = createFakeAudioServices();
+    fake.failNextMicrophone('unknown');
+    const { click, startTraining, toListening } = renderApp(fake);
+    await click('Test microphone');
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+    await startTraining();
+    await toListening();
+    await click('Give up');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
   it('unlock() is called synchronously in the Start and Test microphone click handlers', () => {

@@ -8,7 +8,7 @@ export interface AudioServicesProviderProps {
   children?: ReactNode;
 }
 
-export function AudioServicesProvider({ services, children }: AudioServicesProviderProps) {
+export function AudioServicesProvider({ services, children }: AudioServicesProviderProps): JSX.Element {
   return <AudioServicesContext.Provider value={services}>{children}</AudioServicesContext.Provider>;
 }
 
