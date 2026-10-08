@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - Released on 2026-10-08 by fer5899
+
 ### Changed
 - Melody notes now play for 1 second each instead of 0.5 s, so the melody is easier to follow.
 - The melody plays louder by default.
