@@ -36,9 +36,36 @@ export function centsFrom(hz: number, targetMidi: number): number {
   return CENTS_PER_OCTAVE * Math.log2(hz / midiToHz(targetMidi));
 }
 
+/** Alteration of a letter: −1 flat, 0 natural, +1 sharp. */
+export type Alter = -1 | 0 | 1;
+
+/** Latin solfège letters, Do..Si, and their natural pitch classes. */
+export const NOTE_LETTERS: readonly string[] = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'];
+export const LETTER_PITCH_CLASSES: readonly number[] = [0, 2, 4, 5, 7, 9, 11];
+
+export const SHARP_SIGN = '#';
+export const FLAT_SIGN = '♭';
+const ALTER_SIGNS: Record<Alter, string> = { [-1]: FLAT_SIGN, 0: '', 1: SHARP_SIGN };
+
+/** Signed alteration sign: '#', '♭' or ''. */
+export function alterSign(alter: Alter): string {
+  return ALTER_SIGNS[alter];
+}
+
+/** Name of each pitch class 0..11: the natural letter, else the letter below + '#' or above + '♭'. */
+function pitchClassNames(accidental: Accidental): readonly string[] {
+  const alter: Alter = accidental === 'sharp' ? 1 : -1;
+  return Array.from({ length: SEMITONES_PER_OCTAVE }, (_, pc) => {
+    const natural = LETTER_PITCH_CLASSES.indexOf(pc);
+    if (natural >= 0) return NOTE_LETTERS[natural];
+    const letter = LETTER_PITCH_CLASSES.indexOf(pc - alter);
+    return `${NOTE_LETTERS[letter]}${alterSign(alter)}`;
+  });
+}
+
 const PITCH_CLASS_NAMES: Record<Accidental, readonly string[]> = {
-  sharp: ['Do', 'Do#', 'Re', 'Re#', 'Mi', 'Fa', 'Fa#', 'Sol', 'Sol#', 'La', 'La#', 'Si'],
-  flat: ['Do', 'Re♭', 'Re', 'Mi♭', 'Mi', 'Fa', 'Sol♭', 'Sol', 'La♭', 'La', 'Si♭', 'Si'],
+  sharp: pitchClassNames('sharp'),
+  flat: pitchClassNames('flat'),
 };
 
 /** Latin solfège name with octave (C4 = MIDI 60). Naturals ignore `accidental`. */

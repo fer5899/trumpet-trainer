@@ -2,34 +2,45 @@ import {
   MS_PER_SECOND,
   SYNTH_ATTACK_MS,
   SYNTH_DONE_FALLBACK_MARGIN_MS,
+  SYNTH_ENVELOPE_PEAK_GAIN,
   SYNTH_LOWPASS_HZ,
   SYNTH_LOWPASS_Q,
-  SYNTH_PEAK_GAIN,
   SYNTH_RELEASE_MS,
   SYNTH_START_DELAY_MS,
   SYNTH_STOP_FADE_MS,
+  SYNTH_VOLUME_RAMP_MS,
 } from '../config/constants';
+
+export interface PlaybackOptions {
+  /** Duration of each note; read once, when playback starts. */
+  noteDurationMs: number;
+  /** Initial master gain, 0..1 (the settings model guarantees the range). */
+  volume: number;
+}
 
 export interface Playback {
   /** Resolves (once) when the last note has ended or playback was stopped. */
   readonly done: Promise<void>;
   /** Idempotent: fades out quickly, stops all oscillators and resolves `done`. */
   stop(): void;
+  /** Ramps the master gain to `volume` over SYNTH_VOLUME_RAMP_MS. No-op after finish/stop. */
+  setVolume(volume: number): void;
 }
 
 const SILENT_GAIN = 0;
-const UNITY_GAIN = 1;
 
 /**
  * Thin adapter: plays the frequencies back to back as a brass-ish sawtooth through a low-pass
  * filter, each note with its own short envelope so repeated notes are heard as separate attacks.
  *
  * Graph: oscillator_i → noteGain_i (envelope) → shared low-pass → master gain → destination.
+ * The envelopes are scheduled ahead of time; the volume lives on the master gain, the one live
+ * parameter, so `setVolume` is audible immediately (also mid-melody).
  */
 export function playSequence(
   ctx: AudioContext,
   frequenciesHz: readonly number[],
-  noteDurationMs: number,
+  { noteDurationMs, volume }: PlaybackOptions,
 ): Playback {
   const noteSeconds = noteDurationMs / MS_PER_SECOND;
   const attackSeconds = SYNTH_ATTACK_MS / MS_PER_SECOND;
@@ -37,7 +48,7 @@ export function playSequence(
   const t0 = ctx.currentTime + SYNTH_START_DELAY_MS / MS_PER_SECOND;
 
   const master = ctx.createGain();
-  master.gain.value = UNITY_GAIN;
+  master.gain.value = volume;
   master.connect(ctx.destination);
 
   const filter = ctx.createBiquadFilter();
@@ -56,8 +67,8 @@ export function playSequence(
 
     const envelope = ctx.createGain();
     envelope.gain.setValueAtTime(SILENT_GAIN, start);
-    envelope.gain.linearRampToValueAtTime(SYNTH_PEAK_GAIN, start + attackSeconds);
-    envelope.gain.setValueAtTime(SYNTH_PEAK_GAIN, end - releaseSeconds);
+    envelope.gain.linearRampToValueAtTime(SYNTH_ENVELOPE_PEAK_GAIN, start + attackSeconds);
+    envelope.gain.setValueAtTime(SYNTH_ENVELOPE_PEAK_GAIN, end - releaseSeconds);
     envelope.gain.linearRampToValueAtTime(SILENT_GAIN, end);
 
     oscillator.connect(envelope);
@@ -106,16 +117,22 @@ export function playSequence(
     finishNaturally();
   }
 
+  /** Cancels pending master-gain automation and ramps from the current value to `target`. */
+  const rampMaster = (target: number, rampMs: number): number => {
+    const now = ctx.currentTime;
+    const rampEnd = now + rampMs / MS_PER_SECOND;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(master.gain.value, now);
+    master.gain.linearRampToValueAtTime(target, rampEnd);
+    return rampEnd;
+  };
+
   return {
     done,
     stop() {
       if (finished) return;
       finish();
-      const now = ctx.currentTime;
-      const fadeEnd = now + SYNTH_STOP_FADE_MS / MS_PER_SECOND;
-      master.gain.cancelScheduledValues(now);
-      master.gain.setValueAtTime(master.gain.value, now);
-      master.gain.linearRampToValueAtTime(SILENT_GAIN, fadeEnd);
+      const fadeEnd = rampMaster(SILENT_GAIN, SYNTH_STOP_FADE_MS);
       for (const { oscillator } of noteNodes) {
         try {
           oscillator.stop(fadeEnd);
@@ -124,6 +141,10 @@ export function playSequence(
         }
       }
       setTimeout(disconnectAll, SYNTH_STOP_FADE_MS);
+    },
+    setVolume(nextVolume) {
+      if (finished) return;
+      rampMaster(nextVolume, SYNTH_VOLUME_RAMP_MS);
     },
   };
 }

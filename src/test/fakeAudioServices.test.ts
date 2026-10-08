@@ -62,11 +62,11 @@ describe('createFakeAudioServices', () => {
 
   it('records playback calls; finishPlayback resolves the latest done; stop resolves too', async () => {
     const fake = createFakeAudioServices();
-    const first = fake.services.playMelody([1, 2], 500);
-    const second = fake.services.playMelody([3], 250);
+    const first = fake.services.playMelody([1, 2], { noteDurationMs: 500, volume: 0.5 });
+    const second = fake.services.playMelody([3], { noteDurationMs: 250, volume: 1 });
     expect(fake.playCalls).toEqual([
-      { frequenciesHz: [1, 2], noteDurationMs: 500 },
-      { frequenciesHz: [3], noteDurationMs: 250 },
+      { frequenciesHz: [1, 2], noteDurationMs: 500, volume: 0.5, volumeChanges: [] },
+      { frequenciesHz: [3], noteDurationMs: 250, volume: 1, volumeChanges: [] },
     ]);
     const onSecond = vi.fn();
     void second.done.then(onSecond);
@@ -76,5 +76,26 @@ describe('createFakeAudioServices', () => {
     first.stop();
     expect(fake.stop).toHaveBeenCalledTimes(1);
     await expect(first.done).resolves.toBeUndefined();
+  });
+
+  it('copies the frequencies so later mutation of the caller array is not recorded', () => {
+    const fake = createFakeAudioServices();
+    const freqs = [1, 2];
+    fake.services.playMelody(freqs, { noteDurationMs: 500, volume: 0.5 });
+    freqs.push(3);
+    expect(fake.playCalls[0].frequenciesHz).toEqual([1, 2]);
+  });
+
+  it("setVolume appends to that playback's volumeChanges, also after done/stop", () => {
+    const fake = createFakeAudioServices();
+    const first = fake.services.playMelody([1], { noteDurationMs: 500, volume: 0.5 });
+    const second = fake.services.playMelody([2], { noteDurationMs: 500, volume: 0.5 });
+    first.setVolume(0.2);
+    second.setVolume(0.9);
+    first.setVolume(0.3);
+    first.stop();
+    first.setVolume(0.4);
+    expect(fake.playCalls[0].volumeChanges).toEqual([0.2, 0.3, 0.4]);
+    expect(fake.playCalls[1].volumeChanges).toEqual([0.9]);
   });
 });

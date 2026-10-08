@@ -1,0 +1,46 @@
+# grep -n "NOTE_LETTERS\|SHARP_SIGN\|FLAT_SIGN" src/music/scales.ts src/music/spelling.ts
+src/music/scales.ts:2:import { alterSign, FLAT_SIGN, LETTER_PITCH_CLASSES, NOTE_LETTERS, SHARP_SIGN, type Alter } from './notes';
+src/music/scales.ts:82:const LETTER_COUNT = NOTE_LETTERS.length;
+src/music/scales.ts:119:  const slug = `${NOTE_LETTERS[letter].toLowerCase()}${ALTER_SLUGS[alter]}`;
+src/music/scales.ts:123:    tonicName: `${NOTE_LETTERS[letter]}${alterSign(alter)}`,
+src/music/scales.ts:215:  return text.toLowerCase().replaceAll(FLAT_SIGN, 'b').replaceAll('♯', SHARP_SIGN).trim().replace(/\s+/g, ' ');
+src/music/spelling.ts:3:import { alterSign, LETTER_PITCH_CLASSES, NOTE_LETTERS, noteName, type Accidental, type Alter, type Melody } from './notes';
+src/music/spelling.ts:61:    return `${NOTE_LETTERS[spelled.letter]}${alterSign(spelled.alter)}${octave}`;
+
+# analysis (definitions / imports from './notes')
+{
+  "src/music/scales.ts": {
+    "used": [
+      "NOTE_LETTERS",
+      "SHARP_SIGN",
+      "FLAT_SIGN"
+    ],
+    "importedFromNotes": [
+      "alterSign",
+      "FLAT_SIGN",
+      "LETTER_PITCH_CLASSES",
+      "NOTE_LETTERS",
+      "SHARP_SIGN",
+      "Alter"
+    ],
+    "definitions": []
+  },
+  "src/music/spelling.ts": {
+    "used": [
+      "NOTE_LETTERS"
+    ],
+    "importedFromNotes": [
+      "alterSign",
+      "LETTER_PITCH_CLASSES",
+      "NOTE_LETTERS",
+      "noteName",
+      "Accidental",
+      "Alter",
+      "Melody"
+    ],
+    "definitions": []
+  }
+}
+
+# problems
+(none)

@@ -8,6 +8,11 @@ import type { FakeAudioServices } from './fakeAudioServices';
 export const FRAME_MS = 20;
 /** Comfortably above the default threshold. */
 export const LOUD_DB = -20;
+/**
+ * Slack for "not yet / now" timer boundary checks. `shouldAdvanceTime` also moves the fake clock
+ * 20 ms per 20 ms of real time, so a 1 ms margin before a timer fires is flaky under load.
+ */
+export const TIMER_DRIFT_MARGIN_MS = 100;
 
 export const concertHz = (written: number): number => midiToHz(writtenToConcert(written));
 

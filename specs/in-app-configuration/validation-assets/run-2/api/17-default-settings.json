@@ -1,0 +1,13 @@
+{
+  "item": 17,
+  "expression": "return [s.isScaleOptionId(st.DEFAULT_SETTINGS.scaleId), st.DEFAULT_SETTINGS.maxInterval >= s.minMaxInterval(st.DEFAULT_SETTINGS.scaleId)];",
+  "expected": [
+    true,
+    true
+  ],
+  "actual": [
+    true,
+    true
+  ],
+  "match": true
+}

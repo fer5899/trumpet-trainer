@@ -1,0 +1,17 @@
+{
+  "item": 6,
+  "expression": "const s = await import('/src/music/scales.ts'); return ['chromatic', 'major:do', 'group:major-pentatonic', 'group:all'].map(s.minMaxInterval);",
+  "expected": [
+    1,
+    2,
+    3,
+    3
+  ],
+  "actual": [
+    1,
+    2,
+    3,
+    3
+  ],
+  "match": true
+}

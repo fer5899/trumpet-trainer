@@ -1,0 +1,31 @@
+{
+  "item": 3,
+  "expression": "const s = await import('/src/music/scales.ts'); return s.SCALE_OPTIONS.slice(0, 11).map(o => o.name);",
+  "expected": [
+    "Chromatic",
+    "All scales",
+    "All majors",
+    "All natural minors",
+    "All dorian",
+    "All phrygian",
+    "All lydian",
+    "All mixolydian",
+    "All locrian",
+    "All major pentatonics",
+    "All minor pentatonics"
+  ],
+  "actual": [
+    "Chromatic",
+    "All scales",
+    "All majors",
+    "All natural minors",
+    "All dorian",
+    "All phrygian",
+    "All lydian",
+    "All mixolydian",
+    "All locrian",
+    "All major pentatonics",
+    "All minor pentatonics"
+  ],
+  "match": true
+}

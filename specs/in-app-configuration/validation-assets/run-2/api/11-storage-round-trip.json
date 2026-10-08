@@ -1,0 +1,14 @@
+{
+  "expected": [
+    7,
+    -35
+  ],
+  "actual": [
+    7,
+    -35
+  ],
+  "rawStoredAfterReload": [
+    "{\"noteDurationMs\":1000,\"melodyLength\":7,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:do\"}",
+    "-35"
+  ]
+}

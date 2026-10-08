@@ -1,0 +1,25 @@
+# sweep test block in src/music/spelling.test.ts
+  it('spells every note of every scale with the letter-based octave (C4 = 60)', () => {
+    for (const scale of SPECIFIC_SCALES) {
+      const inKey = scaleCandidates(scale);
+      const names = spellInKey(inKey, scale.keySignature);
+      // In a key, each letter is used by exactly one pitch class: 7 distinct letters for heptatonics.
+      const letters = new Set(names.map((n) => n.replace(/[#♭]?\d+$/, '')));
+      expect(letters.size, scale.id).toBe(scale.pitchClasses.length);
+      // Accidentals follow the key signature direction.
+      for (const n of names) {
+        if (scale.keySignature > 0) expect(n).not.toContain('♭');
+        if (scale.keySignature < 0) expect(n).not.toContain('#');
+        if (scale.keySignature === 0) expect(n).not.toMatch(/[#♭]/);
+      }
+    }
+  });
+
+# uses scaleCandidates(: true
+# hard-coded 19 / 54 / 12 literals in the block: none
+
+# grep -n "19\|54" src/music/spelling.test.ts (whole file, for reference)
+src/music/spelling.test.ts:9:    [[54, 61, 61, 58, 72], ['Fa#3', 'Do#4', 'Do#4', 'Si♭3', 'Do5']],
+src/music/spelling.test.ts:14:    [[72, 72, 54, 55, 54], ['Do5', 'Do5', 'Sol♭3', 'Sol3', 'Sol♭3']],
+src/music/spelling.test.ts:27:    expect(spellMelody([54, 55, 56, 57, 58])).toHaveLength(5);
+src/music/spelling.test.ts:77:    ['Do♭ major', -7, [54, 71], ['Sol♭3', 'Do♭5']],

@@ -1,0 +1,10 @@
+# specs/in-app-configuration/implementation-notes.md — paragraphs mentioning TIMER_DRIFT_MARGIN_MS
+- `src/test/sessionDriver.ts`: `TIMER_DRIFT_MARGIN_MS = 100` (outside the PRD) replaces the 1 ms "not yet" / "now"
+  boundary margins in `App.test.tsx` and `useTrainingSession.test.tsx`: under `vi.useFakeTimers({ shouldAdvanceTime:
+  true })` the fake clock also moves with real time, so 1 ms margins were flaky.
+# reason found (/flaky|drift|shouldAdvanceTime|real time/i): true
+
+# paragraphs mentioning "Parts 1 and 2" / bump.txt
+- **Release decision:** Parts 1 and 2 ship in the same PR. No `bump.txt` is added until Part 2 is done, so CI's
+  `release` job cannot publish Part 1 alone (review warning `useTrainingSession.ts:77-81`).
+# "Parts 1 and 2 ship in one/the same PR" + no bump.txt before Part 2: true

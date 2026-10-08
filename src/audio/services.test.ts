@@ -63,12 +63,13 @@ describe('createBrowserAudioServices', () => {
     await expect(createBrowserAudioServices().openMicrophone()).rejects.toMatchObject({ kind: 'unknown', cause });
   });
 
-  it('playMelody() plays the sequence on the shared context', () => {
-    const playback = { done: Promise.resolve(), stop: vi.fn() } satisfies Playback;
+  it('playMelody() plays the sequence on the shared context, forwarding the options', () => {
+    const playback = { done: Promise.resolve(), stop: vi.fn(), setVolume: vi.fn() } satisfies Playback;
     vi.mocked(playSequence).mockReturnValueOnce(playback);
     const freqs = [440, 466.16];
-    expect(createBrowserAudioServices().playMelody(freqs, 500)).toBe(playback);
-    expect(playSequence).toHaveBeenCalledWith(fakeContext, freqs, 500);
+    const options = { noteDurationMs: 500, volume: 0.5 };
+    expect(createBrowserAudioServices().playMelody(freqs, options)).toBe(playback);
+    expect(playSequence).toHaveBeenCalledWith(fakeContext, freqs, options);
   });
 
   it('detectPitch() is the real pitch detector', () => {

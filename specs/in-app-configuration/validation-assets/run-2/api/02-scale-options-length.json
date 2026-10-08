@@ -1,0 +1,7 @@
+{
+  "item": 2,
+  "expression": "const s = await import('/src/music/scales.ts'); return s.SCALE_OPTIONS.length;",
+  "expected": 146,
+  "actual": 146,
+  "match": true
+}

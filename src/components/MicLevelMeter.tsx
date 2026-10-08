@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { computeLevelDb } from '../audio/level';
 import { MicrophoneError, type MicrophoneErrorKind, type MicrophoneSession } from '../audio/microphone';
-import { METER_MAX_DB, METER_MIN_DB, THRESHOLD_STEP_DB } from '../config/constants';
+import { METER_MAX_DB, METER_MIN_DB, PERCENT, THRESHOLD_STEP_DB } from '../config/constants';
 import { micErrorMessage } from './micErrorMessage';
 
 export interface MicLevelMeterProps {
@@ -17,7 +17,6 @@ export interface MicLevelMeterProps {
   disabled?: boolean;
 }
 
-const PERCENT = 100;
 const METER_SPAN_DB = METER_MAX_DB - METER_MIN_DB;
 const MINUS_SIGN = '−';
 
