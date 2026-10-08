@@ -1,0 +1,689 @@
+{
+  "expression": "const sy = await import('/src/audio/synth.ts'); const { getAudioContext } = await import('/src/audio/audioContext.ts'); const p = sy.playSequence(getAudioContext(), [440, 494, 523, 587, 659], { noteDurationMs: 1000, volume: 0.2 }); setTimeout(() => p.setVolume(1), 2000)",
+  "ctxState": "running",
+  "sequences": [
+    {
+      "master": 1,
+      "startTimes": [
+        0.05,
+        1.05,
+        2.05,
+        3.05,
+        4.05
+      ],
+      "frequenciesHz": [
+        440,
+        494,
+        523,
+        587,
+        659
+      ],
+      "stopTimes": [
+        1.05,
+        2.05,
+        3.05,
+        4.05,
+        5.05
+      ],
+      "masterEvents": [
+        {
+          "method": "value=",
+          "args": [
+            0.2
+          ],
+          "ctx": 0
+        },
+        {
+          "method": "cancelScheduledValues",
+          "args": [
+            2.010666666666667
+          ],
+          "ctx": 2.010666666666667
+        },
+        {
+          "method": "setValueAtTime",
+          "args": [
+            0.20000000298023224,
+            2.010666666666667
+          ],
+          "ctx": 2.010666666666667
+        },
+        {
+          "method": "linearRampToValueAtTime",
+          "args": [
+            1,
+            2.030666666666667
+          ],
+          "ctx": 2.010666666666667
+        }
+      ],
+      "envelopeEvents": [
+        {
+          "envelope": 4,
+          "events": [
+            [
+              "setValueAtTime",
+              0,
+              0.05
+            ],
+            [
+              "linearRampToValueAtTime",
+              1,
+              0.065
+            ],
+            [
+              "setValueAtTime",
+              1,
+              1.02
+            ],
+            [
+              "linearRampToValueAtTime",
+              0,
+              1.05
+            ]
+          ]
+        },
+        {
+          "envelope": 6,
+          "events": [
+            [
+              "setValueAtTime",
+              0,
+              1.05
+            ],
+            [
+              "linearRampToValueAtTime",
+              1,
+              1.065
+            ],
+            [
+              "setValueAtTime",
+              1,
+              2.02
+            ],
+            [
+              "linearRampToValueAtTime",
+              0,
+              2.05
+            ]
+          ]
+        },
+        {
+          "envelope": 8,
+          "events": [
+            [
+              "setValueAtTime",
+              0,
+              2.05
+            ],
+            [
+              "linearRampToValueAtTime",
+              1,
+              2.065
+            ],
+            [
+              "setValueAtTime",
+              1,
+              3.02
+            ],
+            [
+              "linearRampToValueAtTime",
+              0,
+              3.05
+            ]
+          ]
+        },
+        {
+          "envelope": 10,
+          "events": [
+            [
+              "setValueAtTime",
+              0,
+              3.05
+            ],
+            [
+              "linearRampToValueAtTime",
+              1,
+              3.065
+            ],
+            [
+              "setValueAtTime",
+              1,
+              4.02
+            ],
+            [
+              "linearRampToValueAtTime",
+              0,
+              4.05
+            ]
+          ]
+        },
+        {
+          "envelope": 12,
+          "events": [
+            [
+              "setValueAtTime",
+              0,
+              4.05
+            ],
+            [
+              "linearRampToValueAtTime",
+              1,
+              4.0649999999999995
+            ],
+            [
+              "setValueAtTime",
+              1,
+              5.02
+            ],
+            [
+              "linearRampToValueAtTime",
+              0,
+              5.05
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "rawLog": [
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 1,
+      "ctx": 0,
+      "wall": 130.70000004768372
+    },
+    {
+      "t": "param",
+      "owner": 1,
+      "method": "value=",
+      "args": [
+        0.2
+      ],
+      "ctx": 0,
+      "wall": 130.79999995231628
+    },
+    {
+      "t": "connect",
+      "node": 1,
+      "dest": "destination",
+      "wall": 130.79999995231628
+    },
+    {
+      "t": "create",
+      "type": "filter",
+      "node": 2,
+      "ctx": 0,
+      "wall": 130.79999995231628
+    },
+    {
+      "t": "connect",
+      "node": 2,
+      "dest": 1,
+      "wall": 130.90000009536743
+    },
+    {
+      "t": "create",
+      "type": "oscillator",
+      "node": 3,
+      "ctx": 0,
+      "wall": 131.5
+    },
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 4,
+      "ctx": 0,
+      "wall": 132
+    },
+    {
+      "t": "param",
+      "owner": 4,
+      "method": "setValueAtTime",
+      "args": [
+        0,
+        0.05
+      ],
+      "ctx": 0,
+      "wall": 132
+    },
+    {
+      "t": "param",
+      "owner": 4,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        0.065
+      ],
+      "ctx": 0,
+      "wall": 132
+    },
+    {
+      "t": "param",
+      "owner": 4,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        1.02
+      ],
+      "ctx": 0,
+      "wall": 132
+    },
+    {
+      "t": "param",
+      "owner": 4,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        1.05
+      ],
+      "ctx": 0,
+      "wall": 132
+    },
+    {
+      "t": "connect",
+      "node": 3,
+      "dest": 4,
+      "wall": 132
+    },
+    {
+      "t": "connect",
+      "node": 4,
+      "dest": 2,
+      "wall": 132
+    },
+    {
+      "t": "start",
+      "node": 3,
+      "when": 0.05,
+      "freq": 440,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "stop",
+      "node": 3,
+      "when": 1.05,
+      "freq": 440,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "oscillator",
+      "node": 5,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 6,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 6,
+      "method": "setValueAtTime",
+      "args": [
+        0,
+        1.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 6,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        1.065
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 6,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        2.02
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 6,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        2.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "connect",
+      "node": 5,
+      "dest": 6,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "connect",
+      "node": 6,
+      "dest": 2,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "start",
+      "node": 5,
+      "when": 1.05,
+      "freq": 494,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "stop",
+      "node": 5,
+      "when": 2.05,
+      "freq": 494,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "oscillator",
+      "node": 7,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 8,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 8,
+      "method": "setValueAtTime",
+      "args": [
+        0,
+        2.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 8,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        2.065
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 8,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        3.02
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 8,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        3.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "connect",
+      "node": 7,
+      "dest": 8,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "connect",
+      "node": 8,
+      "dest": 2,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "start",
+      "node": 7,
+      "when": 2.05,
+      "freq": 523,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "stop",
+      "node": 7,
+      "when": 3.05,
+      "freq": 523,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "oscillator",
+      "node": 9,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 10,
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 10,
+      "method": "setValueAtTime",
+      "args": [
+        0,
+        3.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 10,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        3.065
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 10,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        4.02
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "param",
+      "owner": 10,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        4.05
+      ],
+      "ctx": 0,
+      "wall": 132.09999990463257
+    },
+    {
+      "t": "connect",
+      "node": 9,
+      "dest": 10,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "connect",
+      "node": 10,
+      "dest": 2,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "start",
+      "node": 9,
+      "when": 3.05,
+      "freq": 587,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "stop",
+      "node": 9,
+      "when": 4.05,
+      "freq": 587,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "create",
+      "type": "oscillator",
+      "node": 11,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "create",
+      "type": "gain",
+      "node": 12,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "param",
+      "owner": 12,
+      "method": "setValueAtTime",
+      "args": [
+        0,
+        4.05
+      ],
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "param",
+      "owner": 12,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        4.0649999999999995
+      ],
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "param",
+      "owner": 12,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        5.02
+      ],
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "param",
+      "owner": 12,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        5.05
+      ],
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "connect",
+      "node": 11,
+      "dest": 12,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "connect",
+      "node": 12,
+      "dest": 2,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "start",
+      "node": 11,
+      "when": 4.05,
+      "freq": 659,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "stop",
+      "node": 11,
+      "when": 5.05,
+      "freq": 659,
+      "ctx": 0,
+      "wall": 132.20000004768372
+    },
+    {
+      "t": "param",
+      "owner": 1,
+      "method": "cancelScheduledValues",
+      "args": [
+        2.010666666666667
+      ],
+      "ctx": 2.010666666666667,
+      "wall": 2142.7999999523163
+    },
+    {
+      "t": "param",
+      "owner": 1,
+      "method": "setValueAtTime",
+      "args": [
+        0.20000000298023224,
+        2.010666666666667
+      ],
+      "ctx": 2.010666666666667,
+      "wall": 2142.7999999523163
+    },
+    {
+      "t": "param",
+      "owner": 1,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        2.030666666666667
+      ],
+      "ctx": 2.010666666666667,
+      "wall": 2142.7999999523163
+    }
+  ]
+}

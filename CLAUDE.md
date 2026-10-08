@@ -9,6 +9,12 @@ the microphone while the user plays it back, and marks each note green once it i
   and `specs/create-mvp/prd2.md` (Part 2: training state machine, hook, UI, e2e specs, CI/CD)
 - Status: Parts 1 and 2 are implemented (full MVP: Home + Training screens, e2e specs, CI/CD to
   GitHub Pages).
+- In-app configuration (in progress): `specs/in-app-configuration/idea.md` (source of truth),
+  `prd.md` (Part 1: constants, scale catalog, spelling in key, exercise generator, settings model +
+  storage adapter, synth volume) and `prd2.md` (Part 2: hook, Settings dialog, scale combobox, App
+  wiring, `?melody=` 3–8 notes, e2e). Part 1 is implemented; Part 2 is not yet, so `App` still
+  generates a chromatic exercise of `DEFAULT_MELODY_LENGTH` notes with `MAX_INTERVAL_LIMIT` and
+  `useTrainingSession` plays with `DEFAULT_NOTE_DURATION_MS` / `DEFAULT_VOLUME` (temporary bridge).
 
 ## Stack
 
@@ -41,17 +47,35 @@ Everything that decides something is a pure, deterministic function with injecte
 and is unit-tested. Browser APIs are wrapped in thin adapters that contain no decisions.
 
 ```
-src/config/constants.ts        all tunables (ranges, durations, tolerances, synth, fft size)
+src/config/constants.ts        all tunables (ranges, durations, tolerances, synth, fft size,
+                               exercise-setting DEFAULT_/MIN_/MAX_ limits, storage keys)
+src/config/settings.ts         pure Settings model: DEFAULT_SETTINGS, selectScale (raises
+                               maxInterval to the scale minimum), resetSettings('all'|'training'),
+                               normalizeSettings (field-by-field validation, off-step volume →
+                               default), parseThreshold (off-step → default)
+src/config/settingsStorage.ts  ADAPTER: getBrowserStorage, load/saveSettings, load/saveThreshold
+                               on an injected Storage | null; never throws, invalid data → defaults
 src/music/notes.ts             types (WrittenMidi, ConcertMidi, Melody, Accidental), range,
-                               transposition, midiToHz, centsFrom, noteName (Latin solfège)
-src/music/spelling.ts          spellMelody: contextual sharps/flats (IDEA §5.3)
-src/music/melody.ts            generateMelody(rng, length)
+                               transposition, midiToHz, centsFrom, noteName (Latin solfège);
+                               letter/accidental primitives NOTE_LETTERS, LETTER_PITCH_CLASSES,
+                               SHARP_SIGN, FLAT_SIGN, alterSign (PITCH_CLASS_NAMES derived)
+src/music/scales.ts            scale catalog generated from rules (9 types × 15 key signatures):
+                               SPECIFIC_SCALES (135), SCALE_OPTIONS (146: chromatic, 10 groups,
+                               135 scales), keySignatureAlters, getScaleOption, getSpecificScale,
+                               resolveScaleMembers, largestStep, minMaxInterval (precomputed),
+                               searchScaleOptions (solfège + English aliases, b/#; ranked: name
+                               prefix, then word prefix, then substring, catalog order within)
+src/music/spelling.ts          spellMelody: contextual sharps/flats (IDEA §5.3); spellInKey (key
+                               signature, letter-based octave: Si#3 = 60); spellExercise
+src/music/melody.ts            Exercise { notes, scale }, scaleCandidates, pickIndex,
+                               generateExercise(rng, { length, maxInterval, scaleId }): random walk
 src/audio/level.ts             computeLevelDb: RMS in dBFS, clamped to [-100, 0]
 src/audio/pitchDetector.ts     detectPitch: pitchy wrapper + range/clarity filtering
 src/training/sustainTracker.ts clock-injected "held ±25 c for 500 ms" detector
 src/audio/audioContext.ts      ADAPTER: single shared AudioContext + unlockAudio() (no-op without
                                Web Audio; services.openMicrophone then rejects 'unsupported')
-src/audio/synth.ts             ADAPTER: playSequence → Playback { done, stop() }
+src/audio/synth.ts             ADAPTER: playSequence(ctx, freqs, { noteDurationMs, volume }) →
+                               Playback { done, stop(), setVolume() }; volume = master gain
 src/audio/microphone.ts        ADAPTER: openMicrophone → MicrophoneSession, MicrophoneError
 src/audio/services.ts          AudioServices interface + createBrowserAudioServices()
 src/audio/AudioServicesContext.tsx  AudioServicesProvider + useAudioServices()
@@ -72,7 +96,9 @@ src/test/                      setup.ts (jest-dom + RTL cleanup), signals.ts (si
                                fakeAudioServices.ts (createFakeAudioServices), sessionDriver.ts
                                (FRAME_MS, LOUD_DB, concertHz, createSessionDriver: act-wrapped
                                finishPlayback/elapse/toListening/hold, shared by App and hook
-                               tests), appTestUtils.tsx (renderApp = driver + click/startTraining)
+                               tests), appTestUtils.tsx (renderApp = driver + click/startTraining),
+                               fakeStorage.ts (createFakeStorage, createThrowingStorage),
+                               scales.ts (requireSpecificScale: getSpecificScale or throw)
 e2e/                           training.spec.ts, mic-meter.spec.ts (fake mic = looping 440 Hz tone)
 scripts/generate-test-tones.mjs  fake-mic WAV fixture (Node built-ins only)
 scripts/release.mjs            release versioning: validate | release | notes (Node built-ins only)
@@ -90,6 +116,17 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
 - **Written vs concert pitch:** melodies are stored as *written* MIDI (what the trumpeter reads,
   54..72, names shown to the user). Convert with `writtenToConcert` (−2 semitones) only at the
   audio boundaries (synth playback frequencies, detection target).
+- **Scales and spelling:** a scale exercise is spelled by its key signature (`spellInKey`, via
+  `spellExercise`); chromatic exercises keep the contextual `spellMelody`. Scale option ids
+  (`chromatic`, `group:<x>`, `<type>:<tonic-slug>`) are persisted: keep them stable.
+- **Generator rng contract:** `generateExercise` consumes one rng call to pick a group member
+  (groups only, first), then exactly one per note (`pickIndex`). Tests script the rng.
+- **Settings rules live in pure `src/config/settings.ts`**; only `src/config/settingsStorage.ts`
+  touches storage, and it receives the `Storage | null` as a parameter (tests use
+  `src/test/fakeStorage.ts`, never the real `localStorage`).
+- **Volume lives on the synth master gain** (`Playback.setVolume` ramps it over
+  `SYNTH_VOLUME_RAMP_MS`, no-op after stop/end); per-note envelopes peak at
+  `SYNTH_ENVELOPE_PEAK_GAIN`. Note duration is read once when playback starts.
 - **One AudioContext per page**, created lazily and resumed by `unlock()`, which must run
   synchronously in click handlers before any `await` (iOS Safari autoplay policy).
 - The microphone is opened raw (echo cancellation, noise suppression, AGC off), `fftSize` 2048,
@@ -100,8 +137,11 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
   (`src/test/fakeWebAudio.ts`, stubbed `navigator`/`requestAnimationFrame`).
 - **Component tests** render through `AudioServicesProvider` with `createFakeAudioServices()`
   (`src/test/fakeAudioServices.ts`: spies, `failNextMicrophone`, `sessions`, `emitTone`,
-  `playCalls`, `finishPlayback`, `stop`) and `vi.useFakeTimers({ shouldAdvanceTime: true })`; wrap
-  async steps in `act` (see `src/test/appTestUtils.tsx` and `src/test/sessionDriver.ts`). Vitest
+  `playCalls` (each `{ frequenciesHz, noteDurationMs, volume, volumeChanges }`), `finishPlayback`,
+  `stop`) and `vi.useFakeTimers({ shouldAdvanceTime: true })`; wrap
+  async steps in `act` (see `src/test/appTestUtils.tsx` and `src/test/sessionDriver.ts`). Timer
+  boundary checks ("not yet" / "now") use `TIMER_DRIFT_MARGIN_MS`, never a 1 ms margin:
+  `shouldAdvanceTime` moves the fake clock with real time. Vitest
   runs without `globals`, so RTL cleanup is registered in `src/test/setup.ts`.
 - **Effects must survive React StrictMode** (dev double-mount): `useTrainingSession` defers the
   unmount `mic.release()` by a microtask and stops playback only if it is still running.

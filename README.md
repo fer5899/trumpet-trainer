@@ -12,7 +12,7 @@ Latin solfège (Do, Re, Mi…).
    −40 dB; kept only while the page is open).
 2. Press **Start training**. The browser asks for microphone access the first time; if it is
    blocked, an inline message explains how to allow it.
-3. The app plays 5 random notes (0.5 s each, written range Fa#3–Do5). It does not listen while
+3. The app plays 5 random notes (1 s each, written range Fa#3–Do5). It does not listen while
    playing, so speakers are fine.
 4. Play the notes back. The highlighted box is the note to play; hold it in tune (±25 cents, right
    octave) for 0.5 s and it turns green with its name. Wrong notes simply do nothing.

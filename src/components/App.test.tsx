@@ -2,17 +2,21 @@ import { act, fireEvent, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   COMPLETE_PAUSE_MS,
+  DEFAULT_MELODY_LENGTH,
+  DEFAULT_NOTE_DURATION_MS,
   DEFAULT_THRESHOLD_DB,
+  DEFAULT_VOLUME,
   LISTEN_GUARD_MS,
+  MAX_INTERVAL_LIMIT,
   METER_MAX_DB,
   METER_MIN_DB,
-  NOTE_DURATION_MS,
   SUSTAIN_MS,
   THRESHOLD_STEP_DB,
 } from '../config/constants';
 import * as melodyModule from '../music/melody';
+import { CHROMATIC_ID } from '../music/scales';
 import { boxStates, noteBox, renderApp } from '../test/appTestUtils';
-import { concertHz, FRAME_MS } from '../test/sessionDriver';
+import { concertHz, FRAME_MS, TIMER_DRIFT_MARGIN_MS } from '../test/sessionDriver';
 import { createFakeAudioServices } from '../test/fakeAudioServices';
 import { micErrorMessage } from './micErrorMessage';
 
@@ -30,7 +34,7 @@ const status = () => screen.getByTestId('training-status');
 
 beforeEach(() => {
   vi.useFakeTimers({ shouldAdvanceTime: true });
-  vi.spyOn(melodyModule, 'generateMelody').mockReturnValue([...MELODY]);
+  vi.spyOn(melodyModule, 'generateExercise').mockReturnValue({ notes: [...MELODY], scale: 'chromatic' });
 });
 afterEach(() => {
   vi.useRealTimers();
@@ -124,7 +128,7 @@ describe('App — Home / microphone', () => {
       expect(startButton()).toBeEnabled();
       expect(screen.queryByTestId('note-box-0')).not.toBeInTheDocument();
       expect(fake.services.playMelody).not.toHaveBeenCalled();
-      expect(melodyModule.generateMelody).not.toHaveBeenCalled();
+      expect(melodyModule.generateExercise).not.toHaveBeenCalled();
 
       await startTraining();
       expect(screen.queryByRole('alert')).not.toBeInTheDocument();
@@ -232,8 +236,24 @@ describe('App — Training flow', () => {
     expect(giveUpButton()).toBeDisabled();
     expect(status()).toHaveTextContent('Listen…');
     expect(fake.services.playMelody).toHaveBeenCalledTimes(1);
-    expect(fake.playCalls[0]).toEqual({ frequenciesHz: MELODY.map(concertHz), noteDurationMs: NOTE_DURATION_MS });
+    expect(fake.playCalls[0]).toEqual({
+      frequenciesHz: MELODY.map(concertHz),
+      noteDurationMs: DEFAULT_NOTE_DURATION_MS,
+      volume: DEFAULT_VOLUME,
+      volumeChanges: [],
+    });
     expect(fake.services.playMelody.mock.calls[0][0][0]).toBeCloseTo(440, 6);
+  });
+
+  it('generates a chromatic exercise of the default length with the widest max interval', async () => {
+    const { startTraining } = renderApp();
+    await startTraining();
+    expect(melodyModule.generateExercise).toHaveBeenCalledTimes(1);
+    expect(melodyModule.generateExercise).toHaveBeenCalledWith(Math.random, {
+      length: DEFAULT_MELODY_LENGTH,
+      maxInterval: MAX_INTERVAL_LIMIT,
+      scaleId: CHROMATIC_ID,
+    });
   });
 
   it('frames during playing and during the guard never match', async () => {
@@ -302,9 +322,9 @@ describe('App — Training flow', () => {
     // Listening resumes only after playback + guard.
     await hold(concertHz(MELODY[1]), SUSTAIN_MS);
     await finishPlayback();
-    await elapse(LISTEN_GUARD_MS - 1);
+    await elapse(LISTEN_GUARD_MS - TIMER_DRIFT_MARGIN_MS);
     expect(repeatButton()).toBeDisabled();
-    await elapse(1);
+    await elapse(TIMER_DRIFT_MARGIN_MS);
     expect(repeatButton()).toBeEnabled();
     expect(noteBox(1)).toHaveAttribute('data-state', 'active');
 
@@ -342,10 +362,10 @@ describe('App — Training flow', () => {
     expect(repeatButton()).toBeDisabled();
     expect(giveUpButton()).toBeDisabled();
 
-    await elapse(COMPLETE_PAUSE_MS - 1);
+    await elapse(COMPLETE_PAUSE_MS - TIMER_DRIFT_MARGIN_MS);
     expect(fake.sessions[0].released).toBe(false);
     expect(noteBox(0)).toBeInTheDocument();
-    await elapse(1);
+    await elapse(TIMER_DRIFT_MARGIN_MS);
     expect(fake.sessions[0].released).toBe(true);
     expect(startButton()).toBeEnabled();
     expect(within(document.body).queryByTestId('training-status')).not.toBeInTheDocument();

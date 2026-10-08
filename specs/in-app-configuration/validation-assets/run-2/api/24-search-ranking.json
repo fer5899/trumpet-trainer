@@ -1,0 +1,73 @@
+{
+  "item": 24,
+  "expression": "const exact = [s.searchScaleOptions('b major').map(o => o.name).slice(0, 2), s.searchScaleOptions('do').map(o => o.name).slice(0, 3)]; return { exact, bMajorFull: s.searchScaleOptions('b major').map(o => o.name), doFull: s.searchScaleOptions('do').map(o => o.name) };",
+  "expected": "first starts ['Si major', 'Si major pentatonic']; in the 'do' list the first 'Do …' option comes before the first dorian option",
+  "actual": {
+    "exact": [
+      [
+        "Si major",
+        "Si major pentatonic"
+      ],
+      [
+        "Do major",
+        "Do# major",
+        "Do♭ major"
+      ]
+    ],
+    "bMajorFull": [
+      "Si major",
+      "Si major pentatonic",
+      "Si♭ major",
+      "Mi♭ major",
+      "La♭ major",
+      "Re♭ major",
+      "Sol♭ major",
+      "Do♭ major",
+      "Si♭ major pentatonic",
+      "Mi♭ major pentatonic",
+      "La♭ major pentatonic",
+      "Re♭ major pentatonic",
+      "Sol♭ major pentatonic",
+      "Do♭ major pentatonic"
+    ],
+    "doFull": [
+      "Do major",
+      "Do# major",
+      "Do♭ major",
+      "Do# minor",
+      "Do minor",
+      "Do# dorian",
+      "Do dorian",
+      "Do# phrygian",
+      "Do phrygian",
+      "Do lydian",
+      "Do♭ lydian",
+      "Do# mixolydian",
+      "Do mixolydian",
+      "Do# locrian",
+      "Do locrian",
+      "Do major pentatonic",
+      "Do# major pentatonic",
+      "Do♭ major pentatonic",
+      "Do# minor pentatonic",
+      "Do minor pentatonic",
+      "All dorian",
+      "Re dorian",
+      "La dorian",
+      "Mi dorian",
+      "Si dorian",
+      "Fa# dorian",
+      "Sol# dorian",
+      "Re# dorian",
+      "Sol dorian",
+      "Fa dorian",
+      "Si♭ dorian",
+      "Mi♭ dorian",
+      "La♭ dorian",
+      "Re♭ dorian"
+    ]
+  },
+  "match": true,
+  "firstIndexDoTonic": 0,
+  "firstIndexDorian": 5
+}

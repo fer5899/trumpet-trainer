@@ -1,0 +1,38 @@
+
+> trumpet-trainer@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/music/notes.test.ts (45 tests) 10ms
+ ✓ src/training/sustainTracker.test.ts (15 tests) 7ms
+ ✓ src/test/fakeAudioServices.test.ts (7 tests) 16ms
+ ✓ src/config/settings.test.ts (65 tests) 21ms
+ ✓ src/audio/microphone.test.ts (22 tests) 44ms
+ ✓ src/config/settingsStorage.test.ts (23 tests) 19ms
+ ✓ src/training/trainingReducer.test.ts (32 tests) 15ms
+ ✓ src/music/scales.test.ts (266 tests) 96ms
+ ✓ src/music/spelling.test.ts (32 tests) 67ms
+ ✓ src/audio/services.test.ts (7 tests) 15ms
+ ✓ src/audio/synth.test.ts (21 tests) 99ms
+ ✓ src/music/melody.test.ts (315 tests) 237ms
+ ✓ src/training/useTrainingSession.test.tsx (19 tests) 199ms
+ ✓ src/components/MicLevelMeter.test.tsx (6 tests) 470ms
+ ✓ src/config/viteConfig.test.ts (7 tests) 6ms
+ ✓ src/components/App.test.tsx (25 tests) 1517ms
+   ✓ App — Home / microphone > shows the title, Start, an unpressed Test microphone, a meter at −60 and the threshold slider 313ms
+ ✓ src/config/constants.test.ts (49 tests) 10ms
+ ✓ src/audio/audioContext.test.ts (7 tests) 38ms
+ ✓ src/audio/level.test.ts (8 tests) 12ms
+ ✓ src/audio/pitchDetector.test.ts (28 tests) 86ms
+ ✓ src/audio/AudioServicesContext.test.tsx (3 tests) 64ms
+ ✓ src/testing/testMelody.test.ts (19 tests) 21ms
+ ✓ src/components/micErrorMessage.test.ts (3 tests) 3ms
+ ✓ src/components/NoteBox.test.tsx (3 tests) 85ms
+
+ Test Files  24 passed (24)
+      Tests  1027 passed (1027)
+   Start at  19:53:30
+   Duration  5.25s (transform 1.98s, setup 10.44s, collect 4.86s, tests 3.16s, environment 33.56s, prepare 4.86s)
+

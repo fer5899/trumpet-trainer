@@ -1,0 +1,13 @@
+{
+  "item": 22,
+  "expression": "return [st.normalizeSettings({ volume: 0.333 }).volume, st.normalizeSettings({ volume: 0.35 }).volume];",
+  "expected": [
+    0.5,
+    0.35
+  ],
+  "actual": [
+    0.5,
+    0.35
+  ],
+  "match": true
+}

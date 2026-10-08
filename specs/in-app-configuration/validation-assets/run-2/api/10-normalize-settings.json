@@ -1,0 +1,19 @@
+{
+  "item": 10,
+  "expression": "const st = await import('/src/config/settings.ts'); return st.normalizeSettings({ noteDurationMs: 750, volume: 2, scaleId: 'major:fa' });",
+  "expected": {
+    "noteDurationMs": 750,
+    "melodyLength": 5,
+    "volume": 0.5,
+    "maxInterval": 12,
+    "scaleId": "major:fa"
+  },
+  "actual": {
+    "noteDurationMs": 750,
+    "melodyLength": 5,
+    "volume": 0.5,
+    "maxInterval": 12,
+    "scaleId": "major:fa"
+  },
+  "match": true
+}

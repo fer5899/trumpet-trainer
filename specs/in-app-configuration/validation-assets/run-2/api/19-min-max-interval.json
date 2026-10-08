@@ -1,0 +1,13 @@
+{
+  "item": 19,
+  "expression": "return [s.minMaxInterval('group:all'), (() => { try { s.minMaxInterval('major:xx') } catch { return 'throws' } })()];",
+  "expected": [
+    3,
+    "throws"
+  ],
+  "actual": [
+    3,
+    "throws"
+  ],
+  "match": true
+}

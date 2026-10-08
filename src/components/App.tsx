@@ -2,9 +2,10 @@ import { useCallback, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { MicrophoneError, type MicrophoneErrorKind, type MicrophoneSession } from '../audio/microphone';
-import { DEFAULT_THRESHOLD_DB } from '../config/constants';
-import { generateMelody } from '../music/melody';
+import { DEFAULT_MELODY_LENGTH, DEFAULT_THRESHOLD_DB, MAX_INTERVAL_LIMIT } from '../config/constants';
+import { generateExercise } from '../music/melody';
 import type { Melody } from '../music/notes';
+import { CHROMATIC_ID } from '../music/scales';
 import { getTestMelody } from '../testing/testMelody';
 import { HomeScreen } from './HomeScreen';
 import { TrainingScreen } from './TrainingScreen';
@@ -43,7 +44,15 @@ export function App(): JSX.Element {
     }
     // 4. Generate (or, in the e2e build, read) the melody and switch screens.
     //    The test mic stays off so returning Home never reopens it without a click.
-    const melody = getTestMelody() ?? generateMelody();
+    //    Until the settings UI lands, a chromatic exercise with the widest interval reproduces the
+    //    MVP melodies exactly.
+    const melody =
+      getTestMelody() ??
+      generateExercise(Math.random, {
+        length: DEFAULT_MELODY_LENGTH,
+        maxInterval: MAX_INTERVAL_LIMIT,
+        scaleId: CHROMATIC_ID,
+      }).notes;
     setTestMicActive(false);
     setScreen({ name: 'training', melody, mic });
     setStarting(false);

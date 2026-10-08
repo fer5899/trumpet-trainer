@@ -1,0 +1,15 @@
+{
+  "item": 23,
+  "expression": "return [st.parseThreshold(-35.5), st.parseThreshold(-35), st.parseThreshold(-59)];",
+  "expected": [
+    -40,
+    -35,
+    -59
+  ],
+  "actual": [
+    -40,
+    -35,
+    -59
+  ],
+  "match": true
+}

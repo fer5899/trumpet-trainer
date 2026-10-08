@@ -1,0 +1,56 @@
+{
+  "item": 21,
+  "expression": "const n = await import('/src/music/notes.ts'); return [n.NOTE_LETTERS.join(' '), n.alterSign(1), n.alterSign(-1), n.alterSign(0)];",
+  "expected": [
+    "Do Re Mi Fa Sol La Si",
+    "#",
+    "♭",
+    ""
+  ],
+  "actual": [
+    "Do Re Mi Fa Sol La Si",
+    "#",
+    "♭",
+    ""
+  ],
+  "match": true,
+  "grep": {
+    "ok": true,
+    "problems": [],
+    "perFile": {
+      "src/music/scales.ts": {
+        "used": [
+          "NOTE_LETTERS",
+          "SHARP_SIGN",
+          "FLAT_SIGN"
+        ],
+        "importedFromNotes": [
+          "alterSign",
+          "FLAT_SIGN",
+          "LETTER_PITCH_CLASSES",
+          "NOTE_LETTERS",
+          "SHARP_SIGN",
+          "Alter"
+        ],
+        "definitions": []
+      },
+      "src/music/spelling.ts": {
+        "used": [
+          "NOTE_LETTERS"
+        ],
+        "importedFromNotes": [
+          "alterSign",
+          "LETTER_PITCH_CLASSES",
+          "NOTE_LETTERS",
+          "noteName",
+          "Accidental",
+          "Alter",
+          "Melody"
+        ],
+        "definitions": []
+      }
+    },
+    "link": "run-2/output/21-grep-letters-signs.txt",
+    "hitCount": 7
+  }
+}

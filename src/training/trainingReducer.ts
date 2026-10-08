@@ -5,7 +5,7 @@ export type TrainingPhase = 'playing' | 'guard' | 'listening' | 'complete';
 
 export interface TrainingState {
   phase: TrainingPhase;
-  /** Written MIDI, length MELODY_LENGTH. */
+  /** Written MIDI, length DEFAULT_MELODY_LENGTH (configurable lengths: prd2). */
   melody: Melody;
   /** spellMelody(melody), computed once. */
   names: readonly string[];

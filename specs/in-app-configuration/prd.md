@@ -191,7 +191,7 @@ Sharps are written `#` (as `noteName` already does, "Fa#"), flats `♭`. Ids are
 
 **`minMaxInterval(id)`:** chromatic → 1; specific scale → `largestStep` of its type (2 heptatonic, 3 pentatonic); group → max over members (`group:all` → 3, heptatonic groups → 2, pentatonic groups → 3).
 
-**Search — `searchScaleOptions(query)`.** Normalize = lowercase, `♭`→`b`, `♯`→`#`, trim, collapse runs of whitespace. Empty normalized query → all options. Otherwise keep (in `SCALE_OPTIONS` order) options whose normalized name **or** normalized English alias contains the normalized query as a substring. English alias = the name with the tonic syllable replaced (Do→C, Re→D, Mi→E, Fa→F, Sol→G, La→A, Si→B): "Si♭ major" → "Bb major", "Fa# dorian" → "F# dorian". Chromatic and groups have alias = name. Display always stays solfège.
+**Search — `searchScaleOptions(query)`.** Normalize = lowercase, `♭`→`b`, `♯`→`#`, trim, collapse runs of whitespace. Empty normalized query → all options. Otherwise keep options whose normalized name **or** normalized English alias contains the normalized query as a substring. English alias = the name with the tonic syllable replaced (Do→C, Re→D, Mi→E, Fa→F, Sol→G, La→A, Si→B): "Si♭ major" → "Bb major", "Fa# dorian" → "F# dorian". Chromatic and groups have alias = name. Display always stays solfège. Results are ranked by best match over name and alias: (1) the whole string starts with the query, (2) a later word starts with it, (3) substring; `SCALE_OPTIONS` order within each tier (added after review, suggestion `scales.ts:215-219`).
 
 | Query | Result (in order) |
 |---|---|
@@ -270,8 +270,8 @@ export function parseThreshold(value: unknown): number;
 
 - `selectScale`: `{ ...settings, scaleId, maxInterval: Math.max(settings.maxInterval, minMaxInterval(scaleId)) }`. It never lowers `maxInterval`.
 - `resetSettings(s, 'all')` → a copy of `DEFAULT_SETTINGS`; `resetSettings(s, 'training')` → `{ ...s, noteDurationMs: DEFAULT_NOTE_DURATION_MS, volume: DEFAULT_VOLUME }`. Neither touches the threshold (it is not part of `Settings`).
-- `normalizeSettings(value)`: if `value` is not a non-null object → `DEFAULT_SETTINGS`. Otherwise each field independently: kept if valid, else its default. Valid = `typeof === 'number'`, finite, in range, and: `noteDurationMs` a multiple of the step from the minimum; `melodyLength` and `maxInterval` integers (`maxInterval` range `minMaxInterval(CHROMATIC_ID)`..`MAX_INTERVAL_LIMIT`, i.e. 1..18); `scaleId` valid iff `isScaleOptionId`. Unknown extra keys are ignored. Finally apply the `selectScale` rule (raise `maxInterval` to the scale minimum).
-- `parseThreshold(value)`: a finite number in `METER_MIN_DB..METER_MAX_DB` → itself, else `DEFAULT_THRESHOLD_DB`.
+- `normalizeSettings(value)`: if `value` is not a non-null object → `DEFAULT_SETTINGS`. Otherwise each field independently: kept if valid, else its default. Valid = `typeof === 'number'`, finite, in range, and: `noteDurationMs` a multiple of the step from the minimum; `volume` a whole percent that is a multiple of `VOLUME_STEP_PERCENT`; `melodyLength` and `maxInterval` integers (`maxInterval` range `minMaxInterval(CHROMATIC_ID)`..`MAX_INTERVAL_LIMIT`, i.e. 1..18); `scaleId` valid iff `isScaleOptionId`. Unknown extra keys are ignored. Finally apply the `selectScale` rule (raise `maxInterval` to the scale minimum).
+- `parseThreshold(value)`: a finite number in `METER_MIN_DB..METER_MAX_DB` on a `THRESHOLD_STEP_DB` step from `METER_MIN_DB` → itself, else `DEFAULT_THRESHOLD_DB`.
 
 | `normalizeSettings` input | Output |
 |---|---|
@@ -361,7 +361,7 @@ export interface PlayCall {
 
 **Settings and storage**
 - [ ] `DEFAULT_SETTINGS` = 1000 ms, 5 notes, 0.5, 12, `major:do`.
-- [ ] `selectScale` raises but never lowers `maxInterval`; `resetSettings` scopes behave as specified; every `normalizeSettings` table row holds; `parseThreshold` accepts −60..0 and rejects NaN, ±Infinity, strings, out-of-range.
+- [ ] `selectScale` raises but never lowers `maxInterval`; `resetSettings` scopes behave as specified; every `normalizeSettings` table row holds; `parseThreshold` accepts −60..0 and rejects NaN, ±Infinity, strings, out-of-range and off-step (−35.5).
 - [ ] Storage round-trip with a fake storage restores settings and threshold; `null` storage, a throwing storage and invalid JSON return defaults and never throw; saving to a throwing storage does not throw.
 
 **Synth / services / fake**

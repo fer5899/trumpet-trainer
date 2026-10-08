@@ -1,0 +1,86 @@
+{
+  "exact": [
+    "major:mi Fa#4 Sol#4 La4 Sol#4 Sol#4 La4 La4 Sol#4",
+    "major:do-flat Do♭4 Si♭3 Si♭3 Si♭3 Si♭3 Si♭3 Do♭4 Do♭4",
+    "major:do-flat Do♭4 Do♭4 Do♭4 Si♭3 La♭3 Si♭3 Do♭4 Re♭4",
+    "major:re Si4 Si4 Si4 La4 Sol4 La4 Sol4 Fa#4",
+    "major:mi-flat La♭3 Si♭3 Do4 Si♭3 Si♭3 Si♭3 La♭3 La♭3"
+  ],
+  "checked": [
+    {
+      "line": "major:mi-flat Si♭4 La♭4 Si♭4 Do5 Do5 Si♭4 Do5 Si♭4",
+      "notes": [
+        70,
+        68,
+        70,
+        72,
+        72,
+        70,
+        72,
+        70
+      ],
+      "keySignature": -3,
+      "problems": []
+    },
+    {
+      "line": "major:fa Sol3 Sol3 Sol3 Sol3 Sol3 Sol3 Sol3 La3",
+      "notes": [
+        55,
+        55,
+        55,
+        55,
+        55,
+        55,
+        55,
+        57
+      ],
+      "keySignature": -1,
+      "problems": []
+    },
+    {
+      "line": "major:do-sharp Fa#4 Fa#4 Mi#4 Mi#4 Fa#4 Sol#4 La#4 La#4",
+      "notes": [
+        66,
+        66,
+        65,
+        65,
+        66,
+        68,
+        70,
+        70
+      ],
+      "keySignature": 7,
+      "problems": []
+    },
+    {
+      "line": "major:la-flat Mi♭4 Fa4 Sol4 Fa4 Sol4 Sol4 Sol4 La♭4",
+      "notes": [
+        63,
+        65,
+        67,
+        65,
+        67,
+        67,
+        67,
+        68
+      ],
+      "keySignature": -4,
+      "problems": []
+    },
+    {
+      "line": "major:do Do4 Do4 Si3 Si3 Si3 Do4 Si3 Do4",
+      "notes": [
+        60,
+        60,
+        59,
+        59,
+        59,
+        60,
+        59,
+        60
+      ],
+      "keySignature": 0,
+      "problems": []
+    }
+  ]
+}

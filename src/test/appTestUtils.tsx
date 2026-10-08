@@ -2,7 +2,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { AudioServicesProvider } from '../audio/AudioServicesContext';
-import { MELODY_LENGTH } from '../config/constants';
+import { DEFAULT_MELODY_LENGTH } from '../config/constants';
 import { App } from '../components/App';
 import { createFakeAudioServices, type FakeAudioServices } from './fakeAudioServices';
 import { createSessionDriver } from './sessionDriver';
@@ -36,4 +36,4 @@ export function renderApp(fake: FakeAudioServices = createFakeAudioServices()) {
 
 export const noteBox = (index: number) => screen.getByTestId(`note-box-${index}`);
 export const boxStates = () =>
-  Array.from({ length: MELODY_LENGTH }, (_, i) => noteBox(i).getAttribute('data-state'));
+  Array.from({ length: DEFAULT_MELODY_LENGTH }, (_, i) => noteBox(i).getAttribute('data-state'));

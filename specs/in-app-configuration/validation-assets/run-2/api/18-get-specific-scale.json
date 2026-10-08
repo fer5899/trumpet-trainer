@@ -1,0 +1,20 @@
+{
+  "item": 18,
+  "expression": "return [s.getSpecificScale('major:do')?.name, s.getSpecificScale('group:all'), s.getSpecificScale('chromatic'), s.getSpecificScale('toString'), (() => { const x = s.getSpecificScale('major:do'); return x ? [x.id, x.type, x.tonicName, s.getScaleOption(x.id)?.name].join('|') : null; })()];",
+  "expected": [
+    "undefined",
+    "undefined",
+    "undefined",
+    "undefined",
+    "major:do|major|Do|Do major"
+  ],
+  "actual": [
+    "undefined",
+    "undefined",
+    "undefined",
+    "undefined",
+    "major:do|major|Do|Do major"
+  ],
+  "match": true,
+  "grepHits": []
+}

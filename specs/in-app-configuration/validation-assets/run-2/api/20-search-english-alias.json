@@ -1,0 +1,15 @@
+{
+  "item": 20,
+  "expression": "return [s.searchScaleOptions('C major').map(o => o.name).slice(0, 2), s.searchScaleOptions('F# Dorian').map(o => o.name)];",
+  "expected": "first list starts with \"Do major\"; second is [\"Fa# dorian\"]",
+  "actual": [
+    [
+      "Do major",
+      "Do major pentatonic"
+    ],
+    [
+      "Fa# dorian"
+    ]
+  ],
+  "match": true
+}

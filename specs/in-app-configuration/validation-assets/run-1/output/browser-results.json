@@ -1,0 +1,176 @@
+{
+  "1": {
+    "status": "PASS",
+    "detail": "Got `[undefined,undefined,undefined,1000,0.5,\"major:do\"]`",
+    "images": [],
+    "links": [
+      [
+        "01-constants.json",
+        "run-1/api/01-constants.json"
+      ]
+    ]
+  },
+  "2": {
+    "status": "PASS",
+    "detail": "Got `146`",
+    "images": [],
+    "links": [
+      [
+        "02-scale-options-length.json",
+        "run-1/api/02-scale-options-length.json"
+      ]
+    ]
+  },
+  "3": {
+    "status": "PASS",
+    "detail": "Got `[\"Chromatic\",\"All scales\",\"All majors\",\"All natural minors\",\"All dorian\",\"All phrygian\",\"All lydian\",\"All mixolydian\",\"All locrian\",\"All major pentatonics\",\"All minor pentatonics\"]`",
+    "images": [],
+    "links": [
+      [
+        "03-first-11-names.json",
+        "run-1/api/03-first-11-names.json"
+      ]
+    ]
+  },
+  "4": {
+    "status": "PASS",
+    "detail": "Got `\"Si Fa# Do# Sol# Re# La# Mi# Si# Mi La Re Sol Do Fa Si♭\"`",
+    "images": [],
+    "links": [
+      [
+        "04-locrian-tonics.json",
+        "run-1/api/04-locrian-tonics.json"
+      ]
+    ]
+  },
+  "5": {
+    "status": "PASS",
+    "detail": "Got `[[\"Si♭ major\",\"Si♭ major pentatonic\"],[\"Fa# dorian\"]]`",
+    "images": [],
+    "links": [
+      [
+        "05-search.json",
+        "run-1/api/05-search.json"
+      ]
+    ]
+  },
+  "6": {
+    "status": "PASS",
+    "detail": "Got `[1,2,3,3]`",
+    "images": [],
+    "links": [
+      [
+        "06-min-max-interval.json",
+        "run-1/api/06-min-max-interval.json"
+      ]
+    ]
+  },
+  "7": {
+    "status": "PASS",
+    "detail": "Got `[[\"Si#3\",\"Mi#4\",\"Do#4\"],[\"Sol♭4\",\"Do♭5\",\"Si♭4\"]]`",
+    "images": [],
+    "links": [
+      [
+        "07-spell-in-key.json",
+        "run-1/api/07-spell-in-key.json"
+      ]
+    ]
+  },
+  "8": {
+    "status": "PASS",
+    "detail": "Got `[[55,62,72],\"major:do\"]`",
+    "images": [],
+    "links": [
+      [
+        "08-generate-exercise-worked-example.json",
+        "run-1/api/08-generate-exercise-worked-example.json"
+      ]
+    ]
+  },
+  "9": {
+    "status": "PASS",
+    "detail": "Exact expression: `major:mi Fa#4 Sol#4 La4 Sol#4 Sol#4 La4 La4 Sol#4`, `major:do-flat Do♭4 Si♭3 Si♭3 Si♭3 Si♭3 Si♭3 Do♭4 Do♭4`, `major:do-flat Do♭4 Do♭4 Do♭4 Si♭3 La♭3 Si♭3 Do♭4 Re♭4`, `major:re Si4 Si4 Si4 La4 Sol4 La4 Sol4 Fa#4`, `major:mi-flat La♭3 Si♭3 Do4 Si♭3 Si♭3 Si♭3 La♭3 La♭3`. A second sample of 5 checked note by note: scale is major, 8 notes, pitch classes in the scale, |step| ≤ 2, every accidental matches keySignatureAlters and every name maps back to its MIDI number.",
+    "images": [],
+    "links": [
+      [
+        "09-group-major-melodies.txt",
+        "run-1/api/09-group-major-melodies.txt"
+      ],
+      [
+        "09-group-major-check.json",
+        "run-1/api/09-group-major-check.json"
+      ]
+    ]
+  },
+  "10": {
+    "status": "PASS",
+    "detail": "Got `{\"noteDurationMs\":750,\"melodyLength\":5,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:fa\"}`",
+    "images": [],
+    "links": [
+      [
+        "10-normalize-settings.json",
+        "run-1/api/10-normalize-settings.json"
+      ]
+    ]
+  },
+  "11": {
+    "status": "PASS",
+    "detail": "After page.reload(): `[7,-35]` (expected `[7,-35]`). Raw stored: `{\"noteDurationMs\":1000,\"melodyLength\":7,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:do\"}`, `-35`.",
+    "images": [],
+    "links": [
+      [
+        "11-storage-round-trip.json",
+        "run-1/api/11-storage-round-trip.json"
+      ]
+    ]
+  },
+  "12": {
+    "status": "PASS",
+    "detail": "Returned `{\"noteDurationMs\":1000,\"melodyLength\":5,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:do\"}` without throwing; localStorage cleared (length 0).",
+    "images": [],
+    "links": [
+      [
+        "12-invalid-json-defaults.json",
+        "run-1/api/12-invalid-json-defaults.json"
+      ]
+    ]
+  },
+  "13": {
+    "status": "PASS",
+    "detail": "Status \"Listen…\", 5 note boxes. Oscillator starts at 0.071, 1.071, 2.071, 3.071, 4.071 s (spacing 1.000, 1.000, 1.000, 1.000 s), note durations 1.000, 1.000, 1.000, 1.000, 1.000 s, frequencies 233.1, 164.8, 293.7, 329.6, 415.3 Hz, master gain initial 0.5, envelope peaks 1, 1, 1, 1, 1; 2 playSequence call(s) logged (StrictMode may start and stop one extra), the last 5-note one is analysed. Loudness vs v0.1.0 / no clicks or distortion: manual ear check.",
+    "images": [
+      "run-1/screenshots/01-home.png",
+      "run-1/screenshots/02-chromatic-playing.png",
+      "run-1/screenshots/03-chromatic-listening.png"
+    ],
+    "links": [
+      [
+        "13-start-training-audio-log.json",
+        "run-1/api/13-start-training-audio-log.json"
+      ]
+    ]
+  },
+  "14": {
+    "status": "PASS",
+    "detail": "All 5 boxes data-state=\"done\" with names Si4, Si4, Si4, Si4, Si4; status \"Well done!\"; then back on Home. Server e2e mode (VITE_E2E): true. Real trumpet: manual.",
+    "images": [
+      "run-1/screenshots/04-si4-playing.png",
+      "run-1/screenshots/05-si4-listening.png",
+      "run-1/screenshots/06-si4-progress.png",
+      "run-1/screenshots/07-si4-complete.png",
+      "run-1/screenshots/08-si4-back-home.png"
+    ],
+    "links": []
+  },
+  "15": {
+    "status": "PASS",
+    "detail": "AudioContext \"running\". linearRampToValueAtTime(1) issued 2.000 s after playSequence (ctx 2.000 s), ramp length 20.0 ms (expected 20 ms), preceded by cancelScheduledValues + setValueAtTime(0.200); master initial gain 0.2; note starts 0.050, 1.050, 2.050, 3.050, 4.050 s. Audible smoothness (no click): manual.",
+    "images": [],
+    "links": [
+      [
+        "15-set-volume-audio-log.json",
+        "run-1/api/15-set-volume-audio-log.json"
+      ]
+    ]
+  }
+}

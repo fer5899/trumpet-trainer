@@ -7,7 +7,7 @@ import {
 } from '../audio/microphone';
 import type { PitchResult } from '../audio/pitchDetector';
 import type { AudioServices } from '../audio/services';
-import type { Playback } from '../audio/synth';
+import type { Playback, PlaybackOptions } from '../audio/synth';
 import { DB_PER_DECADE, MIC_FFT_SIZE } from '../config/constants';
 
 export const FAKE_SAMPLE_RATE = 48000;
@@ -22,6 +22,9 @@ export interface FakeMicrophoneSession extends MicrophoneSession {
 export interface PlayCall {
   frequenciesHz: readonly number[];
   noteDurationMs: number;
+  volume: number;
+  /** Every setVolume(v) call on this playback, in order (recorded even after done/stop). */
+  volumeChanges: number[];
 }
 
 export interface FakeTone {
@@ -34,7 +37,7 @@ export interface FakeAudioServices {
   services: AudioServices & {
     unlock: ReturnType<typeof vi.fn<() => void>>;
     openMicrophone: ReturnType<typeof vi.fn<() => Promise<MicrophoneSession>>>;
-    playMelody: ReturnType<typeof vi.fn<(frequenciesHz: readonly number[], noteDurationMs: number) => Playback>>;
+    playMelody: ReturnType<typeof vi.fn<(frequenciesHz: readonly number[], options: PlaybackOptions) => Playback>>;
     detectPitch: ReturnType<typeof vi.fn<(samples: Float32Array, sampleRate: number) => PitchResult | null>>;
   };
   /** Makes the next `openMicrophone` reject with `new MicrophoneError(kind)`. */
@@ -100,8 +103,9 @@ export function createFakeAudioServices(): FakeAudioServices {
       sessions.push(session);
       return Promise.resolve(session);
     }),
-    playMelody: vi.fn((frequenciesHz: readonly number[], noteDurationMs: number): Playback => {
-      playCalls.push({ frequenciesHz: [...frequenciesHz], noteDurationMs });
+    playMelody: vi.fn((frequenciesHz: readonly number[], { noteDurationMs, volume }: PlaybackOptions): Playback => {
+      const call: PlayCall = { frequenciesHz: [...frequenciesHz], noteDurationMs, volume, volumeChanges: [] };
+      playCalls.push(call);
       let resolveDone!: () => void;
       const done = new Promise<void>((resolve) => {
         resolveDone = resolve;
@@ -112,6 +116,9 @@ export function createFakeAudioServices(): FakeAudioServices {
         stop() {
           stop();
           resolveDone();
+        },
+        setVolume(nextVolume) {
+          call.volumeChanges.push(nextVolume);
         },
       };
     }),

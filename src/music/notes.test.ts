@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+  alterSign,
+  FLAT_SIGN,
+  LETTER_PITCH_CLASSES,
+  NOTE_LETTERS,
+  SHARP_SIGN,
   WRITTEN_RANGE,
   centsFrom,
   isInWrittenRange,
@@ -7,6 +12,26 @@ import {
   noteName,
   writtenToConcert,
 } from './notes';
+
+describe('letters and accidental signs', () => {
+  it('lists the seven solfège letters and their natural pitch classes', () => {
+    expect(NOTE_LETTERS).toEqual(['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si']);
+    expect(LETTER_PITCH_CLASSES).toEqual([0, 2, 4, 5, 7, 9, 11]);
+  });
+
+  it('uses U+0023 for sharp and U+266D for flat', () => {
+    expect(SHARP_SIGN).toBe('#');
+    expect(FLAT_SIGN).toBe('♭');
+  });
+
+  it.each([
+    [1, '#'],
+    [0, ''],
+    [-1, '♭'],
+  ] as const)('alterSign(%i) = %j', (alter, sign) => {
+    expect(alterSign(alter)).toBe(sign);
+  });
+});
 
 describe('WRITTEN_RANGE', () => {
   it('has the 19 chromatic notes 54..72 in order', () => {

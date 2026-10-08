@@ -2,7 +2,12 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { computeLevelDb } from '../audio/level';
 import type { MicrophoneSession } from '../audio/microphone';
-import { COMPLETE_PAUSE_MS, LISTEN_GUARD_MS, NOTE_DURATION_MS } from '../config/constants';
+import {
+  COMPLETE_PAUSE_MS,
+  DEFAULT_NOTE_DURATION_MS,
+  DEFAULT_VOLUME,
+  LISTEN_GUARD_MS,
+} from '../config/constants';
 import { midiToHz, writtenToConcert, type Melody } from '../music/notes';
 import { createSustainTracker } from './sustainTracker';
 import {
@@ -69,10 +74,11 @@ export function useTrainingSession({
     tracker.reset();
     let cancelled = false;
     let settled = false;
-    const playback = services.playMelody(
-      melody.map((m) => midiToHz(writtenToConcert(m))),
-      NOTE_DURATION_MS,
-    );
+    // Default duration and volume until the settings are wired in (prd2 §5.2).
+    const playback = services.playMelody(melody.map((m) => midiToHz(writtenToConcert(m))), {
+      noteDurationMs: DEFAULT_NOTE_DURATION_MS,
+      volume: DEFAULT_VOLUME,
+    });
     const stopIfRunning = (): void => {
       if (settled) return;
       settled = true;

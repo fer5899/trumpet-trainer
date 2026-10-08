@@ -5,14 +5,21 @@ import { AudioServicesProvider } from '../audio/AudioServicesContext';
 import type { MicrophoneSession } from '../audio/microphone';
 import {
   COMPLETE_PAUSE_MS,
+  DEFAULT_NOTE_DURATION_MS,
   DEFAULT_THRESHOLD_DB,
+  DEFAULT_VOLUME,
   LISTEN_GUARD_MS,
-  NOTE_DURATION_MS,
   SUSTAIN_MS,
 } from '../config/constants';
 import type { Melody } from '../music/notes';
 import { createFakeAudioServices, type FakeAudioServices } from '../test/fakeAudioServices';
-import { concertHz, createSessionDriver, FRAME_MS, type SessionDriver } from '../test/sessionDriver';
+import {
+  concertHz,
+  createSessionDriver,
+  FRAME_MS,
+  TIMER_DRIFT_MARGIN_MS,
+  type SessionDriver,
+} from '../test/sessionDriver';
 import { useTrainingSession } from './useTrainingSession';
 
 const MELODY = [71, 60, 72, 54, 66] as const;
@@ -49,7 +56,9 @@ describe('useTrainingSession', () => {
   it('plays the melody once in concert pitch on mount', async () => {
     const { result } = await setup();
     expect(result.current.state.phase).toBe('playing');
-    expect(fake.playCalls).toEqual([{ frequenciesHz: MELODY.map(concertHz), noteDurationMs: NOTE_DURATION_MS }]);
+    expect(fake.playCalls).toEqual([
+      { frequenciesHz: MELODY.map(concertHz), noteDurationMs: DEFAULT_NOTE_DURATION_MS, volume: DEFAULT_VOLUME, volumeChanges: [] },
+    ]);
     expect(result.current.canAct).toBe(false);
     expect(result.current.boxes[0]).toEqual({ state: 'active', name: null });
   });
@@ -58,9 +67,9 @@ describe('useTrainingSession', () => {
     const { result } = await setup();
     await finishPlayback();
     expect(result.current.state.phase).toBe('guard');
-    await elapse(LISTEN_GUARD_MS - 1);
+    await elapse(LISTEN_GUARD_MS - TIMER_DRIFT_MARGIN_MS);
     expect(result.current.state.phase).toBe('guard');
-    await elapse(1);
+    await elapse(TIMER_DRIFT_MARGIN_MS);
     expect(result.current.state.phase).toBe('listening');
     expect(result.current.canAct).toBe(true);
   });
@@ -188,10 +197,10 @@ describe('useTrainingSession', () => {
     expect(result.current.boxes.map((b) => b.state)).toEqual(['done', 'done', 'done', 'done', 'done']);
     expect(result.current.boxes.map((b) => b.name)).toEqual(['Si4', 'Do4', 'Do5', 'Sol♭3', 'Fa#4']);
     expect(fake.sessions[0].listenerCount).toBe(0);
-    await elapse(COMPLETE_PAUSE_MS - 1);
+    await elapse(COMPLETE_PAUSE_MS - TIMER_DRIFT_MARGIN_MS);
     expect(onExit).not.toHaveBeenCalled();
     expect(fake.sessions[0].released).toBe(false);
-    await elapse(1);
+    await elapse(TIMER_DRIFT_MARGIN_MS);
     expect(fake.sessions[0].released).toBe(true);
     expect(onExit).toHaveBeenCalledTimes(1);
   });

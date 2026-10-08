@@ -1,7 +1,7 @@
 import { getAudioContext, unlockAudio, WebAudioUnsupportedError } from './audioContext';
 import { MicrophoneError, openMicrophone, type MicrophoneSession } from './microphone';
 import { detectPitch, type PitchResult } from './pitchDetector';
-import { playSequence, type Playback } from './synth';
+import { playSequence, type Playback, type PlaybackOptions } from './synth';
 
 /**
  * The single injection seam between the UI and the browser audio APIs. Components get it via
@@ -12,7 +12,8 @@ export interface AudioServices {
   unlock(): void;
   /** Rejects with `MicrophoneError`. */
   openMicrophone(): Promise<MicrophoneSession>;
-  playMelody(frequenciesHz: readonly number[], noteDurationMs: number): Playback;
+  /** `options.noteDurationMs` is read once at start; the volume can change via `Playback.setVolume`. */
+  playMelody(frequenciesHz: readonly number[], options: PlaybackOptions): Playback;
   detectPitch(samples: Float32Array, sampleRate: number): PitchResult | null;
 }
 
@@ -32,8 +33,7 @@ export function createBrowserAudioServices(): AudioServices {
     unlock: unlockAudio,
     // async: a missing/failed AudioContext rejects instead of throwing inside the caller.
     openMicrophone: async () => openMicrophone(getMicrophoneContext()),
-    playMelody: (frequenciesHz, noteDurationMs) =>
-      playSequence(getAudioContext(), frequenciesHz, noteDurationMs),
+    playMelody: (frequenciesHz, options) => playSequence(getAudioContext(), frequenciesHz, options),
     detectPitch,
   };
 }
