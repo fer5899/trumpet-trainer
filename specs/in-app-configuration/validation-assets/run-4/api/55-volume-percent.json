@@ -1,0 +1,38 @@
+{
+  "start": "50",
+  "afterKeys": {
+    "visible": "35%",
+    "aria": "35%",
+    "value": 35,
+    "min": 0,
+    "max": 100,
+    "step": 5,
+    "labelFor": true
+  },
+  "storedRaw": "{\"noteDurationMs\":1000,\"melodyLength\":5,\"volume\":0.35,\"maxInterval\":12,\"scaleId\":\"major:do\"}",
+  "afterReload": {
+    "visible": "35%",
+    "aria": "35%",
+    "value": 35,
+    "min": 0,
+    "max": 100,
+    "step": 5,
+    "labelFor": true
+  },
+  "expression": "const st = await import('/src/config/settings.ts'); return [st.volumeToPercent(0.35), st.percentToVolume(35), st.normalizeSettings({ ...st.DEFAULT_SETTINGS, volume: 0.35 }).volume];",
+  "consoleResult": [
+    35,
+    0.35,
+    0.35
+  ],
+  "grep": {
+    "pattern": "\\* PERCENT|/ PERCENT in src/**/*.tsx",
+    "hits": [
+      {
+        "file": "src/components/MicLevelMeter.tsx",
+        "line": 26,
+        "text": "const toPercent = (db: number): number => ((clampToMeter(db) - METER_MIN_DB) / METER_SPAN_DB) * PERCENT;"
+      }
+    ]
+  }
+}

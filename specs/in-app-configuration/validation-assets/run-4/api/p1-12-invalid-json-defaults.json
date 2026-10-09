@@ -1,0 +1,17 @@
+{
+  "expected": {
+    "noteDurationMs": 1000,
+    "melodyLength": 5,
+    "volume": 0.5,
+    "maxInterval": 12,
+    "scaleId": "major:do"
+  },
+  "actual": {
+    "noteDurationMs": 1000,
+    "melodyLength": 5,
+    "volume": 0.5,
+    "maxInterval": 12,
+    "scaleId": "major:do"
+  },
+  "localStorageLengthAfterClear": 0
+}

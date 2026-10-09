@@ -1,0 +1,21 @@
+{
+  "step": 1,
+  "expression": "const c = await import('/src/config/constants.ts'); return [c.MELODY_LENGTH, c.NOTE_DURATION_MS, c.SYNTH_PEAK_GAIN, c.DEFAULT_NOTE_DURATION_MS, c.DEFAULT_VOLUME, c.DEFAULT_SCALE_ID];",
+  "expected": [
+    "undefined",
+    "undefined",
+    "undefined",
+    1000,
+    0.5,
+    "major:do"
+  ],
+  "actual": [
+    "undefined",
+    "undefined",
+    "undefined",
+    1000,
+    0.5,
+    "major:do"
+  ],
+  "match": true
+}

@@ -1,0 +1,705 @@
+{
+  "1": {
+    "status": "PASS",
+    "detail": "Gear at (900, 24) 44×44 px, bottom 68 ≤ title \"Trumpet Trainer\" top 76; right edge 944 = content column right 944 (viewport 1280, column max 40rem). aria-label \"Settings\", aria-haspopup \"dialog\", AX tree: button \"Settings\". No title attribute (no native hover tooltip); the accessible name comes from aria-label.",
+    "images": [
+      "run-3/screenshots/01-home-gear.png",
+      "run-3/screenshots/02-home-gear-hover.png"
+    ],
+    "links": [
+      [
+        "01-gear.json",
+        "run-3/api/01-gear.json"
+      ]
+    ]
+  },
+  "2": {
+    "status": "PASS",
+    "detail": "Modal (:modal true) titled \"Settings\", backdrop rgba(0, 0, 0, 0.45). Scale \"Do major\", Melody length \"5 notes\", Max interval \"12 semitones\", Note duration \"1000 ms\", Playback volume \"50%\". Buttons: Reset to defaults, Close (no Save). Scale combobox aria-expanded=\"false\", 0 listbox in the DOM.",
+    "images": [
+      "run-3/screenshots/03-dialog-home-defaults.png"
+    ],
+    "links": [
+      [
+        "02-dialog.json",
+        "run-3/api/02-dialog.json"
+      ]
+    ]
+  },
+  "3": {
+    "status": "PASS",
+    "detail": "Dialog closed on Esc; focus on BUTTON aria-label \"Settings\", :focus-visible true, outline solid 3px.",
+    "images": [
+      "run-3/screenshots/04-esc-focus-on-gear.png"
+    ],
+    "links": [
+      [
+        "03-esc-focus.json",
+        "run-3/api/03-esc-focus.json"
+      ]
+    ]
+  },
+  "4": {
+    "status": "PASS",
+    "detail": "Dialog closed by Close; focus on BUTTON aria-label \"Settings\" (:focus-visible false — after a mouse click Chromium may not show the ring).",
+    "images": [
+      "run-3/screenshots/05-close-focus-on-gear.png"
+    ],
+    "links": []
+  },
+  "5": {
+    "status": "PASS",
+    "detail": "Clicked (5, 5) outside the dialog rect (x 384–896, y 120–680); after 500 ms the dialog is still open.",
+    "images": [
+      "run-3/screenshots/06-backdrop-click-still-open.png"
+    ],
+    "links": []
+  },
+  "6": {
+    "status": "FAIL",
+    "detail": "Problems: focus dropped to `<body>` after Scale (one extra Tab needed; the focus ring disappears; no focusin event fires) — likely the focus move targets the scale list (a scrollable `<ul>`, keyboard-focusable in Chromium), which unmounts on the input's blur. Initial focus: (dialog). 16 × Tab: Scale → (body) → Melody length → Max interval → Note duration → Playback volume → Reset to defaults → Close → (body) → Scale → (body) → Melody length → Max interval → Note duration → Playback volume → Reset to defaults. Never on an element behind the dialog. 3 stop(s) on body/dialog itself (Chromium moves focus out to the browser chrome / document between cycles; no page element behind the dialog receives focus).",
+    "images": [
+      "run-3/screenshots/07-tab-cycle-end.png"
+    ],
+    "links": [
+      [
+        "06-tab-sequence.json",
+        "run-3/api/06-tab-sequence.json"
+      ]
+    ]
+  },
+  "7": {
+    "status": "PASS",
+    "detail": "Browser permission prompt simulated by an init script delaying getUserMedia by 2 s (the fake-UI flag auto-accepts the real prompt). Right after the click: Start disabled true, Test microphone disabled true, gear disabled true; still disabled 1 s later. Training screen shown → gear disabled false. The real prompt UI itself: manual.",
+    "images": [
+      "run-3/screenshots/29-permission-pending-disabled.png",
+      "run-3/screenshots/30-permission-granted-training.png"
+    ],
+    "links": [
+      [
+        "07-permission-pending.json",
+        "run-3/api/07-permission-pending.json"
+      ]
+    ]
+  },
+  "8": {
+    "status": "PASS",
+    "detail": "min 3, max 8, step 1. Home → \"3 notes\", End → \"8 notes\"; ArrowRight sweep (6 values): 3 notes, 4 notes, 5 notes, 6 notes, 7 notes, 8 notes; aria-valuetext equals the visible text at every step. (Keyboard stepping stands in for dragging: both set the same input value.)",
+    "images": [
+      "run-3/screenshots/09-melody-length-max.png"
+    ],
+    "links": [
+      [
+        "8-melody-length-sweep.json",
+        "run-3/api/8-melody-length-sweep.json"
+      ]
+    ]
+  },
+  "9": {
+    "status": "PASS",
+    "detail": "min 250, max 1500, step 50. Home → \"250 ms\", End → \"1500 ms\"; ArrowRight sweep (26 values): 250 ms, 300 ms, 350 ms, 400 ms, 450 ms, 500 ms, 550 ms, 600 ms, 650 ms, 700 ms, 750 ms, 800 ms, 850 ms, 900 ms, 950 ms, 1000 ms, 1050 ms, 1100 ms, 1150 ms, 1200 ms, 1250 ms, 1300 ms, 1350 ms, 1400 ms, 1450 ms, 1500 ms; aria-valuetext equals the visible text at every step. (Keyboard stepping stands in for dragging: both set the same input value.)",
+    "images": [
+      "run-3/screenshots/10-note-duration-max.png"
+    ],
+    "links": [
+      [
+        "9-note-duration-sweep.json",
+        "run-3/api/9-note-duration-sweep.json"
+      ]
+    ]
+  },
+  "10": {
+    "status": "PASS",
+    "detail": "min 0, max 100, step 5. Home → \"0%\", End → \"100%\"; ArrowRight sweep (21 values): 0%, 5%, 10%, 15%, 20%, 25%, 30%, 35%, 40%, 45%, 50%, 55%, 60%, 65%, 70%, 75%, 80%, 85%, 90%, 95%, 100%; aria-valuetext equals the visible text at every step. (Keyboard stepping stands in for dragging: both set the same input value.)",
+    "images": [
+      "run-3/screenshots/11-volume-max.png"
+    ],
+    "links": [
+      [
+        "10-volume-sweep.json",
+        "run-3/api/10-volume-sweep.json"
+      ]
+    ]
+  },
+  "11": {
+    "status": "PASS",
+    "detail": "Scale Chromatic: min 1, max 18; fully left \"1 semitone\" (singular), fully right \"18 semitones\"; sweep 1 semitone, 2 semitones, 3 semitones, 4 semitones, 5 semitones, 6 semitones, 7 semitones, 8 semitones, 9 semitones, 10 semitones, 11 semitones, 12 semitones, 13 semitones, 14 semitones, 15 semitones, 16 semitones, 17 semitones, 18 semitones. Reset to defaults afterwards.",
+    "images": [
+      "run-3/screenshots/12-max-interval-chromatic-min.png",
+      "run-3/screenshots/13-max-interval-chromatic-max.png"
+    ],
+    "links": [
+      [
+        "11-max-interval-sweep.json",
+        "run-3/api/11-max-interval-sweep.json"
+      ]
+    ]
+  },
+  "12": {
+    "status": "PASS",
+    "detail": "Melody length: role slider by name ✓, aria-valuetext \"5 notes\" = visible \"5 notes\", AX name \"Melody length\"; Max interval: role slider by name ✓, aria-valuetext \"12 semitones\" = visible \"12 semitones\", AX name \"Max interval\"; Note duration: role slider by name ✓, aria-valuetext \"1000 ms\" = visible \"1000 ms\", AX name \"Note duration\"; Playback volume: role slider by name ✓, aria-valuetext \"50%\" = visible \"50%\", AX name \"Playback volume\". Labels checked with Playwright role queries and the Chromium accessibility tree (CDP); aria-valuetext checked on the DOM (what the DevTools Accessibility pane lists under \"ARIA attributes\"). **Caveat:** Chromium's *computed* AX value/valuetext for these native range inputs is the number, not the aria-valuetext (Melody length → \"5\", Max interval → \"12\", Note duration → \"1000\", Playback volume → \"50\"); confirm with NVDA / VoiceOver that \"5 notes\" etc. is announced. Screen-reader speech itself: manual.",
+    "images": [
+      "run-3/screenshots/08-sliders-a11y-defaults.png"
+    ],
+    "links": [
+      [
+        "12-slider-a11y.json",
+        "run-3/api/12-slider-a11y.json"
+      ]
+    ]
+  },
+  "13": {
+    "status": "PASS",
+    "detail": "Value \"Do major\" selected (0–8); list below the field inside the dialog, 146 options, max-height 240px (15 rem), rendered height 240 px, overflow-y auto, scrollable. First options: Chromatic, All scales, All majors, All natural minors, All dorian, All phrygian, All lydian, All mixolydian, All locrian, All major pentatonics, All minor pentatonics, Do major, Sol major …; highlighted (aria-selected / aria-activedescendant): \"Do major\" at index 11, in view (list scrollTop 248). Visual highlight: see screenshot.",
+    "images": [
+      "run-3/screenshots/14-combobox-open-do-major.png"
+    ],
+    "links": [
+      [
+        "13-combobox-open.json",
+        "run-3/api/13-combobox-open.json"
+      ]
+    ]
+  },
+  "14": {
+    "status": "PASS",
+    "detail": "Typed \"bb major\": options [\"Si♭ major\",\"Si♭ major pentatonic\"], highlighted \"Si♭ major\".",
+    "images": [
+      "run-3/screenshots/15-combobox-bb-major.png"
+    ],
+    "links": []
+  },
+  "15": {
+    "status": "PASS",
+    "detail": "After Enter: list closed, field \"Si♭ major\", dialog open.",
+    "images": [
+      "run-3/screenshots/16-combobox-enter-si-flat-major.png"
+    ],
+    "links": []
+  },
+  "16": {
+    "status": "PASS",
+    "detail": "\"xyz\" → single row \"No matching scales\" (aria-disabled, colour rgb(107, 114, 128) vs text rgb(31, 35, 40), cursor default). Click on it and Enter: list stays open, field stays \"xyz\", stored scaleId stays major:si-flat.",
+    "images": [
+      "run-3/screenshots/17-combobox-no-matches.png"
+    ],
+    "links": [
+      [
+        "16-no-matches.json",
+        "run-3/api/16-no-matches.json"
+      ]
+    ]
+  },
+  "17": {
+    "status": "PASS",
+    "detail": "First Esc: list closed, field \"Si♭ major\", dialog open. Second Esc: dialog closed.",
+    "images": [
+      "run-3/screenshots/18-combobox-esc-reverted.png"
+    ],
+    "links": []
+  },
+  "18": {
+    "status": "PASS",
+    "detail": "\"sol\" showed 19 options (Sol major, Sol♭ major, Sol# minor, Sol minor …). Tab → list closed, field \"Si♭ major\", focus on \"BODY\" (not on Melody length: see item 6). Again \"sol\" + click on the dialog title → list closed, field \"Si♭ major\". Stored scaleId major:si-flat (unchanged).",
+    "images": [
+      "run-3/screenshots/19-combobox-sol-reverted.png"
+    ],
+    "links": []
+  },
+  "19": {
+    "status": "PASS",
+    "detail": "Start on \"Si♭ major\" (index 20); ArrowDown×3 / ArrowUp×3 trail 20 → 21 → 22 → 23 → 22 → 21 → 20. 25× ArrowUp stops at index 0 \"Chromatic\" (no wrap); 150× ArrowDown stops at 145 \"La♭ minor pentatonic\" (no wrap; list scrollTop 5608, option in view). ArrowUp → \"Mi♭ minor pentatonic\", Enter selects \"Mi♭ minor pentatonic\". (Home/End are not combobox keys here: the field is a text input.)",
+    "images": [
+      "run-3/screenshots/20-combobox-arrow-last.png"
+    ],
+    "links": [
+      [
+        "19-arrows.json",
+        "run-3/api/19-arrows.json"
+      ]
+    ]
+  },
+  "20": {
+    "status": "PASS",
+    "detail": "\"f# dorian\" + Enter → \"Fa# dorian\". \"sib\" listed Si♭ major, Si♭ minor, Si♭ dorian, Si♭ phrygian, Si♭ lydian, Si♭ mixolydian, Si♭ locrian, Si♭ major pentatonic, Si♭ minor pentatonic; mouse click → \"Si♭ major pentatonic\", focus in the field: true, list closed: true. Stored scaleId major-pentatonic:si-flat.",
+    "images": [
+      "run-3/screenshots/21-combobox-mouse-click.png"
+    ],
+    "links": []
+  },
+  "21": {
+    "status": "PASS",
+    "detail": "Do major: max interval 2 (min 2). Do major pentatonic → \"3 semitones\", slider min 3; Home keeps 3.",
+    "images": [
+      "run-3/screenshots/22-max-interval-pentatonic-3.png"
+    ],
+    "links": []
+  },
+  "22": {
+    "status": "PASS",
+    "detail": "Chromatic: value stays \"3 semitones\", min 1; the slider can go down to \"1 semitone\".",
+    "images": [
+      "run-3/screenshots/23-max-interval-chromatic.png"
+    ],
+    "links": []
+  },
+  "23": {
+    "status": "PASS",
+    "detail": "All scales: slider min 3, value \"3 semitones\" (raised from 1 by selectScale).",
+    "images": [
+      "run-3/screenshots/24-max-interval-all-scales.png"
+    ],
+    "links": []
+  },
+  "24": {
+    "status": "PASS",
+    "detail": "Changed to {\"scale\":\"Fa major\",\"Melody length\":\"7 notes\",\"Max interval\":\"9 semitones\",\"Note duration\":\"500 ms\",\"Playback volume\":\"80%\"} and threshold \"Threshold: −25 dB\". Reset → {\"scale\":\"Do major\",\"Melody length\":\"5 notes\",\"Max interval\":\"12 semitones\",\"Note duration\":\"1000 ms\",\"Playback volume\":\"50%\"}; threshold label still \"Threshold: −25 dB\" (stored -25).",
+    "images": [
+      "run-3/screenshots/25-reset-defaults.png"
+    ],
+    "links": []
+  },
+  "25": {
+    "status": "PASS",
+    "detail": "After reload: {\"scale\":\"All majors\",\"Melody length\":\"7 notes\",\"Max interval\":\"9 semitones\",\"Note duration\":\"750 ms\",\"Playback volume\":\"80%\"}; \"Threshold: −30 dB\" (slider value -30).",
+    "images": [
+      "run-3/screenshots/26-persistence-after-reload.png"
+    ],
+    "links": []
+  },
+  "26": {
+    "status": "PASS",
+    "detail": "JSON.parse(localStorage['trumpet-trainer.settings.v1']) = `{\"noteDurationMs\":750,\"melodyLength\":7,\"volume\":0.8,\"maxInterval\":9,\"scaleId\":\"group:major\"}`; localStorage['trumpet-trainer.thresholdDb'] = `\"-30\"`.",
+    "images": [],
+    "links": [
+      [
+        "26-local-storage.json",
+        "run-3/api/26-local-storage.json"
+      ]
+    ]
+  },
+  "27": {
+    "status": "PASS",
+    "detail": "App loaded normally (Start enabled true); dialog {\"scale\":\"Do major\",\"Melody length\":\"5 notes\",\"Max interval\":\"12 semitones\",\"Note duration\":\"1000 ms\",\"Playback volume\":\"50%\"}; \"Threshold: −40 dB\". localStorage cleared afterwards.",
+    "images": [
+      "run-3/screenshots/27-invalid-storage-defaults.png"
+    ],
+    "links": []
+  },
+  "28": {
+    "status": "PASS",
+    "detail": "Blocked storage emulated by an init script whose window.localStorage getter throws SecurityError (as Chrome does with site data blocked); access → SecurityError, getBrowserStorage() → null. Defaults on load; changes applied during the visit {\"scale\":\"Do major\",\"Melody length\":\"4 notes\",\"Max interval\":\"12 semitones\",\"Note duration\":\"500 ms\",\"Playback volume\":\"30%\"}; exercise ?melody=71,71,71 played 3 boxes at [0.5,0.5] s/note (the in-memory 500 ms) and completed. After reload: {\"scale\":\"Do major\",\"Melody length\":\"5 notes\",\"Max interval\":\"12 semitones\",\"Note duration\":\"1000 ms\",\"Playback volume\":\"50%\"}, \"Threshold: −40 dB\". Console errors: 0 (0 incl. favicon). Incognito window: not separately automated (fresh context = empty storage).",
+    "images": [
+      "run-3/screenshots/31-blocked-storage-training.png",
+      "run-3/screenshots/32-blocked-storage-after-reload.png"
+    ],
+    "links": [
+      [
+        "28-blocked-storage.json",
+        "run-3/api/28-blocked-storage.json"
+      ]
+    ]
+  },
+  "29": {
+    "status": "PASS",
+    "detail": "Melody length 3 (note duration 250 ms to save time): 3 boxes, first listening status \"Your turn: play note 1 of 3\", played written MIDI [69,71,69]; Give up → Home (listening).",
+    "images": [
+      "run-3/screenshots/33-length-3-your-turn.png"
+    ],
+    "links": []
+  },
+  "30": {
+    "status": "PASS",
+    "detail": "1280 × 800: 8 boxes, 8 on one row (y 126), gaps left 4.0 / right 4.0 px (centered). Give up → Home (listening).",
+    "images": [
+      "run-3/screenshots/34-length-8-one-row.png"
+    ],
+    "links": []
+  },
+  "31": {
+    "status": "PASS",
+    "detail": "4 real exercises (notes read from the synth's oscillator frequencies): La4 La3 Re4 Fa4 Do5 Fa4 Si♭3 La4 | La4 Sol4 Si♭3 Mi4 La3 Re4 Re4 Do5 | Si♭3 Sol3 Si♭3 Sol4 La3 Re4 La4 Si♭3 | Sol3 Fa4 Do4 Do4 Si♭3 Do4 Do4 Re4 — all in Fa major, 0 Si♭ shown as \"Si♭4\", no \"La#\". Module sample of 300: 411 Si♭, 0 La#, 0 out-of-key. Names come from the app's spellExercise (the UI only shows a name once a note is played correctly; the 440 Hz fake mic cannot play Fa major notes).",
+    "images": [
+      "run-3/screenshots/35-fa-major-exercise.png"
+    ],
+    "links": [
+      [
+        "31-fa-major.json",
+        "run-3/api/31-fa-major.json"
+      ]
+    ]
+  },
+  "32": {
+    "status": "PASS",
+    "detail": "After 9 exercise(s) one started with written Si (71); the fake mic (concert A4 = written 71) played it and box 1 turned green showing \"Do♭5\". Module spellInKey([71], −6) = \"Do♭5\".",
+    "images": [
+      "run-3/screenshots/36-sol-flat-major-do-flat-5.png"
+    ],
+    "links": [
+      [
+        "32-sol-flat-major.json",
+        "run-3/api/32-sol-flat-major.json"
+      ]
+    ]
+  },
+  "33": {
+    "status": "PASS",
+    "detail": "5 real exercises, candidate major keys from the played notes: [major:mi, major:si, major:fa-sharp, major:sol-flat, major:do-flat] [major:si, major:do-flat] [major:do-sharp, major:re-flat] [major:la, major:mi] [major:fa, major:si-flat] (different keys across exercises: true). Repeat in exercise 1: first [56,63,59,56,66,61,66,54] vs repeat [56,63,59,56,66,61,66,54] (identical: true). Module: 14 distinct keys in 100 group:major exercises.",
+    "images": [
+      "run-3/screenshots/37-all-majors-after-repeat.png"
+    ],
+    "links": [
+      [
+        "33-all-majors.json",
+        "run-3/api/33-all-majors.json"
+      ]
+    ]
+  },
+  "34": {
+    "status": "PASS",
+    "detail": "3 real exercises: 64,64,65,65,65,65,66,65 | 67,67,68,68,69,69,68,69 | 54,54,54,55,56,56,55,56; steps 0,1,0,0,0,1,1 | 0,1,0,1,0,1,1 | 0,0,1,1,0,1,1 (all ≤ 1). Module: largest step over 200 exercises = 1.",
+    "images": [
+      "run-3/screenshots/38-chromatic-interval-1.png"
+    ],
+    "links": [
+      [
+        "34-chromatic-interval-1.json",
+        "run-3/api/34-chromatic-interval-1.json"
+      ]
+    ]
+  },
+  "35": {
+    "status": "PASS",
+    "detail": "?melody=71,60,60,60 at 1500 ms / 50%. Gear opened while \"Listen…\": sliders [\"Note duration\",\"Playback volume\"], no Scale field, hint \"Other settings can be changed on the home screen.\". 0.8 s later status still \"Listen…\"; the 4-note playback (spacing [1.5,1.5,1.5] s) was not stopped (2 playSequence call(s) incl. StrictMode's cancelled one).",
+    "images": [
+      "run-3/screenshots/39-training-dialog.png"
+    ],
+    "links": [
+      [
+        "35-training-dialog.json",
+        "run-3/api/35-training-dialog.json"
+      ]
+    ]
+  },
+  "36": {
+    "status": "PASS",
+    "detail": "Master gain: cancelScheduledValues(1.04), setValueAtTime(0.5, 1.04), linearRampToValueAtTime(1, 1.06), cancelScheduledValues(1.472), setValueAtTime(1, 1.472), linearRampToValueAtTime(0, 1.492). Ramp to 1 at +0.97 s and to 0 at +1.40 s into the melody (last note ends +6.00 s), each 20.0 / 20.0 ms; 0 new oscillators, playback not stopped (no restart). Audible smoothness / silence at 0%: manual ear check.",
+    "images": [
+      "run-3/screenshots/40-training-volume-0.png"
+    ],
+    "links": [
+      [
+        "36-live-volume.json",
+        "run-3/api/36-live-volume.json"
+      ]
+    ]
+  },
+  "37": {
+    "status": "PASS",
+    "detail": "Duration set to 250 ms, dialog closed. Box states before Repeat [\"done\",\"active\",\"pending\",\"pending\"], after [\"done\",\"active\",\"pending\",\"pending\"] (\"Your turn: play note 2 of 4\"). Repeat playback: 4 notes, spacing [0.25,0.25,0.25] s, master gain 0 (0% from step 36). \"Plays fast\" audibly: manual.",
+    "images": [
+      "run-3/screenshots/41-repeat-progress-kept.png"
+    ],
+    "links": [
+      [
+        "37-repeat.json",
+        "run-3/api/37-repeat.json"
+      ]
+    ]
+  },
+  "38": {
+    "status": "PASS",
+    "detail": "?melody=71,60,60, dialog opened during \"Listen…\" and left open: box 1 turned done (\"Si4\") while the dialog was open (true); status \"Your turn: play note 2 of 3\". Real trumpet: manual.",
+    "images": [
+      "run-3/screenshots/42-green-behind-dialog.png"
+    ],
+    "links": []
+  },
+  "39": {
+    "status": "PASS",
+    "detail": "Training dialog before {\"scale\":null,\"Note duration\":\"1200 ms\",\"Playback volume\":\"30%\"} → Reset → {\"scale\":null,\"Note duration\":\"1000 ms\",\"Playback volume\":\"50%\"}. Back Home: {\"scale\":\"Sol major\",\"Melody length\":\"4 notes\",\"Max interval\":\"7 semitones\",\"Note duration\":\"1000 ms\",\"Playback volume\":\"50%\"} (scale, length, max interval unchanged).",
+    "images": [
+      "run-3/screenshots/43-training-reset.png",
+      "run-3/screenshots/44-home-after-training-reset.png"
+    ],
+    "links": []
+  },
+  "40": {
+    "status": "PASS",
+    "detail": "During training the open dialog showed [\"Note duration\",\"Playback volume\"]; after all 3 notes completed and the app returned Home it stayed open with Scale \"Sol major\" + [\"Melody length\",\"Max interval\",\"Note duration\",\"Playback volume\"].",
+    "images": [
+      "run-3/screenshots/45-dialog-open-after-completion.png"
+    ],
+    "links": []
+  },
+  "41": {
+    "status": "PASS",
+    "detail": "Melody length 6; ?melody=71,60,72 → 3 boxes, played [71,60,72].",
+    "images": [
+      "run-3/screenshots/46-melody-3-boxes.png"
+    ],
+    "links": []
+  },
+  "42": {
+    "status": "PASS",
+    "detail": "?melody=71×8 → 8 boxes.",
+    "images": [
+      "run-3/screenshots/47-melody-8-boxes.png"
+    ],
+    "links": []
+  },
+  "43": {
+    "status": "PASS",
+    "detail": "Melody length 4. ?melody= with 2 notes → 4 boxes, random melody [59,55,57,67]; ?melody= with 9 notes → 4 boxes, random melody [67,62,72,60].",
+    "images": [
+      "run-3/screenshots/48-melody-ignored-2.png",
+      "run-3/screenshots/49-melody-ignored-9.png"
+    ],
+    "links": []
+  },
+  "44": {
+    "status": "PASS",
+    "detail": "Fa major + ?melody=65,70,72: 3 boxes, played [65,70,72]; spellExercise(getTestExercise(id)) in the e2e page (what the reducer shows): Fa major [\"Fa4\",\"Si♭4\",\"Do5\"], Chromatic [\"Fa4\",\"La#4\",\"Do5\"], All scales [\"Fa4\",\"La#4\",\"Do5\"] (contextual: rising → sharp). The 440 Hz fake mic cannot play 65/70/72, so those names are not observable in boxes; UI cross-check with ?melody=71,71,71 (completed by the fake mic): Sol♭ major box \"Do♭5\", Chromatic box \"Si4\".",
+    "images": [
+      "run-3/screenshots/50-fa-major-melody-65-70-72.png",
+      "run-3/screenshots/51-melody-71-sol-flat-major.png",
+      "run-3/screenshots/52-melody-71-chromatic.png"
+    ],
+    "links": [
+      [
+        "44-melody-spelling.json",
+        "run-3/api/44-melody-spelling.json"
+      ]
+    ]
+  },
+  "45": {
+    "status": "PASS",
+    "detail": "375 × 812: rows 5 + 3, all boxes 60.0 px square, row gaps 5.5/5.5, 73.5/73.5 (centered), scrollWidth 375 ≤ 375.",
+    "images": [
+      "run-3/screenshots/53-layout-375.png"
+    ],
+    "links": [
+      [
+        "45-layout-375.json",
+        "run-3/api/45-layout-375.json"
+      ]
+    ]
+  },
+  "46": {
+    "status": "PASS",
+    "detail": "320 px: rows 4 + 4, box 60.0 px (375 px: 60.0 px), scrollWidth 320 ≤ 320.",
+    "images": [
+      "run-3/screenshots/54-layout-320.png"
+    ],
+    "links": []
+  },
+  "47": {
+    "status": "PASS",
+    "detail": "375 × 812: dialog x 0, width 375, bottom 812 = viewport height; radii 12px 12px 0px 0px (rounded top only); overflow-y auto. With the scale list open at 812 px: scrollHeight 804 / clientHeight 780 (scrolls); at 375 × 600: 804/568, scrollTop after scrolling 236.",
+    "images": [
+      "run-3/screenshots/55-dialog-sheet-375.png",
+      "run-3/screenshots/56-dialog-sheet-375-list-open.png",
+      "run-3/screenshots/57-dialog-sheet-375x600-scrolled.png"
+    ],
+    "links": [
+      [
+        "47-dialog-sheet.json",
+        "run-3/api/47-dialog-sheet.json"
+      ]
+    ]
+  },
+  "48": {
+    "status": "SKIP",
+    "detail": "Manual: real devices (Android Chrome, iOS Safari via HTTPS) and desktop Firefox are not automated. Automated part: the gear text is [\"U+2699\",\"U+FE0E\"] (U+2699 GEAR + U+FE0E VARIATION SELECTOR-15 = text presentation, so it should render monochrome), inside an aria-hidden=\"true\" span, font-family system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif; Chromium rendering in the screenshot.",
+    "images": [
+      "run-3/screenshots/28-gear-glyph.png"
+    ],
+    "links": []
+  },
+  "49": {
+    "status": "PASS",
+    "detail": "http://localhost:4173/trumpet-trainer/: Melody length 6 + Note duration 600 ms restored after reload ({\"scale\":\"Do major\",\"Melody length\":\"6 notes\",\"Max interval\":\"12 semitones\",\"Note duration\":\"600 ms\",\"Playback volume\":\"50%\"}). ?melody=71,71,71 → 6 boxes, random melody [69,60,55,65,64,62] (ignored in the production build).",
+    "images": [
+      "run-3/screenshots/58-preview-restored.png",
+      "run-3/screenshots/59-preview-melody-ignored.png"
+    ],
+    "links": []
+  },
+  "51": {
+    "status": "PASS",
+    "detail": "13/13 Part 1 steps pass (1–12 and 15, run in the 5173 dev-server page as in Runs 1–2; steps 13–14 are superseded by items 29–44).",
+    "images": [],
+    "links": [],
+    "sub": [
+      {
+        "id": 1,
+        "title": "Removed and new constants",
+        "status": "PASS",
+        "detail": "Got `[undefined,undefined,undefined,1000,0.5,\"major:do\"]`",
+        "images": [],
+        "links": [
+          [
+            "p1-01-constants.json",
+            "run-3/api/p1-01-constants.json"
+          ]
+        ]
+      },
+      {
+        "id": 2,
+        "title": "SCALE_OPTIONS has 146 options",
+        "status": "PASS",
+        "detail": "Got `146`",
+        "images": [],
+        "links": [
+          [
+            "p1-02-scale-options-length.json",
+            "run-3/api/p1-02-scale-options-length.json"
+          ]
+        ]
+      },
+      {
+        "id": 3,
+        "title": "First 11 option names (chromatic + 10 groups)",
+        "status": "PASS",
+        "detail": "Got `[\"Chromatic\",\"All scales\",\"All majors\",\"All natural minors\",\"All dorian\",\"All phrygian\",\"All lydian\",\"All mixolydian\",\"All locrian\",\"All major pentatonics\",\"All minor pentatonics\"]`",
+        "images": [],
+        "links": [
+          [
+            "p1-03-first-11-names.json",
+            "run-3/api/p1-03-first-11-names.json"
+          ]
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Locrian tonic names in key-signature order",
+        "status": "PASS",
+        "detail": "Got `\"Si Fa# Do# Sol# Re# La# Mi# Si# Mi La Re Sol Do Fa Si♭\"`",
+        "images": [],
+        "links": [
+          [
+            "p1-04-locrian-tonics.json",
+            "run-3/api/p1-04-locrian-tonics.json"
+          ]
+        ]
+      },
+      {
+        "id": 5,
+        "title": "searchScaleOptions (English letters, b/#)",
+        "status": "PASS",
+        "detail": "Got `[[\"Si♭ major\",\"Si♭ major pentatonic\"],[\"Fa# dorian\"]]`",
+        "images": [],
+        "links": [
+          [
+            "p1-05-search.json",
+            "run-3/api/p1-05-search.json"
+          ]
+        ]
+      },
+      {
+        "id": 6,
+        "title": "minMaxInterval for chromatic / major / pentatonic group / all",
+        "status": "PASS",
+        "detail": "Got `[1,2,3,3]`",
+        "images": [],
+        "links": [
+          [
+            "p1-06-min-max-interval.json",
+            "run-3/api/p1-06-min-max-interval.json"
+          ]
+        ]
+      },
+      {
+        "id": 7,
+        "title": "spellInKey (Si#3, Mi#4, Do♭5)",
+        "status": "PASS",
+        "detail": "Got `[[\"Si#3\",\"Mi#4\",\"Do#4\"],[\"Sol♭4\",\"Do♭5\",\"Si♭4\"]]`",
+        "images": [],
+        "links": [
+          [
+            "p1-07-spell-in-key.json",
+            "run-3/api/p1-07-spell-in-key.json"
+          ]
+        ]
+      },
+      {
+        "id": 8,
+        "title": "generateExercise worked example (scripted rng)",
+        "status": "PASS",
+        "detail": "Got `[[55,62,72],\"major:do\"]`",
+        "images": [],
+        "links": [
+          [
+            "p1-08-generate-exercise-worked-example.json",
+            "run-3/api/p1-08-generate-exercise-worked-example.json"
+          ]
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Random group:major exercises fit their key, steps ≤ 2",
+        "status": "PASS",
+        "detail": "Exact expression: `major:si-flat Re4 Mi♭4 Mi♭4 Mi♭4 Fa4 Mi♭4 Mi♭4 Fa4`, `major:fa-sharp Re#4 Re#4 Re#4 Mi#4 Re#4 Do#4 Si3 Do#4`, `major:si-flat Sol4 Fa4 Mi♭4 Re4 Mi♭4 Mi♭4 Fa4 Fa4`, `major:la La4 La4 Sol#4 Fa#4 Sol#4 Sol#4 Fa#4 Mi4`, `major:re-flat Sol♭3 Sol♭3 La♭3 La♭3 Sol♭3 Sol♭3 La♭3 La♭3`; a second sample of 5 checked note by note (major scale, in key, |step| ≤ 2, names map back to MIDI).",
+        "images": [],
+        "links": [
+          [
+            "p1-09-group-major-check.json",
+            "run-3/api/p1-09-group-major-check.json"
+          ]
+        ]
+      },
+      {
+        "id": 10,
+        "title": "normalizeSettings field-by-field validation",
+        "status": "PASS",
+        "detail": "Got `{\"noteDurationMs\":750,\"melodyLength\":5,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:fa\"}`",
+        "images": [],
+        "links": [
+          [
+            "p1-10-normalize-settings.json",
+            "run-3/api/p1-10-normalize-settings.json"
+          ]
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Storage adapter round-trip across a reload",
+        "status": "PASS",
+        "detail": "After page.reload(): `[7,-35]` (expected `[7,-35]`).",
+        "images": [],
+        "links": [
+          [
+            "p1-11-storage-round-trip.json",
+            "run-3/api/p1-11-storage-round-trip.json"
+          ]
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Invalid stored JSON falls back to defaults",
+        "status": "PASS",
+        "detail": "Returned `{\"noteDurationMs\":1000,\"melodyLength\":5,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:do\"}` without throwing; localStorage cleared (length 0).",
+        "images": [],
+        "links": [
+          [
+            "p1-12-invalid-json-defaults.json",
+            "run-3/api/p1-12-invalid-json-defaults.json"
+          ]
+        ]
+      },
+      {
+        "id": 15,
+        "title": "setVolume mid-melody ramps the master gain",
+        "status": "PASS",
+        "detail": "AudioContext \"running\". linearRampToValueAtTime(1) issued 2.000 s after playSequence, ramp length 20.0 ms; master initial gain 0.2. Audible smoothness: manual.",
+        "images": [],
+        "links": [
+          [
+            "p1-15-set-volume-audio-log.json",
+            "run-3/api/p1-15-set-volume-audio-log.json"
+          ]
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "exact": [
+    "major:si-flat Re4 Mi♭4 Mi♭4 Mi♭4 Fa4 Mi♭4 Mi♭4 Fa4",
+    "major:fa-sharp Re#4 Re#4 Re#4 Mi#4 Re#4 Do#4 Si3 Do#4",
+    "major:si-flat Sol4 Fa4 Mi♭4 Re4 Mi♭4 Mi♭4 Fa4 Fa4",
+    "major:la La4 La4 Sol#4 Fa#4 Sol#4 Sol#4 Fa#4 Mi4",
+    "major:re-flat Sol♭3 Sol♭3 La♭3 La♭3 Sol♭3 Sol♭3 La♭3 La♭3"
+  ],
+  "checked": [
+    {
+      "line": "major:la-flat Sol4 La♭4 La♭4 Sol4 Fa4 Sol4 Fa4 Fa4",
+      "notes": [
+        67,
+        68,
+        68,
+        67,
+        65,
+        67,
+        65,
+        65
+      ],
+      "problems": []
+    },
+    {
+      "line": "major:re Fa#3 Sol3 Sol3 La3 Sol3 Fa#3 Fa#3 Fa#3",
+      "notes": [
+        54,
+        55,
+        55,
+        57,
+        55,
+        54,
+        54,
+        54
+      ],
+      "problems": []
+    },
+    {
+      "line": "major:la-flat La♭3 La♭3 Sol3 Sol3 Sol3 La♭3 Sol3 Sol3",
+      "notes": [
+        56,
+        56,
+        55,
+        55,
+        55,
+        56,
+        55,
+        55
+      ],
+      "problems": []
+    },
+    {
+      "line": "major:sol-flat La♭3 Sol♭3 La♭3 La♭3 Sol♭3 La♭3 Sol♭3 Sol♭3",
+      "notes": [
+        56,
+        54,
+        56,
+        56,
+        54,
+        56,
+        54,
+        54
+      ],
+      "problems": []
+    },
+    {
+      "line": "major:si Mi4 Re#4 Do#4 Si3 La#3 Sol#3 Fa#3 Fa#3",
+      "notes": [
+        64,
+        63,
+        61,
+        59,
+        58,
+        56,
+        54,
+        54
+      ],
+      "problems": []
+    }
+  ]
+}

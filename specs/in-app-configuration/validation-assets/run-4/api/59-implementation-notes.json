@@ -1,0 +1,97 @@
+{
+  "knownIssues": [
+    {
+      "line": 136,
+      "text": "## Known issues"
+    },
+    {
+      "line": 137,
+      "text": ""
+    },
+    {
+      "line": 138,
+      "text": "- **Release (what happened):** the plan was to ship Parts 1 and 2 in one PR, but Part 1 was released on its own as"
+    },
+    {
+      "line": 139,
+      "text": "  **v0.2.0** (`cad2846` prepared it, `348d002` is the CI release commit; the bridge defaults above shipped with it)."
+    },
+    {
+      "line": 140,
+      "text": "  Part 2 is released separately and needs its own `bump.txt` and `CHANGELOG.md` entry."
+    },
+    {
+      "line": 141,
+      "text": "- ~~Until prd2.md lands, the app plays MVP-style chromatic melodies but with the new defaults already active: notes last"
+    },
+    {
+      "line": 142,
+      "text": "  1000 ms (was 500 ms) and playback is 2× louder (peak 1 × master 0.5 vs 0.25 × 1). Settings are not yet persisted or"
+    },
+    {
+      "line": 143,
+      "text": "  editable; `settingsStorage` is not wired into the app.~~ **Resolved by prd2.md:** the bridge is gone; the app uses"
+    },
+    {
+      "line": 144,
+      "text": "  the persisted settings (see \"prd2.md implementation\" below)."
+    },
+    {
+      "line": 145,
+      "text": ""
+    },
+    {
+      "line": 301,
+      "text": "## Known issues"
+    },
+    {
+      "line": 302,
+      "text": ""
+    },
+    {
+      "line": 303,
+      "text": "- **Release:** Part 1 is released (v0.2.0). Part 2's `bump.txt` (`minor`) and `CHANGELOG.md` entry still have to be"
+    },
+    {
+      "line": 304,
+      "text": "  added before the PR (`/t-prepare-pr`)."
+    },
+    {
+      "line": 305,
+      "text": "- The Chromium close-request abuse protection (a second Esc without user activation may force-close the dialog) is"
+    },
+    {
+      "line": 306,
+      "text": "  mitigated as the PRD says (native `close` → `onClose()`), but it cannot be reproduced in automated tests."
+    },
+    {
+      "line": 307,
+      "text": "- ~~e2e scenario 5 uses an all-Si4 8-note melody that the fake microphone matches, so it must give up while listening,"
+    },
+    {
+      "line": 308,
+      "text": "  before the exercise completes (≈ 4 s window).~~ **Resolved after /t-review #2:** it now uses all-Do4, which the fake"
+    },
+    {
+      "line": 309,
+      "text": "  microphone never matches."
+    },
+    {
+      "line": 310,
+      "text": ""
+    }
+  ],
+  "statedUnitCounts": [
+    1027,
+    1196,
+    1297
+  ],
+  "latest": 1297,
+  "e2eStated": 10,
+  "actualUnit": 1297,
+  "actualE2e": 10,
+  "countLine": {
+    "line": 324,
+    "text": "8 of 9 review items fixed (`review.md`); unit tests 1286 → **1297** (28 files), `test:scripts` 32/32, e2e 10/10,"
+  }
+}

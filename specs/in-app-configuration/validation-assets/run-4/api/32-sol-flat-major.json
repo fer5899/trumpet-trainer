@@ -1,0 +1,20 @@
+{
+  "attempts": 2,
+  "uiName": "Do♭5",
+  "playedWith71": [
+    {
+      "notes": [
+        71,
+        59,
+        54
+      ],
+      "names": [
+        "Do♭5",
+        "Do♭4",
+        "Sol♭3"
+      ],
+      "outOfKey": []
+    }
+  ],
+  "spellInKey71": "Do♭5"
+}

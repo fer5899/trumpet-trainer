@@ -1,0 +1,23 @@
+{
+  "i0": 20,
+  "trail": [
+    20,
+    21,
+    22,
+    23,
+    22,
+    21,
+    20
+  ],
+  "top": {
+    "index": 0,
+    "text": "Chromatic"
+  },
+  "bottom": {
+    "index": 145,
+    "text": "La♭ minor pentatonic",
+    "scrollTop": 5608
+  },
+  "oneUp": "Mi♭ minor pentatonic",
+  "selected": "Mi♭ minor pentatonic"
+}

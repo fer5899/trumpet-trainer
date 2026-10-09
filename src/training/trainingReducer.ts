@@ -1,13 +1,14 @@
+import type { Exercise } from '../music/melody';
 import type { Melody } from '../music/notes';
-import { spellMelody } from '../music/spelling';
+import { spellExercise } from '../music/spelling';
 
 export type TrainingPhase = 'playing' | 'guard' | 'listening' | 'complete';
 
 export interface TrainingState {
   phase: TrainingPhase;
-  /** Written MIDI, length DEFAULT_MELODY_LENGTH (configurable lengths: prd2). */
+  /** Written MIDI (= exercise.notes), MIN_MELODY_LENGTH..MAX_MELODY_LENGTH notes. */
   melody: Melody;
-  /** spellMelody(melody), computed once. */
+  /** spellExercise(exercise), computed once: key signature for scales, contextual for chromatic. */
   names: readonly string[];
   /** 0..melody.length; also the active index while < length. */
   matchedCount: number;
@@ -26,8 +27,8 @@ export interface NoteBoxView {
   name: string | null;
 }
 
-export function createInitialTrainingState(melody: Melody): TrainingState {
-  return { phase: 'playing', melody, names: spellMelody(melody), matchedCount: 0 };
+export function createInitialTrainingState(exercise: Exercise): TrainingState {
+  return { phase: 'playing', melody: exercise.notes, names: spellExercise(exercise), matchedCount: 0 };
 }
 
 /** Pure state machine. Any phase/action pair not listed in the PRD returns `state` unchanged. */

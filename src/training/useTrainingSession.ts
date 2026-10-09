@@ -2,13 +2,10 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { computeLevelDb } from '../audio/level';
 import type { MicrophoneSession } from '../audio/microphone';
-import {
-  COMPLETE_PAUSE_MS,
-  DEFAULT_NOTE_DURATION_MS,
-  DEFAULT_VOLUME,
-  LISTEN_GUARD_MS,
-} from '../config/constants';
-import { midiToHz, writtenToConcert, type Melody } from '../music/notes';
+import type { Playback } from '../audio/synth';
+import { COMPLETE_PAUSE_MS, LISTEN_GUARD_MS } from '../config/constants';
+import type { Exercise } from '../music/melody';
+import { midiToHz, writtenToConcert } from '../music/notes';
 import { createSustainTracker } from './sustainTracker';
 import {
   createInitialTrainingState,
@@ -20,9 +17,13 @@ import {
 } from './trainingReducer';
 
 export interface UseTrainingSessionArgs {
-  melody: Melody;
+  exercise: Exercise;
   mic: MicrophoneSession;
   thresholdDb: number;
+  /** Live: read when a playback starts (a change applies from the next Repeat). */
+  noteDurationMs: number;
+  /** Live: applied to the running playback. */
+  volume: number;
   onExit: () => void;
 }
 
@@ -42,16 +43,28 @@ export interface TrainingSessionView {
  * only wires them to the audio services with effects keyed on the phase.
  */
 export function useTrainingSession({
-  melody,
+  exercise,
   mic,
   thresholdDb,
+  noteDurationMs,
+  volume,
   onExit,
 }: UseTrainingSessionArgs): TrainingSessionView {
   const services = useAudioServices();
-  const [state, dispatch] = useReducer(trainingReducer, melody, createInitialTrainingState);
+  const [state, dispatch] = useReducer(trainingReducer, exercise, createInitialTrainingState);
   // One tracker per session; the threshold is fixed for the whole exercise.
   const [tracker] = useState(() => createSustainTracker({ thresholdDb }));
-  const { phase, matchedCount } = state;
+  const { phase, matchedCount, melody } = state;
+
+  // Latest live settings, synced before the playing effect so a Repeat render reads the newest values.
+  const noteDurationRef = useRef(noteDurationMs);
+  const volumeRef = useRef(volume);
+  useEffect(() => {
+    noteDurationRef.current = noteDurationMs;
+    volumeRef.current = volume;
+  });
+  /** The running playback and the volume last applied to it; null when nothing is playing. */
+  const playbackRef = useRef<{ playback: Playback; volume: number } | null>(null);
 
   /** Stops the current playback if it is still running (idempotent). */
   const stopPlaybackRef = useRef<() => void>(() => undefined);
@@ -74,19 +87,26 @@ export function useTrainingSession({
     tracker.reset();
     let cancelled = false;
     let settled = false;
-    // Default duration and volume until the settings are wired in (prd2 §5.2).
+    // Duration and volume are read from refs, not deps: changing them never restarts playback.
     const playback = services.playMelody(melody.map((m) => midiToHz(writtenToConcert(m))), {
-      noteDurationMs: DEFAULT_NOTE_DURATION_MS,
-      volume: DEFAULT_VOLUME,
+      noteDurationMs: noteDurationRef.current,
+      volume: volumeRef.current,
     });
+    const entry = { playback, volume: volumeRef.current };
+    playbackRef.current = entry;
+    const clearEntry = (): void => {
+      if (playbackRef.current === entry) playbackRef.current = null;
+    };
     const stopIfRunning = (): void => {
       if (settled) return;
       settled = true;
+      clearEntry();
       playback.stop();
     };
     stopPlaybackRef.current = stopIfRunning;
     void playback.done.then(() => {
       settled = true;
+      clearEntry();
       if (!cancelled) dispatch({ type: 'playbackEnded' });
     });
     return () => {
@@ -96,6 +116,14 @@ export function useTrainingSession({
       stopIfRunning();
     };
   }, [phase, melody, services, tracker]);
+
+  // Volume: applied immediately to the running playback (no call when idle or unchanged).
+  useEffect(() => {
+    const running = playbackRef.current;
+    if (!running || running.volume === volume) return;
+    running.playback.setVolume(volume);
+    running.volume = volume;
+  }, [volume]);
 
   // 2. guard: silence after playback so the speaker tail is never matched.
   useEffect(() => {

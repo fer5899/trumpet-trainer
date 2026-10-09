@@ -1,0 +1,48 @@
+
+> trumpet-trainer@0.2.0 test
+> vitest run
+
+
+ RUN  v2.1.9 C:/repos/trumpet-trainer
+
+ ✓ src/training/sustainTracker.test.ts (15 tests) 15ms
+ ✓ src/audio/microphone.test.ts (22 tests) 36ms
+ ✓ src/test/fakeAudioServices.test.ts (7 tests) 18ms
+ ✓ src/config/settings.test.ts (85 tests) 41ms
+ ✓ src/audio/synth.test.ts (21 tests) 73ms
+ ✓ src/training/trainingReducer.test.ts (35 tests) 18ms
+ ✓ src/config/settingsStorage.test.ts (23 tests) 18ms
+ ✓ src/music/spelling.test.ts (32 tests) 71ms
+ ✓ src/music/scales.test.ts (417 tests) 176ms
+ ✓ src/music/melody.test.ts (315 tests) 340ms
+ ✓ src/training/useTrainingSession.test.tsx (25 tests) 312ms
+ ✓ src/components/MicLevelMeter.test.tsx (6 tests) 524ms
+ ✓ src/music/notes.test.ts (50 tests) 22ms
+ ✓ src/testing/testMelody.test.ts (28 tests) 37ms
+ ✓ src/config/constants.test.ts (51 tests) 15ms
+ ✓ src/audio/AudioServicesContext.test.tsx (3 tests) 79ms
+ ✓ src/audio/pitchDetector.test.ts (28 tests) 93ms
+ ✓ src/audio/services.test.ts (7 tests) 13ms
+ ✓ src/audio/level.test.ts (8 tests) 15ms
+ ✓ src/audio/audioContext.test.ts (7 tests) 28ms
+ ✓ src/components/micErrorMessage.test.ts (3 tests) 3ms
+ ✓ src/components/settingsText.test.ts (15 tests) 5ms
+ ✓ src/components/SettingsDialog.test.tsx (27 tests) 2552ms
+   ✓ SettingsDialog — open / close > is a modal dialog named Settings while open; closed, nothing is shown 394ms
+   ✓ SettingsDialog — Home mode > selecting a scale calls onChange with selectScale (raises max interval) 515ms
+ ✓ src/components/SettingsButton.test.tsx (2 tests) 214ms
+ ✓ src/components/NoteBox.test.tsx (3 tests) 91ms
+ ✓ src/config/viteConfig.test.ts (7 tests) 4ms
+ ✓ src/components/App.test.tsx (38 tests) 3536ms
+   ✓ App — Home / microphone > shows the title, Start, an unpressed Test microphone, a meter at −60 and the threshold slider 414ms
+ ✓ src/components/ScaleCombobox.test.tsx (17 tests) 4150ms
+   ✓ ScaleCombobox — open > focus opens all 146 options in catalog order with the current value active and the text selected 594ms
+   ✓ ScaleCombobox — open > no results: one disabled, unselected "No matching scales" and no active descendant 374ms
+   ✓ ScaleCombobox — open > ArrowDown / ArrowUp move the active option, clamped at both ends 579ms
+   ✓ ScaleCombobox — open > Enter selects the active option, closes the list and shows its name 344ms
+
+ Test Files  28 passed (28)
+      Tests  1297 passed (1297)
+   Start at  21:34:07
+   Duration  31.85s (transform 2.89s, setup 101.67s, collect 8.75s, tests 12.50s, environment 309.17s, prepare 8.94s)
+

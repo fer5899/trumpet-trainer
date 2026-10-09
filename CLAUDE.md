@@ -1,20 +1,20 @@
 # Trumpet Trainer
 
-Frontend-only web app for B♭ trumpet ear training: it plays a 5-note random melody, listens through
+Frontend-only web app for B♭ trumpet ear training: it plays a random melody, listens through
 the microphone while the user plays it back, and marks each note green once it is played in tune
-(±25 cents) and held for 0.5 s. No backend, no accounts, no persistence.
+(±25 cents) and held for 0.5 s. A Settings panel (gear, top right on every screen) configures the
+scale (or scale group), melody length (3–8), max interval, note duration (tempo) and playback
+volume. No backend, no accounts; settings and the mic threshold are saved in `localStorage`.
 
 - Product source of truth: `specs/create-mvp/IDEA.md`
 - Specs: `specs/create-mvp/prd.md` (Part 1: scaffold, constants, music + audio domain, adapters)
   and `specs/create-mvp/prd2.md` (Part 2: training state machine, hook, UI, e2e specs, CI/CD)
 - Status: Parts 1 and 2 are implemented (full MVP: Home + Training screens, e2e specs, CI/CD to
   GitHub Pages).
-- In-app configuration (in progress): `specs/in-app-configuration/idea.md` (source of truth),
-  `prd.md` (Part 1: constants, scale catalog, spelling in key, exercise generator, settings model +
-  storage adapter, synth volume) and `prd2.md` (Part 2: hook, Settings dialog, scale combobox, App
-  wiring, `?melody=` 3–8 notes, e2e). Part 1 is implemented; Part 2 is not yet, so `App` still
-  generates a chromatic exercise of `DEFAULT_MELODY_LENGTH` notes with `MAX_INTERVAL_LIMIT` and
-  `useTrainingSession` plays with `DEFAULT_NOTE_DURATION_MS` / `DEFAULT_VOLUME` (temporary bridge).
+- In-app configuration: `specs/in-app-configuration/idea.md` (source of truth), `prd.md` (Part 1:
+  constants, scale catalog, spelling in key, exercise generator, settings model + storage adapter,
+  synth volume) and `prd2.md` (Part 2: hook, Settings dialog, scale combobox, App wiring, `?melody=`
+  3–8 notes, e2e). Status: both parts implemented.
 
 ## Stack
 
@@ -52,7 +52,8 @@ src/config/constants.ts        all tunables (ranges, durations, tolerances, synt
 src/config/settings.ts         pure Settings model: DEFAULT_SETTINGS, selectScale (raises
                                maxInterval to the scale minimum), resetSettings('all'|'training'),
                                normalizeSettings (field-by-field validation, off-step volume →
-                               default), parseThreshold (off-step → default)
+                               default), parseThreshold (off-step → default),
+                               volumeToPercent / percentToVolume (gain ↔ slider %)
 src/config/settingsStorage.ts  ADAPTER: getBrowserStorage, load/saveSettings, load/saveThreshold
                                on an injected Storage | null; never throws, invalid data → defaults
 src/music/notes.ts             types (WrittenMidi, ConcertMidi, Melody, Accidental), range,
@@ -67,7 +68,8 @@ src/music/scales.ts            scale catalog generated from rules (9 types × 15
                                prefix, then word prefix, then substring, catalog order within)
 src/music/spelling.ts          spellMelody: contextual sharps/flats (IDEA §5.3); spellInKey (key
                                signature, letter-based octave: Si#3 = 60); spellExercise
-src/music/melody.ts            Exercise { notes, scale }, scaleCandidates, pickIndex,
+src/music/melody.ts            Exercise { notes, scale } (scale = specific scale or 'chromatic';
+                               a group's picked member), scaleCandidates, pickIndex,
                                generateExercise(rng, { length, maxInterval, scaleId }): random walk
 src/audio/level.ts             computeLevelDb: RMS in dBFS, clamped to [-100, 0]
 src/audio/pitchDetector.ts     detectPitch: pitchy wrapper + range/clarity filtering
@@ -80,26 +82,44 @@ src/audio/microphone.ts        ADAPTER: openMicrophone → MicrophoneSession, Mi
 src/audio/services.ts          AudioServices interface + createBrowserAudioServices()
 src/audio/AudioServicesContext.tsx  AudioServicesProvider + useAudioServices()
 src/training/trainingReducer.ts  pure state machine playing → guard → listening → complete,
+                               createInitialTrainingState(exercise) (names via spellExercise),
                                selectNoteBoxes, selectCanAct
 src/training/useTrainingSession.ts  hook wiring reducer + tracker to AudioServices (effects keyed
-                               on phase: play / guard timer / mic subscription / complete timer)
-src/testing/testMelody.ts      e2e hook: `?melody=71,71,71,71,71`, only when VITE_E2E === 'true'
-src/components/App.tsx         root: Home ⇄ Training, in-memory threshold, Start handler
+                               on phase: play / guard timer / mic subscription / complete timer);
+                               live noteDurationMs (read via ref when a playback starts) and
+                               volume (volume effect → Playback.setVolume on the running playback)
+src/testing/testMelody.ts      e2e hook: `?melody=` with 3–8 notes, only when VITE_E2E === 'true';
+                               getTestExercise(scaleId) spells in the selected specific scale
+src/components/App.tsx         root: Home ⇄ Training + SettingsDialog; props { storage }; settings
+                               and threshold loaded from / saved to storage; Start handler
+src/components/SettingsButton.tsx  gear button "Settings" (top right, disabled while starting)
+src/components/SettingsDialog.tsx  modal <dialog> (always mounted, content only while open):
+                               home mode = scale + 4 sliders, training mode = duration + volume +
+                               hint; live onChange, Reset to defaults, Close; open prop owns closing
+src/components/ScaleCombobox.tsx  APG combobox + listbox over searchScaleOptions (146 options)
+src/components/settingsText.ts formatNoteDuration / formatVolume / formatMelodyLength /
+                               formatMaxInterval (slider values and aria-valuetext)
 src/components/HomeScreen.tsx  title, Start training, start error, MicLevelMeter
 src/components/MicLevelMeter.tsx  Test microphone toggle, role="meter" bar + overlaid threshold slider
 src/components/micErrorMessage.ts  MicrophoneErrorKind → user-facing text
-src/components/TrainingScreen.tsx  status line, 5 NoteBoxes, Repeat melody / Give up
+src/components/TrainingScreen.tsx  status line, one NoteBox per note (3–8, wrapping rows),
+                               Repeat melody / Give up
 src/components/NoteBox.tsx     pending / active / done box (data-testid note-box-{i}, data-state)
 src/main.tsx                   createRoot + <AudioServicesProvider services={createBrowserAudioServices()}>
-src/test/                      setup.ts (jest-dom + RTL cleanup), signals.ts (sine/sawtooth/seeded
+                               + <App storage={getBrowserStorage()} />
+src/test/                      setup.ts (jest-dom + RTL cleanup + HTMLDialogElement showModal/close
+                               stubs for jsdom), signals.ts (sine/sawtooth/seeded
                                noise), fakeWebAudio.ts (recording Web Audio node fakes),
                                fakeAudioServices.ts (createFakeAudioServices), sessionDriver.ts
                                (FRAME_MS, LOUD_DB, concertHz, createSessionDriver: act-wrapped
                                finishPlayback/elapse/toListening/hold, shared by App and hook
-                               tests), appTestUtils.tsx (renderApp = driver + click/startTraining),
+                               tests), appTestUtils.tsx (renderApp(fake, { storage }) = driver +
+                               click/startTraining/openSettings; boxStates counts rendered boxes),
                                fakeStorage.ts (createFakeStorage, createThrowingStorage),
                                scales.ts (requireSpecificScale: getSpecificScale or throw)
-e2e/                           training.spec.ts, mic-meter.spec.ts (fake mic = looping 440 Hz tone)
+e2e/                           training.spec.ts, mic-meter.spec.ts, settings.spec.ts (dialog,
+                               persistence, combobox, training mode, 8-box layout, invalid storage);
+                               fake mic = looping 440 Hz tone
 scripts/generate-test-tones.mjs  fake-mic WAV fixture (Node built-ins only)
 scripts/release.mjs            release versioning: validate | release | notes (Node built-ins only)
 vite.config.ts                 base (/ dev, /trumpet-trainer/ build+preview), e2e mode uses its own cacheDir
@@ -123,7 +143,18 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
   (groups only, first), then exactly one per note (`pickIndex`). Tests script the rng.
 - **Settings rules live in pure `src/config/settings.ts`**; only `src/config/settingsStorage.ts`
   touches storage, and it receives the `Storage | null` as a parameter (tests use
-  `src/test/fakeStorage.ts`, never the real `localStorage`).
+  `src/test/fakeStorage.ts`, never the real `localStorage`). `App` receives `storage: Storage | null`
+  as a prop (`getBrowserStorage()` in `main.tsx`); components never touch `localStorage`.
+- **Live settings during training:** settings changes are not reducer actions. Volume is applied to
+  the running playback (`setVolume`, only when it differs); note duration is read when a playback
+  starts (next Repeat). Neither restarts the exercise or changes progress.
+- **Settings dialog:** closing is owned by the `open` prop (Close, Esc via `onKeyDown` unless
+  `defaultPrevented`, native `cancel` always prevented, browser-forced `close` → `onClose`). The
+  `<dialog>` gets the `autofocus` attribute before `showModal()` (then `focus()` as a fallback), so
+  focus lands on the dialog itself and the scale list never opens. The listbox prevents `mousedown`
+  so pressing it (options, padding, scrollbar) never takes focus from the input. jsdom lacks
+  `showModal`/`close`: `src/test/setup.ts` stubs them; tests press Esc with
+  `user.keyboard('{Escape}')`.
 - **Volume lives on the synth master gain** (`Playback.setVolume` ramps it over
   `SYNTH_VOLUME_RAMP_MS`, no-op after stop/end); per-note envelopes peak at
   `SYNTH_ENVELOPE_PEAK_GAIN`. Note duration is read once when playback starts.
@@ -145,8 +176,9 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
   runs without `globals`, so RTL cleanup is registered in `src/test/setup.ts`.
 - **Effects must survive React StrictMode** (dev double-mount): `useTrainingSession` defers the
   unmount `mic.release()` by a microtask and stops playback only if it is still running.
-- **E2E melody hook:** in the `dev:e2e` build (`VITE_E2E=true`) `?melody=` with 5 written MIDI
-  numbers replaces the random melody; production builds ignore it.
+- **E2E melody hook:** in the `dev:e2e` build (`VITE_E2E=true`) `?melody=` with 3–8 written MIDI
+  numbers replaces the random melody (its length overrides Melody length; spelled in the selected
+  specific scale's key, contextual for chromatic and groups); production builds ignore it.
 - **Deploy:** `ci.yml` deploys on push to `vars.DEPLOY_BRANCH || 'main'`; Pages source must be
   "GitHub Actions".
 - **Versioning (CI-owned):** `version.txt` is `X.Y.Z` on the deploy branch and

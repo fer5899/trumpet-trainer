@@ -1,0 +1,11 @@
+$ git status --short --untracked-files=all -- .claude
+(exit 0)
+
+
+$ git check-ignore -v .claude/launch.json
+(exit 0)
+.gitignore:6:.claude/launch.json	.claude/launch.json
+
+$ git ls-files -- .claude/launch.json
+(exit 0)
+

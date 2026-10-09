@@ -1,0 +1,150 @@
+{
+  "before": {
+    "value": "Do major",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 146,
+    "firstOptions": [
+      "Chromatic",
+      "All scales",
+      "All majors",
+      "All natural minors"
+    ],
+    "scrollTop": 0,
+    "stored": null
+  },
+  "geo": {
+    "rect": {
+      "left": 404,
+      "top": 161,
+      "right": 861,
+      "bottom": 401,
+      "height": 240
+    },
+    "borderTop": 2,
+    "borderLeft": 2,
+    "borderRight": 2,
+    "paddingTop": 4,
+    "scrollbarWidth": 15,
+    "pad": {
+      "x": 625,
+      "y": 165
+    },
+    "sb": {
+      "x": 851.5,
+      "y": 187
+    },
+    "padHit": {
+      "tag": "UL",
+      "role": "listbox",
+      "isList": true
+    },
+    "sbHit": {
+      "tag": "UL",
+      "role": "listbox",
+      "isList": true
+    },
+    "scrollTop": 0
+  },
+  "duringPad": {
+    "value": "Do major",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 146,
+    "firstOptions": [
+      "Chromatic",
+      "All scales",
+      "All majors",
+      "All natural minors"
+    ],
+    "scrollTop": 0,
+    "stored": null
+  },
+  "afterPad": {
+    "value": "Do major",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 146,
+    "firstOptions": [
+      "Chromatic",
+      "All scales",
+      "All majors",
+      "All natural minors"
+    ],
+    "scrollTop": 0,
+    "stored": null
+  },
+  "duringSb": {
+    "value": "Do major",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 146,
+    "firstOptions": [
+      "Chromatic",
+      "All scales",
+      "All majors",
+      "All natural minors"
+    ],
+    "scrollTop": 1840,
+    "stored": null
+  },
+  "afterSb": {
+    "value": "Do major",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 146,
+    "firstOptions": [
+      "Chromatic",
+      "All scales",
+      "All majors",
+      "All natural minors"
+    ],
+    "scrollTop": 1840,
+    "stored": null
+  },
+  "typed": {
+    "value": "Do major pent",
+    "expanded": "true",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": true,
+    "optionCount": 1,
+    "firstOptions": [
+      "Do major pentatonic"
+    ],
+    "scrollTop": 0,
+    "stored": null
+  },
+  "reverted": {
+    "value": "Do major",
+    "expanded": "false",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": false,
+    "optionCount": 0,
+    "firstOptions": [],
+    "scrollTop": null,
+    "stored": null
+  },
+  "picked": {
+    "value": "Sol major",
+    "expanded": "false",
+    "inputFocused": true,
+    "activeTag": "INPUT",
+    "listVisible": false,
+    "optionCount": 0,
+    "firstOptions": [],
+    "scrollTop": null,
+    "stored": "{\"noteDurationMs\":1000,\"melodyLength\":5,\"volume\":0.5,\"maxInterval\":12,\"scaleId\":\"major:sol\"}"
+  }
+}

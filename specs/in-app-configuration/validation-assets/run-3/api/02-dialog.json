@@ -1,0 +1,69 @@
+{
+  "snap": {
+    "exists": true,
+    "open": true,
+    "modal": true,
+    "title": "Settings",
+    "scale": "Do major",
+    "comboExpanded": "false",
+    "order": [
+      "Melody length",
+      "Max interval",
+      "Note duration",
+      "Playback volume"
+    ],
+    "sliders": {
+      "Melody length": {
+        "visible": "5 notes",
+        "aria": "5 notes",
+        "value": 5,
+        "min": 3,
+        "max": 8,
+        "step": 1,
+        "labelFor": true
+      },
+      "Max interval": {
+        "visible": "12 semitones",
+        "aria": "12 semitones",
+        "value": 12,
+        "min": 2,
+        "max": 18,
+        "step": 1,
+        "labelFor": true
+      },
+      "Note duration": {
+        "visible": "1000 ms",
+        "aria": "1000 ms",
+        "value": 1000,
+        "min": 250,
+        "max": 1500,
+        "step": 50,
+        "labelFor": true
+      },
+      "Playback volume": {
+        "visible": "50%",
+        "aria": "50%",
+        "value": 50,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "labelFor": true
+      }
+    },
+    "hint": null,
+    "buttons": [
+      "Reset to defaults",
+      "Close"
+    ],
+    "rect": {
+      "x": 384,
+      "y": 120,
+      "w": 512,
+      "h": 560,
+      "bottom": 680,
+      "right": 896
+    }
+  },
+  "backdrop": "rgba(0, 0, 0, 0.45)",
+  "listboxes": 0
+}

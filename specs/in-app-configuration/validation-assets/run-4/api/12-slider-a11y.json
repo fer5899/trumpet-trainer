@@ -1,0 +1,93 @@
+{
+  "rows": [
+    {
+      "label": "Melody length",
+      "byRoleCount": 1,
+      "aria": "5 notes",
+      "visible": "5 notes",
+      "labelFor": true,
+      "ax": {
+        "role": "slider",
+        "name": "Melody length",
+        "value": 5,
+        "props": {
+          "invalid": "false",
+          "focusable": true,
+          "settable": true,
+          "orientation": "horizontal",
+          "valuemin": 3,
+          "valuemax": 8,
+          "valuetext": "5",
+          "labelledby": "undefined"
+        }
+      }
+    },
+    {
+      "label": "Max interval",
+      "byRoleCount": 1,
+      "aria": "12 semitones",
+      "visible": "12 semitones",
+      "labelFor": true,
+      "ax": {
+        "role": "slider",
+        "name": "Max interval",
+        "value": 12,
+        "props": {
+          "invalid": "false",
+          "focusable": true,
+          "settable": true,
+          "orientation": "horizontal",
+          "valuemin": 2,
+          "valuemax": 18,
+          "valuetext": "12",
+          "labelledby": "undefined"
+        }
+      }
+    },
+    {
+      "label": "Note duration",
+      "byRoleCount": 1,
+      "aria": "1000 ms",
+      "visible": "1000 ms",
+      "labelFor": true,
+      "ax": {
+        "role": "slider",
+        "name": "Note duration",
+        "value": 1000,
+        "props": {
+          "invalid": "false",
+          "focusable": true,
+          "settable": true,
+          "orientation": "horizontal",
+          "valuemin": 250,
+          "valuemax": 1500,
+          "valuetext": "1000",
+          "labelledby": "undefined"
+        }
+      }
+    },
+    {
+      "label": "Playback volume",
+      "byRoleCount": 1,
+      "aria": "50%",
+      "visible": "50%",
+      "labelFor": true,
+      "ax": {
+        "role": "slider",
+        "name": "Playback volume",
+        "value": 50,
+        "props": {
+          "invalid": "false",
+          "focusable": true,
+          "settable": true,
+          "orientation": "horizontal",
+          "valuemin": 0,
+          "valuemax": 100,
+          "valuetext": "50",
+          "labelledby": "undefined"
+        }
+      }
+    }
+  ],
+  "ariaSnapshot": "- dialog \"Settings\":\n  - heading \"Settings\" [level=2]\n  - text: Scale\n  - combobox \"Scale\": Do major\n  - text: Melody length\n  - slider \"Melody length\": \"5\"\n  - text: Max interval\n  - slider \"Max interval\": \"12\"\n  - text: Note duration\n  - slider \"Note duration\": \"1000\"\n  - text: Playback volume\n  - slider \"Playback volume\": \"50\"\n  - button \"Reset to defaults\"\n  - button \"Close\""
+}

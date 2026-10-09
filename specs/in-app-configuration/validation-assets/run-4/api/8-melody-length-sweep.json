@@ -1,0 +1,73 @@
+{
+  "steps": [
+    {
+      "value": 3,
+      "visible": "3 notes",
+      "aria": "3 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "value": 4,
+      "visible": "4 notes",
+      "aria": "4 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "value": 5,
+      "visible": "5 notes",
+      "aria": "5 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "value": 6,
+      "visible": "6 notes",
+      "aria": "6 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "value": 7,
+      "visible": "7 notes",
+      "aria": "7 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "value": 8,
+      "visible": "8 notes",
+      "aria": "8 notes",
+      "min": 3,
+      "max": 8,
+      "step": 1
+    }
+  ],
+  "end": {
+    "value": 8,
+    "visible": "8 notes",
+    "aria": "8 notes",
+    "min": 3,
+    "max": 8,
+    "step": 1
+  },
+  "home": {
+    "value": 3,
+    "visible": "3 notes",
+    "aria": "3 notes",
+    "min": 3,
+    "max": 8,
+    "step": 1
+  },
+  "attrs": {
+    "min": 3,
+    "max": 8,
+    "step": 1
+  }
+}

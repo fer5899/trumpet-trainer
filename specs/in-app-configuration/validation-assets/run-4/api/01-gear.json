@@ -1,0 +1,50 @@
+{
+  "gear": {
+    "x": 900,
+    "y": 24,
+    "w": 44,
+    "h": 44,
+    "right": 944,
+    "bottom": 68
+  },
+  "heading": {
+    "x": 336,
+    "y": 76,
+    "w": 210.953125,
+    "h": 42,
+    "right": 546.953125,
+    "bottom": 118
+  },
+  "headingText": "Trumpet Trainer",
+  "app": {
+    "x": 320,
+    "y": 0,
+    "w": 640,
+    "h": 386,
+    "right": 960,
+    "bottom": 386
+  },
+  "appPaddingRight": 16,
+  "ariaLabel": "Settings",
+  "ariaHaspopup": "dialog",
+  "titleAttr": null,
+  "glyph": [
+    "U+2699",
+    "U+FE0E"
+  ],
+  "glyphAriaHidden": "true",
+  "fontFamily": "system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+  "innerWidth": 1280,
+  "axNodes": [
+    {
+      "role": "button",
+      "name": "Settings",
+      "value": "undefined",
+      "props": {
+        "invalid": "false",
+        "focusable": true,
+        "hasPopup": "dialog"
+      }
+    }
+  ]
+}

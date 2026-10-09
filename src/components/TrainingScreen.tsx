@@ -1,13 +1,16 @@
 import type { MicrophoneSession } from '../audio/microphone';
-import type { Melody } from '../music/notes';
+import type { Exercise } from '../music/melody';
 import type { TrainingState } from '../training/trainingReducer';
 import { useTrainingSession } from '../training/useTrainingSession';
 import { NoteBox } from './NoteBox';
 
 export interface TrainingScreenProps {
-  melody: Melody;
+  exercise: Exercise;
   mic: MicrophoneSession;
   thresholdDb: number;
+  /** Live settings, forwarded to useTrainingSession. */
+  noteDurationMs: number;
+  volume: number;
   onExit(): void;
 }
 
@@ -24,8 +27,22 @@ function statusText({ phase, matchedCount, melody }: TrainingState): string {
   }
 }
 
-export function TrainingScreen({ melody, mic, thresholdDb, onExit }: TrainingScreenProps): JSX.Element {
-  const { state, boxes, canAct, repeat, giveUp } = useTrainingSession({ melody, mic, thresholdDb, onExit });
+export function TrainingScreen({
+  exercise,
+  mic,
+  thresholdDb,
+  noteDurationMs,
+  volume,
+  onExit,
+}: TrainingScreenProps): JSX.Element {
+  const { state, boxes, canAct, repeat, giveUp } = useTrainingSession({
+    exercise,
+    mic,
+    thresholdDb,
+    noteDurationMs,
+    volume,
+    onExit,
+  });
   return (
     <div className="training">
       <p className="training__status" data-testid="training-status" aria-live="polite">

@@ -1,0 +1,165 @@
+{
+  "masterEventsAfterChange": [
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "cancelScheduledValues",
+      "args": [
+        1.04
+      ],
+      "ctx": 1.04,
+      "wall": 1220.8999998569489,
+      "i": 98
+    },
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "setValueAtTime",
+      "args": [
+        0.5,
+        1.04
+      ],
+      "ctx": 1.04,
+      "wall": 1220.8999998569489,
+      "i": 99
+    },
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        1,
+        1.06
+      ],
+      "ctx": 1.04,
+      "wall": 1221,
+      "i": 100
+    },
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "cancelScheduledValues",
+      "args": [
+        1.472
+      ],
+      "ctx": 1.472,
+      "wall": 1641.7000000476837,
+      "i": 101
+    },
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "setValueAtTime",
+      "args": [
+        1,
+        1.472
+      ],
+      "ctx": 1.472,
+      "wall": 1641.7999999523163,
+      "i": 102
+    },
+    {
+      "t": "param",
+      "owner": 13,
+      "method": "linearRampToValueAtTime",
+      "args": [
+        0,
+        1.492
+      ],
+      "ctx": 1.472,
+      "wall": 1641.7999999523163,
+      "i": 103
+    }
+  ],
+  "newOscillators": 0,
+  "sequence": {
+    "master": 13,
+    "startTimes": [
+      0.0713,
+      1.5713,
+      3.0713,
+      4.5713
+    ],
+    "frequenciesHz": [
+      440,
+      233.08,
+      233.08,
+      233.08
+    ],
+    "writtenMidi": [
+      71,
+      60,
+      60,
+      60
+    ],
+    "stopTimes": [
+      1.5713,
+      3.0713,
+      4.5713,
+      6.0713
+    ],
+    "stoppedEarly": false,
+    "masterEvents": [
+      {
+        "i": 54,
+        "method": "value=",
+        "args": [
+          0.5
+        ],
+        "ctx": 0.021333333333333333
+      },
+      {
+        "i": 98,
+        "method": "cancelScheduledValues",
+        "args": [
+          1.04
+        ],
+        "ctx": 1.04
+      },
+      {
+        "i": 99,
+        "method": "setValueAtTime",
+        "args": [
+          0.5,
+          1.04
+        ],
+        "ctx": 1.04
+      },
+      {
+        "i": 100,
+        "method": "linearRampToValueAtTime",
+        "args": [
+          1,
+          1.06
+        ],
+        "ctx": 1.04
+      },
+      {
+        "i": 101,
+        "method": "cancelScheduledValues",
+        "args": [
+          1.472
+        ],
+        "ctx": 1.472
+      },
+      {
+        "i": 102,
+        "method": "setValueAtTime",
+        "args": [
+          1,
+          1.472
+        ],
+        "ctx": 1.472
+      },
+      {
+        "i": 103,
+        "method": "linearRampToValueAtTime",
+        "args": [
+          0,
+          1.492
+        ],
+        "ctx": 1.472
+      }
+    ]
+  }
+}
