@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.3.0] - Released on 2026-10-09 by fer5899
+
 ### Added
 - Settings button (gear, top right on every screen) that opens a Settings dialog. On phones the dialog is a bottom sheet. Changes apply immediately and are remembered across visits.
 - Scale choice: Chromatic, scale groups such as "All majors", or any of 135 specific scales in 15 keys. Pick from a searchable list by solfège or English name, with b and # accepted.
