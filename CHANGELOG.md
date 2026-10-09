@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Settings button (gear, top right on every screen) that opens a Settings dialog. On phones the dialog is a bottom sheet. Changes apply immediately and are remembered across visits.
+- Scale choice: Chromatic, scale groups such as "All majors", or any of 135 specific scales in 15 keys. Pick from a searchable list by solfège or English name, with b and # accepted.
+- Melody length setting: 3 to 8 notes (default 5).
+- Max interval setting: the largest distance in semitones between consecutive notes.
+- Note duration setting: 250 to 1500 ms (default 1000 ms).
+- Playback volume setting: 0 to 100% (default 50%).
+- "Reset to defaults" in Settings.
+- The microphone threshold is remembered across visits. Invalid saved settings fall back to defaults.
+- During training, Settings shows only note duration and volume. A volume change applies to the melody that is playing. A note duration change applies from the next "Repeat melody", without restarting the exercise.
+
+### Changed
+- The default scale is Do major (it was chromatic), and the default max interval is 12 semitones (it was 18).
+- Notes of a specific scale are spelled by that scale's key signature, for example Si♭ in Fa major. Chromatic exercises keep the previous spelling.
+- Note boxes wrap onto rows on narrow screens instead of staying in a fixed 5-column grid.
+
 ## [0.2.0] - Released on 2026-10-08 by fer5899
 
 ### Changed

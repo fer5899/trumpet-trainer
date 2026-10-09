@@ -1,0 +1,86 @@
+{
+  "initial": {
+    "name": "(dialog)",
+    "where": "dialog"
+  },
+  "sequence": [
+    {
+      "name": "Scale",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Melody length",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Max interval",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Note duration",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Playback volume",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Reset to defaults",
+      "tag": "button",
+      "where": "inside"
+    },
+    {
+      "name": "Close",
+      "tag": "button",
+      "where": "inside"
+    },
+    {
+      "name": "(body)",
+      "where": "body"
+    },
+    {
+      "name": "Scale",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Melody length",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Max interval",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Note duration",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Playback volume",
+      "tag": "input",
+      "where": "inside"
+    },
+    {
+      "name": "Reset to defaults",
+      "tag": "button",
+      "where": "inside"
+    },
+    {
+      "name": "Close",
+      "tag": "button",
+      "where": "inside"
+    },
+    {
+      "name": "(body)",
+      "where": "body"
+    }
+  ]
+}

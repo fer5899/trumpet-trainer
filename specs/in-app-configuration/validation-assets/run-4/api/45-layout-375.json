@@ -1,0 +1,102 @@
+{
+  "rows": [
+    5,
+    3
+  ],
+  "boxPx": 60,
+  "gaps": [
+    [
+      5.5,
+      5.5
+    ],
+    [
+      73.5,
+      73.5
+    ]
+  ],
+  "t": {
+    "status": "Listen…",
+    "boxes": [
+      {
+        "state": "active",
+        "text": "",
+        "x": 21.5,
+        "y": 126,
+        "w": 60,
+        "h": 60,
+        "right": 81.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 89.5,
+        "y": 126,
+        "w": 60,
+        "h": 60,
+        "right": 149.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 157.5,
+        "y": 126,
+        "w": 60,
+        "h": 60,
+        "right": 217.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 225.5,
+        "y": 126,
+        "w": 60,
+        "h": 60,
+        "right": 285.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 293.5,
+        "y": 126,
+        "w": 60,
+        "h": 60,
+        "right": 353.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 89.5,
+        "y": 194,
+        "w": 60,
+        "h": 60,
+        "right": 149.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 157.5,
+        "y": 194,
+        "w": 60,
+        "h": 60,
+        "right": 217.5
+      },
+      {
+        "state": "pending",
+        "text": "",
+        "x": 225.5,
+        "y": 194,
+        "w": 60,
+        "h": 60,
+        "right": 285.5
+      }
+    ],
+    "list": {
+      "x": 16,
+      "w": 343,
+      "right": 359
+    },
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "innerWidth": 375
+  }
+}

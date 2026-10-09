@@ -1,0 +1,7 @@
+{
+  "step": 4,
+  "expression": "const s = await import('/src/music/scales.ts'); return s.SPECIFIC_SCALES.filter(x => x.type === 'locrian').map(x => x.tonicName).join(' ');",
+  "expected": "Si Fa# Do# Sol# Re# La# Mi# Si# Mi La Re Sol Do Fa Si♭",
+  "actual": "Si Fa# Do# Sol# Re# La# Mi# Si# Mi La Re Sol Do Fa Si♭",
+  "match": true
+}

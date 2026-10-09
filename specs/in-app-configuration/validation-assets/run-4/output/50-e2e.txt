@@ -1,0 +1,24 @@
+
+> trumpet-trainer@0.2.0 test:e2e
+> npm run generate:tones && playwright test
+
+
+> trumpet-trainer@0.2.0 generate:tones
+> node scripts/generate-test-tones.mjs
+
+Wrote C:\repos\trumpet-trainer\e2e\fixtures\tone-a4-440hz.wav (384044 bytes)
+
+Running 10 tests using 1 worker
+
+  ok  1 [chromium] › e2e\mic-meter.spec.ts:3:1 › the level meter follows the fake microphone and resets when the test is turned off (1.7s)
+  ok  2 [chromium] › e2e\settings.spec.ts:24:1 › Home dialog: the gear opens it with the five defaults; Esc and Close close it (648ms)
+  ok  3 [chromium] › e2e\settings.spec.ts:46:1 › Persistence: settings and threshold are restored after a reload (849ms)
+  ok  4 [chromium] › e2e\settings.spec.ts:84:1 › Combobox: filtering, Esc closes only the list, English names select (608ms)
+  ok  5 [chromium] › e2e\settings.spec.ts:106:1 › Training mode: only duration and volume; changing them neither restarts nor loses progress (7.5s)
+  ok  6 [chromium] › e2e\settings.spec.ts:134:1 › 8 boxes wrap onto two centered rows at phone width without horizontal scroll (9.2s)
+  ok  7 [chromium] › e2e\settings.spec.ts:179:1 › Invalid storage falls back to the defaults (516ms)
+  ok  8 [chromium] › e2e\settings.spec.ts:194:1 › Tab from the open Scale list moves focus to Melody length, not the page body (591ms)
+  ok  9 [chromium] › e2e\training.spec.ts:5:1 › a melody matching the fake tone is completed and returns Home (10.3s)
+  ok 10 [chromium] › e2e\training.spec.ts:21:1 › a melody that does not match the fake tone never advances; Give up returns Home (6.6s)
+
+  10 passed (42.5s)

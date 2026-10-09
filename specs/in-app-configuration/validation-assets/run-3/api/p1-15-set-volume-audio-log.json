@@ -1,0 +1,74 @@
+{
+  "expression": "const sy = await import('/src/audio/synth.ts'); const { getAudioContext } = await import('/src/audio/audioContext.ts'); const p = sy.playSequence(getAudioContext(), [440, 494, 523, 587, 659], { noteDurationMs: 1000, volume: 0.2 }); setTimeout(() => p.setVolume(1), 2000)",
+  "ctxState": "running",
+  "sequences": [
+    {
+      "master": 1,
+      "startTimes": [
+        0.05,
+        1.05,
+        2.05,
+        3.05,
+        4.05
+      ],
+      "frequenciesHz": [
+        440,
+        494,
+        523,
+        587,
+        659
+      ],
+      "writtenMidi": [
+        71,
+        73,
+        74,
+        76,
+        78
+      ],
+      "stopTimes": [
+        1.05,
+        2.05,
+        3.05,
+        4.05,
+        5.05
+      ],
+      "stoppedEarly": false,
+      "masterEvents": [
+        {
+          "i": 1,
+          "method": "value=",
+          "args": [
+            0.2
+          ],
+          "ctx": 0
+        },
+        {
+          "i": 55,
+          "method": "cancelScheduledValues",
+          "args": [
+            2
+          ],
+          "ctx": 2
+        },
+        {
+          "i": 56,
+          "method": "setValueAtTime",
+          "args": [
+            0.20000000298023224,
+            2
+          ],
+          "ctx": 2
+        },
+        {
+          "i": 57,
+          "method": "linearRampToValueAtTime",
+          "args": [
+            1,
+            2.02
+          ],
+          "ctx": 2
+        }
+      ]
+    }
+  ]
+}

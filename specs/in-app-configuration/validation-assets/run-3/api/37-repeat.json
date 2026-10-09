@@ -1,0 +1,53 @@
+{
+  "before": [
+    "done",
+    "active",
+    "pending",
+    "pending"
+  ],
+  "after": [
+    "done",
+    "active",
+    "pending",
+    "pending"
+  ],
+  "status": "Your turn: play note 2 of 4",
+  "sequence": {
+    "master": 23,
+    "startTimes": [
+      7.01,
+      7.26,
+      7.51,
+      7.76
+    ],
+    "frequenciesHz": [
+      440,
+      233.08,
+      233.08,
+      233.08
+    ],
+    "writtenMidi": [
+      71,
+      60,
+      60,
+      60
+    ],
+    "stopTimes": [
+      7.26,
+      7.51,
+      7.76,
+      8.01
+    ],
+    "stoppedEarly": false,
+    "masterEvents": [
+      {
+        "i": 1,
+        "method": "value=",
+        "args": [
+          0
+        ],
+        "ctx": 6.96
+      }
+    ]
+  }
+}

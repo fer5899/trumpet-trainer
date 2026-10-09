@@ -1,0 +1,131 @@
+{
+  "melodyLength": {
+    "trail": [
+      {
+        "value": 5,
+        "aria": "5 notes",
+        "visible": "5 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 6,
+        "aria": "6 notes",
+        "visible": "6 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 7,
+        "aria": "7 notes",
+        "visible": "7 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 8,
+        "aria": "8 notes",
+        "visible": "8 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 7,
+        "aria": "7 notes",
+        "visible": "7 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 6,
+        "aria": "6 notes",
+        "visible": "6 notes",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 5,
+        "aria": "5 notes",
+        "visible": "5 notes",
+        "step": 1
+      }
+    ],
+    "deltas": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ]
+  },
+  "maxInterval": {
+    "trail": [
+      {
+        "value": 12,
+        "aria": "12 semitones",
+        "visible": "12 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 13,
+        "aria": "13 semitones",
+        "visible": "13 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 14,
+        "aria": "14 semitones",
+        "visible": "14 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowRight",
+        "value": 15,
+        "aria": "15 semitones",
+        "visible": "15 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 14,
+        "aria": "14 semitones",
+        "visible": "14 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 13,
+        "aria": "13 semitones",
+        "visible": "13 semitones",
+        "step": 1
+      },
+      {
+        "key": "ArrowLeft",
+        "value": 12,
+        "aria": "12 semitones",
+        "visible": "12 semitones",
+        "step": 1
+      }
+    ],
+    "deltas": [
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1
+    ]
+  },
+  "integerStepHits": [],
+  "constantsSourceMatches": {
+    "MELODY_LENGTH_STEP": true,
+    "MAX_INTERVAL_STEP": true
+  },
+  "imported": {
+    "MELODY_LENGTH_STEP": 1,
+    "MAX_INTERVAL_STEP": 1
+  }
+}

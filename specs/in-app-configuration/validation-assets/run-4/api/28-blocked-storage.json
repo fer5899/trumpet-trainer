@@ -1,0 +1,41 @@
+{
+  "emulation": {
+    "access": "SecurityError",
+    "browserStorage": null
+  },
+  "initial": {
+    "scale": "Do major",
+    "Melody length": "5 notes",
+    "Max interval": "12 semitones",
+    "Note duration": "1000 ms",
+    "Playback volume": "50%"
+  },
+  "inVisit": {
+    "scale": "Do major",
+    "Melody length": "4 notes",
+    "Max interval": "12 semitones",
+    "Note duration": "500 ms",
+    "Playback volume": "30%"
+  },
+  "exercise": {
+    "boxCount": 3,
+    "notes": [
+      71,
+      71,
+      71
+    ],
+    "spacing": [
+      0.5,
+      0.5
+    ]
+  },
+  "afterReload": {
+    "scale": "Do major",
+    "Melody length": "5 notes",
+    "Max interval": "12 semitones",
+    "Note duration": "1000 ms",
+    "Playback volume": "50%"
+  },
+  "thresholdAfterReload": "Threshold: −40 dB",
+  "consoleErrors": []
+}

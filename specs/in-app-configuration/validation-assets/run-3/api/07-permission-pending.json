@@ -1,0 +1,30 @@
+{
+  "before": {
+    "start": false,
+    "testMic": false,
+    "gear": false,
+    "gumCalls": 0,
+    "training": false
+  },
+  "pending": {
+    "start": true,
+    "testMic": true,
+    "gear": true,
+    "gumCalls": 1,
+    "training": false
+  },
+  "pendingLater": {
+    "start": true,
+    "testMic": true,
+    "gear": true,
+    "gumCalls": 1,
+    "training": false
+  },
+  "training": {
+    "start": null,
+    "testMic": null,
+    "gear": false,
+    "gumCalls": 1,
+    "training": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "ariaLabel": "Settings",
+  "tag": "BUTTON",
+  "focusVisible": true,
+  "outline": "solid 3px"
+}

@@ -1,0 +1,21 @@
+{
+  "step": 8,
+  "expression": "const m = await import('/src/music/melody.ts'); const r = [0, 0.5, 0.99]; let i = 0; const ex = m.generateExercise(() => r[i++], { length: 3, maxInterval: 12, scaleId: 'major:do' }); return [ex.notes, ex.scale.id];",
+  "expected": [
+    [
+      55,
+      62,
+      72
+    ],
+    "major:do"
+  ],
+  "actual": [
+    [
+      55,
+      62,
+      72
+    ],
+    "major:do"
+  ],
+  "match": true
+}

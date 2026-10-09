@@ -1,0 +1,41 @@
+{
+  "closed": {
+    "x": 0,
+    "w": 375,
+    "bottom": 812,
+    "top": 252,
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "radius": [
+      "12px",
+      "12px",
+      "0px",
+      "0px"
+    ],
+    "overflowY": "auto",
+    "scrollHeight": 560,
+    "clientHeight": 560
+  },
+  "listOpen812": {
+    "x": 0,
+    "w": 375,
+    "bottom": 812,
+    "top": 32,
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "radius": [
+      "12px",
+      "12px",
+      "0px",
+      "0px"
+    ],
+    "overflowY": "auto",
+    "scrollHeight": 804,
+    "clientHeight": 780
+  },
+  "listOpen600": {
+    "scrollHeight": 804,
+    "clientHeight": 568,
+    "scrollTop": 236
+  }
+}

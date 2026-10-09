@@ -1,0 +1,46 @@
+{
+  "attempts": 9,
+  "uiName": "Do♭5",
+  "playedWith71": [
+    {
+      "notes": [
+        61,
+        71,
+        71
+      ],
+      "names": [
+        "Re♭4",
+        "Do♭5",
+        "Do♭5"
+      ],
+      "outOfKey": []
+    },
+    {
+      "notes": [
+        63,
+        63,
+        71
+      ],
+      "names": [
+        "Mi♭4",
+        "Mi♭4",
+        "Do♭5"
+      ],
+      "outOfKey": []
+    },
+    {
+      "notes": [
+        71,
+        61,
+        56
+      ],
+      "names": [
+        "Do♭5",
+        "Re♭4",
+        "La♭3"
+      ],
+      "outOfKey": []
+    }
+  ],
+  "spellInKey71": "Do♭5"
+}

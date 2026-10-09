@@ -2,25 +2,43 @@ import { useCallback, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { MicrophoneError, type MicrophoneErrorKind, type MicrophoneSession } from '../audio/microphone';
-import { DEFAULT_MELODY_LENGTH, DEFAULT_THRESHOLD_DB, MAX_INTERVAL_LIMIT } from '../config/constants';
-import { generateExercise } from '../music/melody';
-import type { Melody } from '../music/notes';
-import { CHROMATIC_ID } from '../music/scales';
-import { getTestMelody } from '../testing/testMelody';
+import type { Settings } from '../config/settings';
+import { loadSettings, loadThreshold, saveSettings, saveThreshold } from '../config/settingsStorage';
+import { generateExercise, type Exercise } from '../music/melody';
+import { getTestExercise } from '../testing/testMelody';
 import { HomeScreen } from './HomeScreen';
+import { SettingsButton } from './SettingsButton';
+import { SettingsDialog } from './SettingsDialog';
 import { TrainingScreen } from './TrainingScreen';
 
-type Screen = { name: 'home' } | { name: 'training'; melody: Melody; mic: MicrophoneSession };
+export interface AppProps {
+  /** `getBrowserStorage()` in main.tsx; a fake (or null) in tests. Only settingsStorage touches it. */
+  storage: Storage | null;
+}
 
-/** Root: Home ⇄ Training. All state is in memory only (nothing is persisted). */
-export function App(): JSX.Element {
+type Screen = { name: 'home' } | { name: 'training'; exercise: Exercise; mic: MicrophoneSession };
+
+/** Root: Home ⇄ Training, plus the Settings dialog. Settings and the threshold are persisted to `storage`. */
+export function App({ storage }: AppProps): JSX.Element {
   const services = useAudioServices();
   const [screen, setScreen] = useState<Screen>({ name: 'home' });
-  const [thresholdDb, setThresholdDb] = useState(DEFAULT_THRESHOLD_DB);
+  const [settings, setSettings] = useState<Settings>(() => loadSettings(storage));
+  const [thresholdDb, setThresholdDb] = useState(() => loadThreshold(storage));
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [testMicActive, setTestMicActive] = useState(false);
   const [testMicError, setTestMicError] = useState<MicrophoneErrorKind | null>(null);
   const [startError, setStartError] = useState<MicrophoneErrorKind | null>(null);
   const [starting, setStarting] = useState(false);
+
+  const handleSettingsChange = (next: Settings): void => {
+    setSettings(next);
+    saveSettings(storage, next);
+  };
+
+  const handleThresholdChange = (db: number): void => {
+    setThresholdDb(db);
+    saveThreshold(storage, db);
+  };
 
   const handleStart = async (): Promise<void> => {
     // 1. Synchronously, before any await (iOS Safari autoplay policy).
@@ -42,19 +60,17 @@ export function App(): JSX.Element {
       setStarting(false);
       return;
     }
-    // 4. Generate (or, in the e2e build, read) the melody and switch screens.
-    //    The test mic stays off so returning Home never reopens it without a click.
-    //    Until the settings UI lands, a chromatic exercise with the widest interval reproduces the
-    //    MVP melodies exactly.
-    const melody =
-      getTestMelody() ??
+    // 4. Generate (or, in the e2e build, read) the exercise with the current settings and switch
+    //    screens. The test mic stays off so returning Home never reopens it without a click.
+    const exercise =
+      getTestExercise(settings.scaleId) ??
       generateExercise(Math.random, {
-        length: DEFAULT_MELODY_LENGTH,
-        maxInterval: MAX_INTERVAL_LIMIT,
-        scaleId: CHROMATIC_ID,
-      }).notes;
+        length: settings.melodyLength,
+        maxInterval: settings.maxInterval,
+        scaleId: settings.scaleId,
+      });
     setTestMicActive(false);
-    setScreen({ name: 'training', melody, mic });
+    setScreen({ name: 'training', exercise, mic });
     setStarting(false);
   };
 
@@ -62,21 +78,38 @@ export function App(): JSX.Element {
 
   return (
     <main className="app">
+      <div className="app__toolbar">
+        <SettingsButton onClick={() => setSettingsOpen(true)} disabled={starting} />
+      </div>
       {screen.name === 'training' ? (
-        <TrainingScreen melody={screen.melody} mic={screen.mic} thresholdDb={thresholdDb} onExit={handleExit} />
+        <TrainingScreen
+          exercise={screen.exercise}
+          mic={screen.mic}
+          thresholdDb={thresholdDb}
+          noteDurationMs={settings.noteDurationMs}
+          volume={settings.volume}
+          onExit={handleExit}
+        />
       ) : (
         <HomeScreen
           onStart={() => void handleStart()}
           starting={starting}
           startError={startError}
           thresholdDb={thresholdDb}
-          onThresholdChange={setThresholdDb}
+          onThresholdChange={handleThresholdChange}
           testMicActive={testMicActive}
           onTestMicActiveChange={setTestMicActive}
           testMicError={testMicError}
           onTestMicErrorChange={setTestMicError}
         />
       )}
+      <SettingsDialog
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        mode={screen.name === 'training' ? 'training' : 'home'}
+        settings={settings}
+        onChange={handleSettingsChange}
+      />
     </main>
   );
 }

@@ -135,11 +135,13 @@ The catalog (146 options) is built once at module load. The property test assert
 
 ## Known issues
 
-- **Release decision:** Parts 1 and 2 ship in the same PR. No `bump.txt` is added until Part 2 is done, so CI's
-  `release` job cannot publish Part 1 alone (review warning `useTrainingSession.ts:77-81`).
-- Until prd2.md lands, the app plays MVP-style chromatic melodies but with the new defaults already active: notes last
+- **Release (what happened):** the plan was to ship Parts 1 and 2 in one PR, but Part 1 was released on its own as
+  **v0.2.0** (`cad2846` prepared it, `348d002` is the CI release commit; the bridge defaults above shipped with it).
+  Part 2 is released separately and needs its own `bump.txt` and `CHANGELOG.md` entry.
+- ~~Until prd2.md lands, the app plays MVP-style chromatic melodies but with the new defaults already active: notes last
   1000 ms (was 500 ms) and playback is 2× louder (peak 1 × master 0.5 vs 0.25 × 1). Settings are not yet persisted or
-  editable; `settingsStorage` is not wired into the app.
+  editable; `settingsStorage` is not wired into the app.~~ **Resolved by prd2.md:** the bridge is gone; the app uses
+  the persisted settings (see "prd2.md implementation" below).
 
 ## Tech debt reduction (after /t-review #1)
 
@@ -160,3 +162,187 @@ All 11 review items fixed (`review.md`); unit tests 1027 → **1196**, lint and 
   e.g. "b major" lists Si major first, "do" lists Do-tonic options before dorian. PRD §2.1 updated; every PRD search
   table row still passes.
 - `spelling.test.ts`: the 135-scale sweep uses `scaleCandidates(scale)` instead of hard-coded 19 / 54 / 12.
+
+---
+
+# prd2.md implementation
+
+## Requirements
+
+Implements `specs/in-app-configuration/prd2.md` (Part 2 of 2): reducer initializer, live settings in
+`useTrainingSession`, App wiring with injected storage, gear button, Settings dialog, scale combobox, CSS, the
+`?melody=` hook for 3–8 notes, test infrastructure and `e2e/settings.spec.ts`. The Part 1 bridge is removed.
+
+| PRD requirement | Status |
+|---|---|
+| 5.1 `createInitialTrainingState(exercise)` spells with `spellExercise`; transitions unchanged | Implemented |
+| 5.2 hook takes `exercise`, live `noteDurationMs` / `volume`; refs synced before the playing effect; `playbackRef`; volume effect (`setVolume` once, none when idle/equal); playing deps unchanged | Implemented |
+| 6.1 `App({ storage })`, settings/threshold loaded + saved, Start uses `getTestExercise(scaleId) ?? generateExercise(…settings)`, toolbar + dialog, mode follows screen, dialog stays open on screen change | Implemented |
+| 6.1 `main.tsx` renders `<App storage={getBrowserStorage()} />` | Implemented |
+| 6.2 `SettingsButton` (aria-label, aria-haspopup, U+2699 U+FE0E, disabled while starting) | Implemented |
+| 6.3 `SettingsDialog` (always-mounted `<dialog>`, content only while open, showModal/close sync, Esc/Close/cancel/forced close, five controls with limits/steps/valuetext, Training mode + hint, Reset scopes) | Implemented (focus detail flagged below) |
+| 6.3 `settingsText.ts` formatters | Implemented |
+| 6.4 `ScaleCombobox` (every row of the behavior table, ARIA, in-flow list) | Implemented (ArrowDown-on-closed detail flagged below) |
+| 6.5 `TrainingScreen` forwards exercise / duration / volume; one box per note | Implemented |
+| 6.6 CSS: toolbar, gear, wrapping note boxes with `--note-box-size`, dialog + backdrop + mobile sheet, setting rows, combobox | Implemented |
+| 7.1 `parseTestMelody` 3–8 notes; `getTestExercise(scaleId)` | Implemented |
+| 7.2 `setup.ts` dialog stubs; `renderApp(fake, { storage })`, `boxStates()` counts boxes, `openSettings()` | Implemented |
+| 7.3 `e2e/settings.spec.ts` scenarios 1–6 | Implemented (scenario 5 also checks 320 px and desktop) |
+| Acceptance criteria (gear/dialog, combobox, training, persistence) | All covered by unit/component tests and e2e |
+| CLAUDE.md / README.md updates | Done |
+
+### Flagged / interpretation choices
+
+1. **Initial focus in the dialog (6.3).** Native `showModal()` focuses the first focusable control. In Home mode that
+   is the Scale input, and focus opens the scale list (6.4), so the dialog would open with the list expanded and the
+   first Esc would only close the list, contradicting e2e scenario 1 ("Esc closes"). After `showModal()` the effect
+   calls `el.focus()` on the `<dialog>` (`tabIndex={-1}`), the APG recommendation when the first control is a
+   complex widget. Tab then reaches Scale (list opens). Focus still returns to the gear on close (native).
+2. **ArrowDown/ArrowUp on a closed list (6.4)** "opens if closed; moves activeIndex by ±1": opening shows the current
+   value as active and does not also move by one (so the highlight starts on the selected scale, as on focus).
+3. **Empty "No matching scales" row:** also prevents `mousedown` so clicking it keeps focus and the list open
+   (otherwise the blur would close the list; the PRD only says "not selectable").
+4. **`getTestExercise`** uses `getSpecificScale(scaleId)` (Part 1 helper), which is exactly "a `scale` option whose
+   `resolveScaleMembers` is a single member"; chromatic and groups → `'chromatic'`.
+5. **Escape with the list open** calls both `preventDefault()` and `stopPropagation()` (as specified); the dialog's
+   `onKeyDown` additionally ignores `defaultPrevented` events, so either guard suffices.
+
+## Initial considerations
+
+- Settings stay out of the reducer (PRD 5.1): they never change phase or progress, so they are plain props of the
+  hook, read through refs (duration) or pushed to the running playback (volume).
+- jsdom 25 has no `HTMLDialogElement.showModal`/`close`; verified before stubbing (`typeof el.showModal ===
+  'undefined'`). Focus restoration and the top layer cannot be tested in jsdom, so they are covered by e2e.
+
+## Design
+
+```
+main.tsx ── getBrowserStorage() ──► App { storage }
+                                     │ settings  = useState(loadSettings(storage))   ─┐ saveSettings / saveThreshold
+                                     │ threshold = useState(loadThreshold(storage))  ─┘ on every change
+                                     ├─ SettingsButton (disabled while starting) ──► settingsOpen = true
+                                     ├─ HomeScreen (onThresholdChange → save)
+                                     ├─ TrainingScreen { exercise, mic, thresholdDb, noteDurationMs, volume }
+                                     │     └─ useTrainingSession
+                                     │          noteDurationRef/volumeRef ← props (effect before 'playing')
+                                     │          'playing' effect: playMelody(freqs, {refs}) → playbackRef
+                                     │          volume effect [volume]: playbackRef?.setVolume once
+                                     └─ SettingsDialog { open, mode = screen, settings, onChange → save }
+                                           ├─ ScaleCombobox → selectScale(settings, id)
+                                           └─ sliders → { ...settings, field }; Reset → resetSettings(scope)
+
+Start: unlock() → flushSync → openMicrophone → getTestExercise(scaleId) ?? generateExercise(Math.random, settings)
+```
+
+## Implementation details
+
+- `src/training/trainingReducer.ts`: `createInitialTrainingState(exercise)` → `melody = exercise.notes`,
+  `names = spellExercise(exercise)`.
+- `src/training/useTrainingSession.ts`: args `exercise`, `noteDurationMs`, `volume`. A ref-sync effect (no deps) is
+  declared before the playing effect, so on a Repeat render the playing effect reads the newest values. The playing
+  effect stores `{ playback, volume }` in `playbackRef` and clears it (only if it is still its own entry) when `done`
+  settles or the playback is stopped. The volume effect (deps `[volume]`) calls `setVolume` only if something is
+  playing and the applied volume differs, then records it. A Repeat render that changes both phase and volume does not
+  call `setVolume` (the new playback already starts at the new volume).
+- `src/components/App.tsx`: `AppProps { storage }`; the `Screen` now carries an `Exercise`; save-on-change handlers;
+  the `SettingsDialog` mode follows the screen, so a completion while the dialog is open switches it to Home mode.
+- `src/components/SettingsButton.tsx` (new), `src/components/SettingsDialog.tsx` (new, with an internal
+  `SettingSlider`), `src/components/ScaleCombobox.tsx` (new; `query: string | null` where `null` means "show the
+  selected name", plus `isOpen` and `activeIndex`; option ids `${listId}-option-${i}`; the active option is scrolled
+  into view with an optional `scrollIntoView?.()` call), `src/components/settingsText.ts` (new).
+- `src/components/TrainingScreen.tsx`: new props forwarded to the hook.
+- `src/testing/testMelody.ts`: length check `MIN_MELODY_LENGTH..MAX_MELODY_LENGTH`; `getTestExercise`.
+- `src/main.tsx`: injects `getBrowserStorage()`.
+- `src/styles.css`: as PRD 6.6. `.settings-button` joins the `.button` border/disabled/focus rules and overrides size
+  and padding. The volume slider's `min`/`max` are `volumeToPercent(MIN_VOLUME)` / `volumeToPercent(MAX_VOLUME)` (no new
+  constants).
+- `src/test/setup.ts`: guarded `showModal`/`close` stubs. `src/test/appTestUtils.tsx`: `renderApp(fake, { storage })`
+  (default `createFakeStorage()`, `null` kept), returns `storage` and `user`, adds `openSettings`; `boxStates()` reads
+  the rendered `note-box-N` elements.
+
+## Tests
+
+Unit/component tests: 1196 → **1285** (28 files), all passing (1297 after /t-review #2, see below).
+`npm run test:scripts` 32/32. `npm run test:e2e` 3 → **9** passed (10 with the Tab-order test from /t-fix). Lint and typecheck clean; build OK.
+
+| File | Tests | Covers |
+|---|---|---|
+| `src/training/trainingReducer.test.ts` | 35 | initializer with chromatic (contextual) and Fa major (Si♭) exercises; 3- and 8-note completion |
+| `src/training/useTrainingSession.test.tsx` | 25 | play call uses the props; volume change while playing → one `volumeChanges` entry, no replay, no stop; none on mount / equal value / idle / listening / after give up; duration change → next Repeat, progress kept; Repeat then volume → only the new playback |
+| `src/testing/testMelody.test.ts` | 28 | 3 and 8 valid, 2 and 9 invalid; `getTestExercise` with `major:do`, `major:fa` (Si♭4), `group:all`, `group:major`, `chromatic`, absent param, flag off |
+| `src/components/settingsText.test.ts` (new) | 15 | all formatters incl. "1 semitone" |
+| `src/components/SettingsButton.test.tsx` (new) | 2 | name, aria-haspopup, glyph, disabled |
+| `src/components/ScaleCombobox.test.tsx` (new) | 16 | closed state; open on click/Tab with 146 options in order, current active, text selected; scrollIntoView; filtering ("bb major"); no matches; clamped arrows; Enter; click; Esc (prevented + not propagated; closed Esc propagates); ArrowDown reopens; blur revert; listbox `tabindex="-1"` (fix below); ARIA attributes |
+| `src/components/SettingsDialog.test.tsx` (new) | 26 | open/close sync (showModal/close spies); focus on the dialog; Close / Esc / Esc in the combobox; cancel prevented; forced close → onClose; backdrop click; combobox reset on reopen; Home controls (limits/steps/values/valuetext); live onChange per control; selectScale raise; max-interval min follows the scale; Reset scopes; Training mode + hint; mode switch while open |
+| `src/components/App.test.tsx` | 38 (was 25) | generator called with the settings; threshold saved to the fake storage (real `Storage.prototype` untouched); gear on both screens / disabled while starting; Esc; settings + threshold round-trip across remount; seeded storage → generator args, 8 boxes, play options; 3 boxes; key spelling; throwing and `null` storage; invalid data; Reset never touches the threshold; training dialog (setVolume once, no restart, listening continues, training reset, duration on Repeat); dialog stays open on completion and switches to Home mode |
+| `e2e/settings.spec.ts` (new) | 7 | PRD 7.3 scenarios 1–6, plus Tab from the open Scale list → Melody length (fix below); scenario 1 also asserts focus returns to the gear; scenario 5 also checks 4 + 4 at 320 px, equal box size and one row at 1280 px |
+
+Not unit-tested (jsdom limits): native focus restoration, the top layer/backdrop and the Chromium close-request abuse
+protection; covered by e2e (focus) and the manual checklist.
+
+## Documentation updates
+
+- `CLAUDE.md`: intro (settings panel, `localStorage`), specs status (both parts implemented, bridge paragraph
+  removed), architecture tree (new components, `settingsText.ts`, `e2e/settings.spec.ts`; updated `melody.ts`,
+  `trainingReducer.ts`, `useTrainingSession.ts`, `testMelody.ts`, `App.tsx`, `TrainingScreen.tsx`, `main.tsx`,
+  `setup.ts`, `appTestUtils.tsx`), conventions (App storage prop, live settings, dialog closing/focus and jsdom stubs,
+  `?melody=` 3–8 notes spelled in key).
+- `README.md`: "How it works" (defaults, threshold remembered), new "Settings" section, `?melody=` 3–8 notes.
+- `specs/in-app-configuration/create-environment.sh`: dev (5173), e2e-mode dev (5174) and production preview (4173),
+  example `?melody=` URLs.
+- `specs/in-app-configuration/validation.md`: "Human Validation — prd2.md" appended.
+
+## Performance
+
+`searchScaleOptions` runs on each keystroke and render while the list is open (146 options, precomputed index:
+negligible). The full list renders 146 `<li>` only while open. The volume effect is O(1) and only runs when the volume
+changes.
+
+## Known issues
+
+- **Release:** Part 1 is released (v0.2.0). Part 2's `bump.txt` (`minor`) and `CHANGELOG.md` entry still have to be
+  added before the PR (`/t-prepare-pr`).
+- The Chromium close-request abuse protection (a second Esc without user activation may force-close the dialog) is
+  mitigated as the PRD says (native `close` → `onClose()`), but it cannot be reproduced in automated tests.
+- ~~e2e scenario 5 uses an all-Si4 8-note melody that the fake microphone matches, so it must give up while listening,
+  before the exercise completes (≈ 4 s window).~~ **Resolved after /t-review #2:** it now uses all-Do4, which the fake
+  microphone never matches.
+
+## Fix: Tab from the Scale field dropped focus to the page body (/t-fix)
+
+- **Root cause:** Chromium makes a scrollable container with no focusable children keyboard-focusable. With the list
+  open, Tab from the input focused the `<ul role="listbox">` (`overflow-y: auto`); the input's `onBlur`
+  (`closeAndRevert`) then unmounted the list and focus fell to `<body>`. jsdom does not model this, so unit tests passed.
+- **Fix:** `src/components/ScaleCombobox.tsx`: the listbox gets `tabIndex={-1}` (options stay reachable via
+  `aria-activedescendant`). Tab now moves to Melody length, closing the list and reverting the text.
+- **PRD:** `prd2.md` §6.4 addendum (Tab order + acceptance criterion).
+- **Tests:** `ScaleCombobox.test.tsx` (listbox `tabindex="-1"`) and `e2e/settings.spec.ts` (click Scale, Tab →
+  Melody length focused, list gone, value unchanged); the e2e test failed before the fix in Chromium.
+
+## Tech debt reduction (after /t-review #2)
+
+8 of 9 review items fixed (`review.md`); unit tests 1286 → **1297** (28 files), `test:scripts` 32/32, e2e 10/10,
+lint and typecheck clean.
+
+- **Listbox mousedown (warning):** the single `onMouseDown` `preventDefault` now sits on the `<ul role="listbox">`
+  instead of each `<li>`, so a press on the list padding or scrollbar no longer focuses the `tabIndex=-1` list and
+  blur-closes it. Test: pressing the listbox keeps the input focused, the list open and selects nothing.
+- **Dialog focus:** `SettingsDialog` sets the `autofocus` attribute on the `<dialog>` before `showModal()`, so the
+  browser's dialog focusing steps focus the dialog and never the Scale input (no throw-away 146-option render, no
+  "expanded" announcement); `el.focus()` stays as the fallback. React's `autoFocus` prop renders no attribute, hence
+  `setAttribute`. Test: the attribute is present when `showModal` runs. e2e scenario 1 asserts the dialog is focused,
+  `aria-expanded="false"` and no listbox.
+- **Double search:** the combobox `onChange` sets `activeIndex` to 0; `activeOptionId` already yields null without
+  results.
+- **Volume ↔ percent:** `volumeToPercent` / `percentToVolume` exported from `src/config/settings.ts` and used by
+  `isValidVolume`, `formatVolume` and the volume slider (min, max, value, onChange). Tests: table + round-trip of every
+  slider step through `normalizeSettings`.
+- **Slider steps:** `MELODY_LENGTH_STEP` and `MAX_INTERVAL_STEP` (both 1) added to `constants.ts` (+ constants table
+  test); `INTEGER_STEP` removed from `SettingsDialog`.
+- **e2e:** `settings.spec.ts` imports `SETTINGS_STORAGE_KEY` / `THRESHOLD_STORAGE_KEY` from `src/config/constants.ts`;
+  the 8-box layout test uses `?melody=60,60,60,60,60,60,60,60` (no race with completion).
+- **`.claude/launch.json`:** added to `.gitignore` (per-developer desktop preview config; its port 5173 would clash
+  with `test:e2e` if shared).
+- **Notes:** the stale "same PR" release note now records the v0.2.0 release of Part 1.
+- **Not done here:** `bump.txt` + `CHANGELOG.md` `[Unreleased]` entries (review warning 2) — left to `/t-prepare-pr`,
+  as the review's fix says.

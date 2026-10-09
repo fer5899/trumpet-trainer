@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { spellMelody } from '../music/spelling';
+import type { Exercise } from '../music/melody';
+import { spellInKey, spellMelody } from '../music/spelling';
+import { requireSpecificScale } from '../test/scales';
 import {
   createInitialTrainingState,
   selectCanAct,
@@ -11,9 +13,10 @@ import {
 } from './trainingReducer';
 
 const MELODY = [54, 61, 61, 58, 72] as const;
+const EXERCISE: Exercise = { notes: MELODY, scale: 'chromatic' };
 
 function stateIn(phase: TrainingPhase, matchedCount = 0): TrainingState {
-  return { ...createInitialTrainingState(MELODY), phase, matchedCount };
+  return { ...createInitialTrainingState(EXERCISE), phase, matchedCount };
 }
 
 const ACTIONS: TrainingAction[] = [
@@ -26,13 +29,31 @@ const PHASES: TrainingPhase[] = ['playing', 'guard', 'listening', 'complete'];
 const VALID = new Set(['playing:playbackEnded', 'guard:guardElapsed', 'listening:noteMatched', 'listening:repeatRequested']);
 
 describe('createInitialTrainingState', () => {
-  it('starts playing with nothing matched and the spelled names', () => {
-    const state = createInitialTrainingState(MELODY);
+  it('starts playing with nothing matched and the contextual names for a chromatic exercise', () => {
+    const state = createInitialTrainingState(EXERCISE);
     expect(state.phase).toBe('playing');
     expect(state.matchedCount).toBe(0);
     expect(state.melody).toEqual(MELODY);
     expect(state.names).toEqual(spellMelody(MELODY));
     expect(state.names).toEqual(['Fa#3', 'Do#4', 'Do#4', 'Si♭3', 'Do5']);
+  });
+
+  it('spells a scale exercise in its key (Fa major shows Si♭)', () => {
+    const scale = requireSpecificScale('major:fa');
+    const notes = [65, 70, 69, 72] as const;
+    const state = createInitialTrainingState({ notes, scale });
+    expect(state.melody).toEqual(notes);
+    expect(state.names).toEqual(spellInKey(notes, scale.keySignature));
+    expect(state.names).toEqual(['Fa4', 'Si♭4', 'La4', 'Do5']);
+  });
+
+  it.each([3, 8])('keeps a %i-note exercise; the last match completes it', (length) => {
+    const notes = Array.from({ length }, () => 60);
+    let state: TrainingState = { ...createInitialTrainingState({ notes, scale: 'chromatic' }), phase: 'listening' };
+    expect(selectNoteBoxes(state)).toHaveLength(length);
+    for (let i = 0; i < length; i += 1) state = trainingReducer(state, { type: 'noteMatched' });
+    expect(state.phase).toBe('complete');
+    expect(state.matchedCount).toBe(length);
   });
 });
 

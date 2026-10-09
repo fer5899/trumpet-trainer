@@ -1,0 +1,169 @@
+{
+  "steps": [
+    {
+      "value": 1,
+      "visible": "1 semitone",
+      "aria": "1 semitone",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 2,
+      "visible": "2 semitones",
+      "aria": "2 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 3,
+      "visible": "3 semitones",
+      "aria": "3 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 4,
+      "visible": "4 semitones",
+      "aria": "4 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 5,
+      "visible": "5 semitones",
+      "aria": "5 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 6,
+      "visible": "6 semitones",
+      "aria": "6 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 7,
+      "visible": "7 semitones",
+      "aria": "7 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 8,
+      "visible": "8 semitones",
+      "aria": "8 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 9,
+      "visible": "9 semitones",
+      "aria": "9 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 10,
+      "visible": "10 semitones",
+      "aria": "10 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 11,
+      "visible": "11 semitones",
+      "aria": "11 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 12,
+      "visible": "12 semitones",
+      "aria": "12 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 13,
+      "visible": "13 semitones",
+      "aria": "13 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 14,
+      "visible": "14 semitones",
+      "aria": "14 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 15,
+      "visible": "15 semitones",
+      "aria": "15 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 16,
+      "visible": "16 semitones",
+      "aria": "16 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 17,
+      "visible": "17 semitones",
+      "aria": "17 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    },
+    {
+      "value": 18,
+      "visible": "18 semitones",
+      "aria": "18 semitones",
+      "min": 1,
+      "max": 18,
+      "step": 1
+    }
+  ],
+  "end": {
+    "value": 18,
+    "visible": "18 semitones",
+    "aria": "18 semitones",
+    "min": 1,
+    "max": 18,
+    "step": 1
+  },
+  "home": {
+    "value": 1,
+    "visible": "1 semitone",
+    "aria": "1 semitone",
+    "min": 1,
+    "max": 18,
+    "step": 1
+  },
+  "attrs": {
+    "min": 1,
+    "max": 18,
+    "step": 1
+  }
+}

@@ -35,6 +35,12 @@ export interface Settings {
   scaleId: ScaleOptionId;
 }
 
+/** Master gain 0..1 → whole percent 0..100 (slider value, displayed text). */
+export const volumeToPercent = (volume: number): number => Math.round(volume * PERCENT);
+
+/** Whole percent → master gain (exactly percent / PERCENT, the value stored and validated). */
+export const percentToVolume = (percent: number): number => percent / PERCENT;
+
 /** 'all' on Home; 'training' resets only what the Training screen shows. */
 export type ResetScope = 'all' | 'training';
 
@@ -72,8 +78,8 @@ const isValidNoteDuration = (value: unknown): value is number =>
  */
 const isValidVolume = (value: unknown): value is number => {
   if (!isNumberInRange(value, MIN_VOLUME, MAX_VOLUME)) return false;
-  const percent = Math.round(value * PERCENT);
-  return percent / PERCENT === value && percent % VOLUME_STEP_PERCENT === 0;
+  const percent = volumeToPercent(value);
+  return percentToVolume(percent) === value && percent % VOLUME_STEP_PERCENT === 0;
 };
 
 /**

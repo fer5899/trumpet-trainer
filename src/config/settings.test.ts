@@ -5,9 +5,11 @@ import {
   DEFAULT_SETTINGS,
   normalizeSettings,
   parseThreshold,
+  percentToVolume,
   resetSettings,
   selectScale,
   type Settings,
+  volumeToPercent,
 } from './settings';
 
 const CUSTOM: Settings = { noteDurationMs: 750, melodyLength: 8, volume: 0.8, maxInterval: 5, scaleId: 'minor:mi' };
@@ -154,4 +156,29 @@ describe('parseThreshold', () => {
       expect(parseThreshold(value)).toBe(DEFAULT_THRESHOLD_DB);
     },
   );
+});
+
+describe('volumeToPercent / percentToVolume', () => {
+  it.each([
+    [0, 0],
+    [0.05, 5],
+    [0.35, 35],
+    [0.5, 50],
+    [1, 100],
+  ])('volume %s ↔ %s %%', (volume, percent) => {
+    expect(volumeToPercent(volume)).toBe(percent);
+    expect(percentToVolume(percent)).toBe(volume);
+  });
+
+  it('volumeToPercent rounds to a whole percent', () => {
+    expect(volumeToPercent(0.354)).toBe(35);
+  });
+
+  it('every slider step round-trips to a valid stored volume', () => {
+    for (let percent = 0; percent <= PERCENT; percent += VOLUME_STEP_PERCENT) {
+      const volume = percentToVolume(percent);
+      expect(volumeToPercent(volume)).toBe(percent);
+      expect(normalizeSettings({ ...DEFAULT_SETTINGS, volume }).volume).toBe(volume);
+    }
+  });
 });

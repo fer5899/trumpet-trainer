@@ -1,0 +1,28 @@
+{
+  "played": [
+    65,
+    70,
+    72
+  ],
+  "names": {
+    "major:fa": [
+      "Fa4",
+      "Si♭4",
+      "Do5"
+    ],
+    "chromatic": [
+      "Fa4",
+      "La#4",
+      "Do5"
+    ],
+    "group:all": [
+      "Fa4",
+      "La#4",
+      "Do5"
+    ]
+  },
+  "uiBoxes": {
+    "Sol♭ major": "Do♭5",
+    "Chromatic": "Si4"
+  }
+}

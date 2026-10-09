@@ -1,0 +1,156 @@
+{
+  "snap": {
+    "exists": true,
+    "open": true,
+    "modal": true,
+    "title": "Settings",
+    "scale": null,
+    "comboExpanded": null,
+    "order": [
+      "Note duration",
+      "Playback volume"
+    ],
+    "sliders": {
+      "Note duration": {
+        "visible": "1500 ms",
+        "aria": "1500 ms",
+        "value": 1500,
+        "min": 250,
+        "max": 1500,
+        "step": 50,
+        "labelFor": true
+      },
+      "Playback volume": {
+        "visible": "50%",
+        "aria": "50%",
+        "value": 50,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "labelFor": true
+      }
+    },
+    "hint": "Other settings can be changed on the home screen.",
+    "buttons": [
+      "Reset to defaults",
+      "Close"
+    ],
+    "rect": {
+      "x": 384,
+      "y": 226,
+      "w": 512,
+      "h": 348,
+      "bottom": 574,
+      "right": 896
+    }
+  },
+  "status": "Listen…",
+  "sequences": [
+    {
+      "master": 3,
+      "startTimes": [
+        0.0713,
+        1.5713,
+        3.0713,
+        4.5713
+      ],
+      "frequenciesHz": [
+        440,
+        233.08,
+        233.08,
+        233.08
+      ],
+      "writtenMidi": [
+        71,
+        60,
+        60,
+        60
+      ],
+      "stopTimes": [
+        1.5713,
+        3.0713,
+        4.5713,
+        6.0713,
+        0.0413,
+        0.0413,
+        0.0413,
+        0.0413
+      ],
+      "stoppedEarly": true,
+      "masterEvents": [
+        {
+          "i": 2,
+          "method": "value=",
+          "args": [
+            0.5
+          ],
+          "ctx": 0.021333333333333333
+        },
+        {
+          "i": 46,
+          "method": "cancelScheduledValues",
+          "args": [
+            0.021333333333333333
+          ],
+          "ctx": 0.021333333333333333
+        },
+        {
+          "i": 47,
+          "method": "setValueAtTime",
+          "args": [
+            0.5,
+            0.021333333333333333
+          ],
+          "ctx": 0.021333333333333333
+        },
+        {
+          "i": 48,
+          "method": "linearRampToValueAtTime",
+          "args": [
+            0,
+            0.04133333333333333
+          ],
+          "ctx": 0.021333333333333333
+        }
+      ]
+    },
+    {
+      "master": 13,
+      "startTimes": [
+        0.0713,
+        1.5713,
+        3.0713,
+        4.5713
+      ],
+      "frequenciesHz": [
+        440,
+        233.08,
+        233.08,
+        233.08
+      ],
+      "writtenMidi": [
+        71,
+        60,
+        60,
+        60
+      ],
+      "stopTimes": [
+        1.5713,
+        3.0713,
+        4.5713,
+        6.0713
+      ],
+      "stoppedEarly": false,
+      "masterEvents": [
+        {
+          "i": 54,
+          "method": "value=",
+          "args": [
+            0.5
+          ],
+          "ctx": 0.021333333333333333
+        }
+      ]
+    }
+  ]
+}

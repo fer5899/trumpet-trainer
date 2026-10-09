@@ -1,0 +1,223 @@
+
+> trumpet-trainer@0.2.0 test:scripts
+> node --test scripts/release.test.mjs
+
+TAP version 13
+# Subtest: parseVersion
+    # Subtest: reads "0.0.0" as 0.0.0
+    ok 1 - reads "0.0.0" as 0.0.0
+      ---
+      duration_ms: 2.6688
+      ...
+    # Subtest: reads "1.2.3\\n" as 1.2.3
+    ok 2 - reads "1.2.3\\n" as 1.2.3
+      ---
+      duration_ms: 0.3793
+      ...
+    # Subtest: reads "0.0.0-SNAPSHOT-create-mvp" as 0.0.0
+    ok 3 - reads "0.0.0-SNAPSHOT-create-mvp" as 0.0.0
+      ---
+      duration_ms: 0.3593
+      ...
+    # Subtest: reads "1.0.1-SNAPSHOT-feature/with-slash\\r\\n" as 1.0.1
+    ok 4 - reads "1.0.1-SNAPSHOT-feature/with-slash\\r\\n" as 1.0.1
+      ---
+      duration_ms: 0.1747
+      ...
+    # Subtest: rejects ""
+    ok 5 - rejects ""
+      ---
+      duration_ms: 0.9023
+      ...
+    # Subtest: rejects "1.2"
+    ok 6 - rejects "1.2"
+      ---
+      duration_ms: 0.2421
+      ...
+    # Subtest: rejects "v1.2.3"
+    ok 7 - rejects "v1.2.3"
+      ---
+      duration_ms: 0.4292
+      ...
+    # Subtest: rejects "1.2.3-beta"
+    ok 8 - rejects "1.2.3-beta"
+      ---
+      duration_ms: 0.2191
+      ...
+    # Subtest: rejects "01.2.3x"
+    ok 9 - rejects "01.2.3x"
+      ---
+      duration_ms: 0.4285
+      ...
+    1..9
+ok 1 - parseVersion
+  ---
+  duration_ms: 10.9264
+  type: 'suite'
+  ...
+# Subtest: parseBump
+    # Subtest: accepts patch
+    ok 1 - accepts patch
+      ---
+      duration_ms: 0.5744
+      ...
+    # Subtest: accepts minor
+    ok 2 - accepts minor
+      ---
+      duration_ms: 0.1969
+      ...
+    # Subtest: accepts major
+    ok 3 - accepts major
+      ---
+      duration_ms: 0.2398
+      ...
+    # Subtest: rejects ""
+    ok 4 - rejects ""
+      ---
+      duration_ms: 0.2767
+      ...
+    # Subtest: rejects "Minor"
+    ok 5 - rejects "Minor"
+      ---
+      duration_ms: 0.1624
+      ...
+    # Subtest: rejects "feature"
+    ok 6 - rejects "feature"
+      ---
+      duration_ms: 0.315
+      ...
+    # Subtest: rejects "patch minor"
+    ok 7 - rejects "patch minor"
+      ---
+      duration_ms: 0.1831
+      ...
+    1..7
+ok 2 - parseBump
+  ---
+  duration_ms: 2.4257
+  type: 'suite'
+  ...
+# Subtest: bumpVersion
+    # Subtest: 0.0.0 + patch = 0.0.1
+    ok 1 - 0.0.0 + patch = 0.0.1
+      ---
+      duration_ms: 0.3983
+      ...
+    # Subtest: 0.0.0 + minor = 0.1.0
+    ok 2 - 0.0.0 + minor = 0.1.0
+      ---
+      duration_ms: 0.1557
+      ...
+    # Subtest: 1.2.3 + patch = 1.2.4
+    ok 3 - 1.2.3 + patch = 1.2.4
+      ---
+      duration_ms: 0.3544
+      ...
+    # Subtest: 1.2.3 + minor = 1.3.0
+    ok 4 - 1.2.3 + minor = 1.3.0
+      ---
+      duration_ms: 0.2208
+      ...
+    # Subtest: 1.2.3 + major = 2.0.0
+    ok 5 - 1.2.3 + major = 2.0.0
+      ---
+      duration_ms: 0.1313
+      ...
+    1..5
+ok 3 - bumpVersion
+  ---
+  duration_ms: 1.6149
+  type: 'suite'
+  ...
+# Subtest: unreleasedSection
+    # Subtest: returns the content up to the next release heading
+    ok 1 - returns the content up to the next release heading
+      ---
+      duration_ms: 0.4895
+      ...
+    # Subtest: returns the content up to the end of the file
+    ok 2 - returns the content up to the end of the file
+      ---
+      duration_ms: 0.1965
+      ...
+    # Subtest: returns an empty string for an empty section
+    ok 3 - returns an empty string for an empty section
+      ---
+      duration_ms: 0.1407
+      ...
+    # Subtest: returns null without an Unreleased heading
+    ok 4 - returns null without an Unreleased heading
+      ---
+      duration_ms: 0.1115
+      ...
+    # Subtest: handles CRLF line endings
+    ok 5 - handles CRLF line endings
+      ---
+      duration_ms: 0.1513
+      ...
+    1..5
+ok 4 - unreleasedSection
+  ---
+  duration_ms: 1.4812
+  type: 'suite'
+  ...
+# Subtest: tagChangelog
+    # Subtest: turns Unreleased into the release and adds an empty Unreleased above it
+    ok 1 - turns Unreleased into the release and adds an empty Unreleased above it
+      ---
+      duration_ms: 0.593
+      ...
+    # Subtest: throws without an Unreleased heading
+    ok 2 - throws without an Unreleased heading
+      ---
+      duration_ms: 0.263
+      ...
+    1..2
+ok 5 - tagChangelog
+  ---
+  duration_ms: 1.0903
+  type: 'suite'
+  ...
+# Subtest: releaseNotes
+    # Subtest: returns the body of the given release
+    ok 1 - returns the body of the given release
+      ---
+      duration_ms: 0.207
+      ...
+    # Subtest: returns null for an unknown release
+    ok 2 - returns null for an unknown release
+      ---
+      duration_ms: 0.1558
+      ...
+    1..2
+ok 6 - releaseNotes
+  ---
+  duration_ms: 0.4983
+  type: 'suite'
+  ...
+# Subtest: setPackageVersion
+    # Subtest: updates package.json and keeps the formatting
+    ok 1 - updates package.json and keeps the formatting
+      ---
+      duration_ms: 0.7542
+      ...
+    # Subtest: updates both versions in package-lock.json
+    ok 2 - updates both versions in package-lock.json
+      ---
+      duration_ms: 0.4321
+      ...
+    1..2
+ok 7 - setPackageVersion
+  ---
+  duration_ms: 1.3507
+  type: 'suite'
+  ...
+1..7
+# tests 32
+# suites 7
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 243.9392

@@ -1,0 +1,105 @@
+{
+  "opens": [
+    {
+      "immediate": {
+        "activeTag": "DIALOG",
+        "activeIsDialog": true,
+        "autofocusAttr": true,
+        "expanded": "false",
+        "listboxes": 0
+      },
+      "settled": {
+        "activeTag": "DIALOG",
+        "activeIsDialog": true,
+        "autofocusAttr": true,
+        "expanded": "false",
+        "listboxes": 0,
+        "watch": {
+          "listboxAdded": 0,
+          "expandedTrue": 0,
+          "focusLog": [
+            {
+              "tag": "BUTTON",
+              "role": null,
+              "label": "Settings",
+              "t": 81.70000004768372
+            },
+            {
+              "tag": "INPUT",
+              "role": "combobox",
+              "label": "Scale",
+              "t": 91.5
+            },
+            {
+              "tag": "DIALOG",
+              "role": null,
+              "label": null,
+              "t": 92.10000014305115
+            }
+          ]
+        }
+      },
+      "axFocused": [
+        {
+          "role": "dialog",
+          "name": "Settings",
+          "value": "undefined",
+          "props": {
+            "focusable": true,
+            "focused": true,
+            "modal": true,
+            "labelledby": "undefined"
+          }
+        }
+      ]
+    },
+    {
+      "immediate": {
+        "activeTag": "DIALOG",
+        "activeIsDialog": true,
+        "autofocusAttr": true,
+        "expanded": "false",
+        "listboxes": 0
+      },
+      "settled": {
+        "activeTag": "DIALOG",
+        "activeIsDialog": true,
+        "autofocusAttr": true,
+        "expanded": "false",
+        "listboxes": 0,
+        "watch": {
+          "listboxAdded": 0,
+          "expandedTrue": 0,
+          "focusLog": [
+            {
+              "tag": "INPUT",
+              "role": "combobox",
+              "label": "Scale",
+              "t": 885.7000000476837
+            },
+            {
+              "tag": "DIALOG",
+              "role": null,
+              "label": null,
+              "t": 886.4000000953674
+            }
+          ]
+        }
+      },
+      "axFocused": [
+        {
+          "role": "dialog",
+          "name": "Settings",
+          "value": "undefined",
+          "props": {
+            "focusable": true,
+            "focused": true,
+            "modal": true,
+            "labelledby": "undefined"
+          }
+        }
+      ]
+    }
+  ],
+  "autofocusInSource": true
+}

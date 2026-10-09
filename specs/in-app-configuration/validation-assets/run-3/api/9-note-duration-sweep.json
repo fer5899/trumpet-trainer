@@ -1,0 +1,233 @@
+{
+  "steps": [
+    {
+      "value": 250,
+      "visible": "250 ms",
+      "aria": "250 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 300,
+      "visible": "300 ms",
+      "aria": "300 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 350,
+      "visible": "350 ms",
+      "aria": "350 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 400,
+      "visible": "400 ms",
+      "aria": "400 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 450,
+      "visible": "450 ms",
+      "aria": "450 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 500,
+      "visible": "500 ms",
+      "aria": "500 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 550,
+      "visible": "550 ms",
+      "aria": "550 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 600,
+      "visible": "600 ms",
+      "aria": "600 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 650,
+      "visible": "650 ms",
+      "aria": "650 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 700,
+      "visible": "700 ms",
+      "aria": "700 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 750,
+      "visible": "750 ms",
+      "aria": "750 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 800,
+      "visible": "800 ms",
+      "aria": "800 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 850,
+      "visible": "850 ms",
+      "aria": "850 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 900,
+      "visible": "900 ms",
+      "aria": "900 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 950,
+      "visible": "950 ms",
+      "aria": "950 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1000,
+      "visible": "1000 ms",
+      "aria": "1000 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1050,
+      "visible": "1050 ms",
+      "aria": "1050 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1100,
+      "visible": "1100 ms",
+      "aria": "1100 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1150,
+      "visible": "1150 ms",
+      "aria": "1150 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1200,
+      "visible": "1200 ms",
+      "aria": "1200 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1250,
+      "visible": "1250 ms",
+      "aria": "1250 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1300,
+      "visible": "1300 ms",
+      "aria": "1300 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1350,
+      "visible": "1350 ms",
+      "aria": "1350 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1400,
+      "visible": "1400 ms",
+      "aria": "1400 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1450,
+      "visible": "1450 ms",
+      "aria": "1450 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    },
+    {
+      "value": 1500,
+      "visible": "1500 ms",
+      "aria": "1500 ms",
+      "min": 250,
+      "max": 1500,
+      "step": 50
+    }
+  ],
+  "end": {
+    "value": 1500,
+    "visible": "1500 ms",
+    "aria": "1500 ms",
+    "min": 250,
+    "max": 1500,
+    "step": 50
+  },
+  "home": {
+    "value": 250,
+    "visible": "250 ms",
+    "aria": "250 ms",
+    "min": 250,
+    "max": 1500,
+    "step": 50
+  },
+  "attrs": {
+    "min": 250,
+    "max": 1500,
+    "step": 50
+  }
+}

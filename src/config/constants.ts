@@ -32,6 +32,7 @@ export const NOTE_DURATION_STEP_MS = 50;
 export const DEFAULT_MELODY_LENGTH = 5;
 export const MIN_MELODY_LENGTH = 3;
 export const MAX_MELODY_LENGTH = 8;
+export const MELODY_LENGTH_STEP = 1;
 /** Playback volume = master gain, 0..1 (shown as 0..100 %). */
 export const DEFAULT_VOLUME = 0.5;
 export const MIN_VOLUME = 0;
@@ -41,6 +42,7 @@ export const PERCENT = 100;
 /** Largest allowed distance (semitones) between consecutive notes. Lower bound = scale's largest step. */
 export const DEFAULT_MAX_INTERVAL = 12;
 export const MAX_INTERVAL_LIMIT = 18;
+export const MAX_INTERVAL_STEP = 1;
 export const DEFAULT_SCALE_ID = 'major:do';
 
 // --- Persistence ---

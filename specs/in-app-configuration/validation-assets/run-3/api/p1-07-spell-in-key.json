@@ -1,0 +1,29 @@
+{
+  "step": 7,
+  "expression": "const sp = await import('/src/music/spelling.ts'); return [sp.spellInKey([60, 65, 61], 7), sp.spellInKey([66, 71, 70], -6)];",
+  "expected": [
+    [
+      "Si#3",
+      "Mi#4",
+      "Do#4"
+    ],
+    [
+      "Sol♭4",
+      "Do♭5",
+      "Si♭4"
+    ]
+  ],
+  "actual": [
+    [
+      "Si#3",
+      "Mi#4",
+      "Do#4"
+    ],
+    [
+      "Sol♭4",
+      "Do♭5",
+      "Si♭4"
+    ]
+  ],
+  "match": true
+}

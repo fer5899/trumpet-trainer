@@ -1,0 +1,39 @@
+{
+  "melody60": true,
+  "all71x8": false,
+  "importLine": "import { SETTINGS_STORAGE_KEY, THRESHOLD_STORAGE_KEY } from '../src/config/constants'",
+  "importedNames": [
+    "SETTINGS_STORAGE_KEY",
+    "THRESHOLD_STORAGE_KEY"
+  ],
+  "literals": [],
+  "runs": [
+    {
+      "run": 1,
+      "file": "50-e2e.txt",
+      "exit": 0,
+      "exists": true,
+      "passed": 10,
+      "failed": 0,
+      "flaky": 0
+    },
+    {
+      "run": 2,
+      "file": "57-e2e-run-2.txt",
+      "exit": 0,
+      "exists": true,
+      "passed": 10,
+      "failed": 0,
+      "flaky": 0
+    },
+    {
+      "run": 3,
+      "file": "57-e2e-run-3.txt",
+      "exit": 0,
+      "exists": true,
+      "passed": 10,
+      "failed": 0,
+      "flaky": 0
+    }
+  ]
+}

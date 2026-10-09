@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "expression": "const s = await import('/src/music/scales.ts'); return [s.searchScaleOptions('bb major').map(o => o.name), s.searchScaleOptions('F# Dorian').map(o => o.name)];",
+  "expected": [
+    [
+      "Si♭ major",
+      "Si♭ major pentatonic"
+    ],
+    [
+      "Fa# dorian"
+    ]
+  ],
+  "actual": [
+    [
+      "Si♭ major",
+      "Si♭ major pentatonic"
+    ],
+    [
+      "Fa# dorian"
+    ]
+  ],
+  "match": true
+}

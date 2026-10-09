@@ -142,6 +142,9 @@ Markup (ids from `useId()`): `<label htmlFor={inputId}>Scale</label>`, `<input i
 
 `aria-selected="true"` marks the **active** (highlighted) option (APG combobox pattern); when the list opens, that is the current value. The listbox is in normal flow below the input (not absolutely positioned) so it is never clipped by the dialog, with `max-height: 15rem; overflow-y: auto`.
 
+<!-- Added: fix for Tab from the Scale field dropping focus to the page body -->
+**Addendum — Tab order.** Tab from the input (list open or closed) moves focus to the next control in the dialog (Melody length on Home), closing the list and reverting the text. The listbox is never a Tab stop: it carries `tabIndex={-1}`, because Chromium makes a scrollable container without focusable children keyboard-focusable, and focusing it would blur the input, unmount the list and drop focus to `<body>`. Options are reached only via `aria-activedescendant`. *Acceptance:* the open `listbox` has `tabindex="-1"` (`ScaleCombobox.test.tsx`); in Chromium, clicking Scale then pressing Tab focuses the Melody length slider, the list is gone and the input shows the previous scale (`e2e/settings.spec.ts`).
+
 #### 6.5 `TrainingScreen` and `NoteBox`
 
 `TrainingScreenProps = { exercise: Exercise; mic; thresholdDb; noteDurationMs: number; volume: number; onExit }`, all forwarded to `useTrainingSession`. Status text, buttons and `NoteBox` markup are unchanged; the number of boxes = `exercise.notes.length` (3–8). The status already reads "of {melody.length}".

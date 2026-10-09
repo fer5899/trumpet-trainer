@@ -11,6 +11,7 @@ import {
   LISTEN_GUARD_MS,
   SUSTAIN_MS,
 } from '../config/constants';
+import type { Exercise } from '../music/melody';
 import type { Melody } from '../music/notes';
 import { createFakeAudioServices, type FakeAudioServices } from '../test/fakeAudioServices';
 import {
@@ -20,7 +21,7 @@ import {
   TIMER_DRIFT_MARGIN_MS,
   type SessionDriver,
 } from '../test/sessionDriver';
-import { useTrainingSession } from './useTrainingSession';
+import { useTrainingSession, type UseTrainingSessionArgs } from './useTrainingSession';
 
 const MELODY = [71, 60, 72, 54, 66] as const;
 
@@ -29,15 +30,24 @@ let mic: MicrophoneSession;
 let onExit: ReturnType<typeof vi.fn<() => void>>;
 let driver: SessionDriver;
 
-async function setup(thresholdDb = DEFAULT_THRESHOLD_DB, melody: Melody = MELODY) {
+type Props = Pick<UseTrainingSessionArgs, 'noteDurationMs' | 'volume'>;
+const DEFAULT_PROPS: Props = { noteDurationMs: DEFAULT_NOTE_DURATION_MS, volume: DEFAULT_VOLUME };
+
+const chromatic = (notes: Melody): Exercise => ({ notes, scale: 'chromatic' });
+
+async function setup(thresholdDb = DEFAULT_THRESHOLD_DB, melody: Melody = MELODY, initialProps: Props = DEFAULT_PROPS) {
   fake = createFakeAudioServices();
   mic = await fake.services.openMicrophone();
   onExit = vi.fn<() => void>();
   driver = createSessionDriver(fake, 1000);
+  const exercise = chromatic(melody);
   const wrapper = ({ children }: { children?: ReactNode }) => (
     <AudioServicesProvider services={fake.services}>{children}</AudioServicesProvider>
   );
-  return renderHook(() => useTrainingSession({ melody, mic, thresholdDb, onExit }), { wrapper });
+  return renderHook((props: Props) => useTrainingSession({ exercise, mic, thresholdDb, onExit, ...props }), {
+    wrapper,
+    initialProps,
+  });
 }
 
 const finishPlayback = () => driver.finishPlayback();
@@ -227,10 +237,10 @@ describe('useTrainingSession', () => {
     fake = createFakeAudioServices();
     mic = await fake.services.openMicrophone();
     onExit = vi.fn<() => void>();
-  driver = createSessionDriver(fake, 1000);
+    driver = createSessionDriver(fake, 1000);
     const { StrictMode } = await import('react');
     const { result } = renderHook(
-      () => useTrainingSession({ melody: MELODY, mic, thresholdDb: DEFAULT_THRESHOLD_DB, onExit }),
+      () => useTrainingSession({ exercise: chromatic(MELODY), mic, thresholdDb: DEFAULT_THRESHOLD_DB, onExit, ...DEFAULT_PROPS }),
       {
         wrapper: ({ children }: { children?: ReactNode }) => (
           <StrictMode>
@@ -244,5 +254,78 @@ describe('useTrainingSession', () => {
     await toListening();
     expect(result.current.state.phase).toBe('listening');
     expect(fake.sessions[0].listenerCount).toBe(1);
+  });
+});
+
+describe('useTrainingSession — live settings', () => {
+  it('plays with the note duration and volume passed in', async () => {
+    await setup(DEFAULT_THRESHOLD_DB, MELODY, { noteDurationMs: 750, volume: 0.8 });
+    expect(fake.playCalls).toEqual([
+      { frequenciesHz: MELODY.map(concertHz), noteDurationMs: 750, volume: 0.8, volumeChanges: [] },
+    ]);
+  });
+
+  it('a volume change while playing calls setVolume once on the running playback without replaying', async () => {
+    const { rerender, result } = await setup();
+    rerender({ ...DEFAULT_PROPS, volume: 0.8 });
+    expect(fake.playCalls).toHaveLength(1);
+    expect(fake.playCalls[0].volumeChanges).toEqual([0.8]);
+    rerender({ ...DEFAULT_PROPS, volume: 0.8 });
+    expect(fake.playCalls[0].volumeChanges).toEqual([0.8]);
+    rerender({ ...DEFAULT_PROPS, volume: 0.3 });
+    expect(fake.playCalls[0].volumeChanges).toEqual([0.8, 0.3]);
+    expect(fake.playCalls).toHaveLength(1);
+    expect(fake.stop).not.toHaveBeenCalled();
+    expect(result.current.state.phase).toBe('playing');
+  });
+
+  it('no setVolume on mount, on unrelated rerenders, or when nothing is playing', async () => {
+    const { rerender } = await setup();
+    rerender({ ...DEFAULT_PROPS });
+    expect(fake.playCalls[0].volumeChanges).toEqual([]);
+    await finishPlayback();
+    rerender({ ...DEFAULT_PROPS, volume: 0.9 });
+    await toListening();
+    rerender({ ...DEFAULT_PROPS, volume: 0.1 });
+    expect(fake.playCalls[0].volumeChanges).toEqual([]);
+    expect(fake.playCalls).toHaveLength(1);
+  });
+
+  it('a note-duration change does not restart playback and applies on the next Repeat; progress is kept', async () => {
+    const { rerender, result } = await setup();
+    rerender({ ...DEFAULT_PROPS, noteDurationMs: 1500 });
+    expect(fake.playCalls).toHaveLength(1);
+    expect(fake.stop).not.toHaveBeenCalled();
+    await toListening();
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    expect(result.current.state.matchedCount).toBe(1);
+    rerender({ noteDurationMs: 250, volume: 0.7 });
+    expect(result.current.state.phase).toBe('listening');
+    expect(fake.sessions[0].listenerCount).toBe(1);
+    act(() => result.current.repeat());
+    expect(fake.playCalls).toHaveLength(2);
+    expect(fake.playCalls[1]).toEqual({
+      frequenciesHz: MELODY.map(concertHz),
+      noteDurationMs: 250,
+      volume: 0.7,
+      volumeChanges: [],
+    });
+    expect(result.current.state.matchedCount).toBe(1);
+  });
+
+  it('after Repeat a volume change applies to the new playback only', async () => {
+    const { rerender, result } = await setup();
+    await toListening();
+    act(() => result.current.repeat());
+    rerender({ ...DEFAULT_PROPS, volume: 0.25 });
+    expect(fake.playCalls[0].volumeChanges).toEqual([]);
+    expect(fake.playCalls[1].volumeChanges).toEqual([0.25]);
+  });
+
+  it('no setVolume after playback was stopped by give up', async () => {
+    const { rerender, result } = await setup();
+    act(() => result.current.giveUp());
+    rerender({ ...DEFAULT_PROPS, volume: 0.9 });
+    expect(fake.playCalls[0].volumeChanges).toEqual([]);
   });
 });

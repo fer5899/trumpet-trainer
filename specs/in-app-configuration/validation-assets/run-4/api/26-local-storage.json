@@ -1,0 +1,13 @@
+{
+  "raw": [
+    "{\"noteDurationMs\":750,\"melodyLength\":7,\"volume\":0.8,\"maxInterval\":9,\"scaleId\":\"group:major\"}",
+    "-30"
+  ],
+  "parsed": {
+    "noteDurationMs": 750,
+    "melodyLength": 7,
+    "volume": 0.8,
+    "maxInterval": 9,
+    "scaleId": "group:major"
+  }
+}
