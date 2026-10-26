@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react';
 import { vi } from 'vitest';
-import { LISTEN_GUARD_MS } from '../config/constants';
+import { CENTS_PER_OCTAVE, LISTEN_GUARD_MS, NOTE_REVEAL_MS, SUSTAIN_MS } from '../config/constants';
 import { midiToHz, writtenToConcert } from '../music/notes';
 import type { FakeAudioServices } from './fakeAudioServices';
 
@@ -16,6 +16,9 @@ export const TIMER_DRIFT_MARGIN_MS = 100;
 
 export const concertHz = (written: number): number => midiToHz(writtenToConcert(written));
 
+/** `hz` raised by `cents`. */
+export const detune = (hz: number, cents: number): number => hz * 2 ** (cents / CENTS_PER_OCTAVE);
+
 /** `act`-wrapped steps that drive a training session through fake playback, timers and frames. */
 export interface SessionDriver {
   /** Resolves the latest playback's `done`. */
@@ -26,6 +29,10 @@ export interface SessionDriver {
   toListening(): Promise<void>;
   /** Emits a tone every FRAME_MS on the latest mic session, spanning `durationMs` (ends included). */
   hold(hz: number | null, durationMs: number, levelDb?: number): Promise<void>;
+  /** Waits out the reveal after a correct note (NOTE_REVEAL_MS). */
+  reveal(): Promise<void>;
+  /** Holds `hz` for SUSTAIN_MS (accepting a correct note) and then waits out the reveal. */
+  matchNote(hz: number): Promise<void>;
 }
 
 /**
@@ -47,6 +54,15 @@ export function createSessionDriver(fake: FakeAudioServices, startTimeMs = 0): S
     });
   };
 
+  const hold = async (hz: number | null, durationMs: number, levelDb = LOUD_DB): Promise<void> => {
+    await act(async () => {
+      const end = clock + durationMs;
+      for (; clock <= end; clock += FRAME_MS) fake.emitTone({ hz, levelDb, timeMs: clock });
+    });
+  };
+
+  const reveal = (): Promise<void> => elapse(NOTE_REVEAL_MS);
+
   return {
     finishPlayback,
     elapse,
@@ -54,11 +70,11 @@ export function createSessionDriver(fake: FakeAudioServices, startTimeMs = 0): S
       await finishPlayback();
       await elapse(LISTEN_GUARD_MS);
     },
-    hold: async (hz, durationMs, levelDb = LOUD_DB) => {
-      await act(async () => {
-        const end = clock + durationMs;
-        for (; clock <= end; clock += FRAME_MS) fake.emitTone({ hz, levelDb, timeMs: clock });
-      });
+    hold,
+    reveal,
+    matchNote: async (hz) => {
+      await hold(hz, SUSTAIN_MS);
+      await reveal();
     },
   };
 }

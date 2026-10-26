@@ -6,6 +6,20 @@
   --color-ok: #22a55a;
   --color-accent: #2563eb;
   --color-error: #b42318;
+  /* Pitch graph and reveal overlay (dark values below match the mockups). */
+  --color-graph-bg: #ffffff;
+  --color-graph-border: #9ca3af;
+  --color-graph-centre: #6b7280;
+  --color-graph-guide: #9ca3af;
+  --color-graph-band: #e5e7eb;
+  --color-graph-fill: #f2dc8a;
+  --color-graph-trail: #d97706;
+  --color-graph-dot: #1f2328;
+  --color-graph-green: #a7e8b8;
+  --color-graph-red: #f6b4b4;
+  --color-reveal-card: #86efac;
+  --color-reveal-text: #052e16;
+  --color-reveal-backdrop: rgb(0 0 0 / 0.35);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
   color: var(--color-text);
@@ -18,6 +32,19 @@
     --color-text: #e6e6e6;
     --color-muted: #9ca3af;
     --color-pending: #3f444d;
+    --color-graph-bg: #111317;
+    --color-graph-border: #d4d4d4;
+    --color-graph-centre: #e5e5e5;
+    --color-graph-guide: #d4d4d4;
+    --color-graph-band: #5f5f5f;
+    --color-graph-fill: #5c4d16;
+    --color-graph-trail: #ffe135;
+    --color-graph-dot: #ffffff;
+    --color-graph-green: #2f5e32;
+    --color-graph-red: #5c1010;
+    --color-reveal-card: #86ff6b;
+    --color-reveal-text: #0b0b0b;
+    --color-reveal-backdrop: rgb(0 0 0 / 0.6);
   }
 }
 
@@ -257,6 +284,119 @@ h1 {
 @media (max-width: 24rem) {
   .training__actions .button {
     flex: 1 1 100%;
+  }
+}
+
+/* --- Pitch graph --- */
+/* Spans the training column (same box as the note boxes and the actions); the 8:5 viewBox keeps
+   its proportions (288 × 180 px at a 320 px viewport). */
+.pitch-graph {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+  background: var(--color-graph-bg);
+  border: 1px solid var(--color-graph-border);
+  border-radius: 0.25rem;
+}
+
+.pitch-graph__band {
+  fill: var(--color-graph-band);
+}
+
+.pitch-graph__band--green {
+  fill: var(--color-graph-green);
+}
+
+.pitch-graph__band--red {
+  fill: var(--color-graph-red);
+}
+
+.pitch-graph__fill {
+  fill: var(--color-graph-fill);
+}
+
+/* Lines keep their CSS-pixel widths at any graph size. */
+.pitch-graph__guide,
+.pitch-graph__centre,
+.pitch-graph__trail {
+  vector-effect: non-scaling-stroke;
+}
+
+.pitch-graph__guide {
+  stroke: var(--color-graph-guide);
+  stroke-width: 1px;
+  stroke-dasharray: 4 4;
+}
+
+.pitch-graph__centre {
+  stroke: var(--color-graph-centre);
+  stroke-width: 1.5px;
+}
+
+.pitch-graph__trail {
+  fill: none;
+  stroke: var(--color-graph-trail);
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pitch-graph__dot {
+  fill: var(--color-graph-dot);
+}
+
+/* --- Note reveal overlay --- */
+/* Both layers ignore the pointer, so Give up (and the gear) stay clickable through the dim layer. */
+.note-reveal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--color-reveal-backdrop);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  animation: note-reveal-fade 120ms ease-out;
+}
+
+.note-reveal__card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(18rem, 75vw);
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: 2rem;
+  background: var(--color-reveal-card);
+  color: var(--color-reveal-text);
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  font-weight: 700;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: note-reveal-pop 150ms ease-out;
+}
+
+@keyframes note-reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes note-reveal-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-reveal__backdrop,
+  .note-reveal__card {
+    animation: none;
   }
 }
 

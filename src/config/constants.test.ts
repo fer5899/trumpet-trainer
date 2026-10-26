@@ -47,6 +47,16 @@ describe('constants', () => {
     ['SYNTH_LOWPASS_HZ', 2000],
     ['SYNTH_LOWPASS_Q', 0.7],
     ['SYNTH_START_DELAY_MS', 50],
+    ['CENTS_PER_SEMITONE', 100],
+    ['NOTE_REVEAL_MS', 500],
+    ['PITCH_SMOOTHING_MS', 50],
+    ['PITCH_TRAIL_MS', 1000],
+    ['PITCH_GRAPH_RANGE_CENTS', 50],
+    ['PITCH_GRAPH_DOT_X', 0.8],
+    ['PITCH_GRAPH_GUIDE_CENTS', 12.5],
+    ['PITCH_GRAPH_VIEWBOX_WIDTH', 320],
+    ['PITCH_GRAPH_VIEWBOX_HEIGHT', 200],
+    ['PITCH_GRAPH_DOT_RADIUS', 6],
   ] as const)('%s = %s', (name, value) => {
     expect((C as Record<string, unknown>)[name]).toBe(value);
   });

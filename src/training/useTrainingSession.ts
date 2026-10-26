@@ -2,17 +2,24 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import { useAudioServices } from '../audio/AudioServicesContext';
 import { computeLevelDb } from '../audio/level';
 import type { MicrophoneSession } from '../audio/microphone';
+import { createPitchSmoother } from '../audio/pitchSmoother';
 import type { Playback } from '../audio/synth';
-import { COMPLETE_PAUSE_MS, LISTEN_GUARD_MS } from '../config/constants';
+import { COMPLETE_PAUSE_MS, LISTEN_GUARD_MS, NOTE_REVEAL_MS } from '../config/constants';
 import type { Exercise } from '../music/melody';
-import { midiToHz, writtenToConcert } from '../music/notes';
-import { createSustainTracker } from './sustainTracker';
+import { hzToMidi, midiToHz, writtenToConcert } from '../music/notes';
+import { createHoldTracker } from './holdTracker';
+import { advancePitchGraph, computePitchGraphView, EMPTY_PITCH_GRAPH_MODEL } from './pitchGraph';
+import { createPitchGraphStore, type PitchGraphStore } from './pitchGraphStore';
 import {
   createInitialTrainingState,
-  selectCanAct,
+  selectCanGiveUp,
+  selectCanRepeat,
+  selectExpectedNote,
   selectNoteBoxes,
+  selectRevealedName,
   trainingReducer,
   type NoteBoxView,
+  type TrainingAction,
   type TrainingState,
 } from './trainingReducer';
 
@@ -30,17 +37,25 @@ export interface UseTrainingSessionArgs {
 export interface TrainingSessionView {
   state: TrainingState;
   boxes: NoteBoxView[];
-  canAct: boolean;
+  /** selectCanRepeat: only while listening. */
+  canRepeat: boolean;
+  /** selectCanGiveUp: while listening and during the reveal. */
+  canGiveUp: boolean;
   /** Dispatches repeatRequested (no-op unless listening). */
   repeat(): void;
   /** Stops playback, releases the mic and calls onExit (allowed in any phase). */
   giveUp(): void;
+  /** Stable for the whole session; only PitchGraph subscribes to it. */
+  graph: PitchGraphStore;
+  /** selectRevealedName(state): the matched note's name during 'reveal', else null. */
+  revealedName: string | null;
 }
 
 /**
- * Drives one exercise: plays the melody, waits LISTEN_GUARD_MS, then matches microphone frames
- * against the active note. All decisions live in the pure reducer and sustain tracker; this hook
- * only wires them to the audio services with effects keyed on the phase.
+ * Drives one exercise: plays the melody, waits LISTEN_GUARD_MS, then judges smoothed microphone
+ * frames: holding any note in tune for SUSTAIN_MS either matches the expected note (→ reveal for
+ * NOTE_REVEAL_MS) or marks it wrong. All decisions live in the pure reducer, smoother and hold
+ * tracker; this hook only wires them to the audio services with effects keyed on the phase.
  */
 export function useTrainingSession({
   exercise,
@@ -52,9 +67,46 @@ export function useTrainingSession({
 }: UseTrainingSessionArgs): TrainingSessionView {
   const services = useAudioServices();
   const [state, dispatch] = useReducer(trainingReducer, exercise, createInitialTrainingState);
-  // One tracker per session; the threshold is fixed for the whole exercise.
-  const [tracker] = useState(() => createSustainTracker({ thresholdDb }));
-  const { phase, matchedCount, melody } = state;
+  // One tracker and smoother per session, never recreated.
+  const [tracker] = useState(createHoldTracker);
+  const [smoother] = useState(() => createPitchSmoother());
+  // Per-frame graph: model + latest hold progress in refs, published through an external store
+  // so frames never re-render the hook (only PitchGraph).
+  const [graph] = useState(() => createPitchGraphStore());
+  const graphModelRef = useRef(EMPTY_PITCH_GRAPH_MODEL);
+  const progressRef = useRef(0);
+  const { phase, melody, wrongNotes } = state;
+
+  // Synchronous mirror of the reducer state: frames delivered before React commits a dispatch
+  // (several per act in tests) already see the new phase, so a match can never fire twice.
+  const stateRef = useRef(state);
+  const dispatchNow = useCallback(
+    (action: TrainingAction) => {
+      const prev = stateRef.current;
+      const next = trainingReducer(prev, action);
+      if (next === prev) return;
+      stateRef.current = next;
+      if (next.phase !== prev.phase) {
+        tracker.reset();
+        smoother.reset();
+        progressRef.current = 0;
+      }
+      dispatch(action);
+    },
+    [tracker, smoother],
+  );
+
+  /** Publishes the graph view for the current model, hold progress and (synchronous) reducer state. */
+  const publishGraph = useCallback(() => {
+    const current = stateRef.current;
+    graph.publish(
+      computePitchGraphView(graphModelRef.current, {
+        progress: progressRef.current,
+        wrongNotes: current.wrongNotes,
+        revealing: current.phase === 'reveal',
+      }),
+    );
+  }, [graph]);
 
   // Latest live settings, synced before the playing effect so a Repeat render reads the newest values.
   const noteDurationRef = useRef(noteDurationMs);
@@ -84,7 +136,6 @@ export function useTrainingSession({
   // 1. playing: (re)start the melody; playbackEnded once it is done.
   useEffect(() => {
     if (phase !== 'playing') return;
-    tracker.reset();
     let cancelled = false;
     let settled = false;
     // Duration and volume are read from refs, not deps: changing them never restarts playback.
@@ -107,7 +158,7 @@ export function useTrainingSession({
     void playback.done.then(() => {
       settled = true;
       clearEntry();
-      if (!cancelled) dispatch({ type: 'playbackEnded' });
+      if (!cancelled) dispatchNow({ type: 'playbackEnded' });
     });
     return () => {
       cancelled = true;
@@ -115,7 +166,7 @@ export function useTrainingSession({
       // (including React StrictMode's simulated unmount in development).
       stopIfRunning();
     };
-  }, [phase, melody, services, tracker]);
+  }, [phase, melody, services, dispatchNow]);
 
   // Volume: applied immediately to the running playback (no call when idle or unchanged).
   useEffect(() => {
@@ -128,36 +179,62 @@ export function useTrainingSession({
   // 2. guard: silence after playback so the speaker tail is never matched.
   useEffect(() => {
     if (phase !== 'guard') return;
-    const timer = setTimeout(() => dispatch({ type: 'guardElapsed' }), LISTEN_GUARD_MS);
+    const timer = setTimeout(() => dispatchNow({ type: 'guardElapsed' }), LISTEN_GUARD_MS);
     return () => clearTimeout(timer);
-  }, [phase]);
+  }, [phase, dispatchNow]);
 
-  // 3. listening: one subscription per active note; it dispatches at most one match.
+  // 3. reveal: the correct note is shown (mic ignored) for NOTE_REVEAL_MS, then listening resumes.
   useEffect(() => {
-    if (phase !== 'listening') return;
-    const target = writtenToConcert(melody[matchedCount]);
-    let matched = false;
-    return mic.subscribe(({ timeMs, samples }) => {
-      if (matched) return;
-      const levelDb = computeLevelDb(samples);
-      const hz =
-        levelDb >= thresholdDb ? (services.detectPitch(samples, mic.sampleRate)?.hz ?? null) : null;
-      if (tracker.push({ timeMs, hz, levelDb }, target)) {
-        matched = true;
-        tracker.reset();
-        dispatch({ type: 'noteMatched' });
-      }
-    });
-  }, [phase, matchedCount, melody, mic, services, thresholdDb, tracker]);
+    if (phase !== 'reveal') return;
+    const timer = setTimeout(() => dispatchNow({ type: 'revealElapsed' }), NOTE_REVEAL_MS);
+    return () => clearTimeout(timer);
+  }, [phase, dispatchNow]);
 
-  // 4. complete: show the all-green boxes for a moment, then leave.
+  // 4. mic frames: one subscription for the whole session. Frames are judged only while
+  // listening; in every other phase the mic is ignored (no level, no detection) and the graph
+  // gets a null reading, so time keeps scrolling and the dot disappears.
+  useEffect(
+    () =>
+      mic.subscribe(({ timeMs, samples }) => {
+        const current = stateRef.current;
+        let midi: number | null = null;
+        progressRef.current = 0;
+        if (current.phase === 'listening') {
+          const levelDb = computeLevelDb(samples);
+          const hz =
+            levelDb >= thresholdDb ? (services.detectPitch(samples, mic.sampleRate)?.hz ?? null) : null;
+          midi = smoother.push(timeMs, hz === null ? null : hzToMidi(hz));
+          const hold = tracker.push({ timeMs, midi }, current.wrongNotes);
+          progressRef.current = hold.progress;
+          if (hold.completed !== null) {
+            dispatchNow(
+              hold.completed === selectExpectedNote(current)
+                ? { type: 'noteMatched' }
+                : { type: 'wrongNoteHeld', midi: hold.completed },
+            );
+          }
+        }
+        // After the dispatch: the accepting frame already shows green, a completed wrong note red.
+        graphModelRef.current = advancePitchGraph(graphModelRef.current, { timeMs, midi });
+        publishGraph();
+      }),
+    [mic, services, thresholdDb, tracker, smoother, dispatchNow, publishGraph],
+  );
+
+  // Graph sync: phase and red-mark changes (green → grey after the reveal, reds cleared) show
+  // at once, without waiting for the next frame.
+  useEffect(() => {
+    publishGraph();
+  }, [phase, wrongNotes, publishGraph]);
+
+  // 5. complete: show the all-green boxes for a moment, then leave.
   useEffect(() => {
     if (phase !== 'complete') return;
     const timer = setTimeout(exit, COMPLETE_PAUSE_MS);
     return () => clearTimeout(timer);
   }, [phase, exit]);
 
-  // 5. unmount: release the mic. Deferred by a microtask so React StrictMode's synchronous
+  // 6. unmount: release the mic. Deferred by a microtask so React StrictMode's synchronous
   // unmount/remount in development does not kill the session.
   const mountedRef = useRef(false);
   useEffect(() => {
@@ -170,12 +247,21 @@ export function useTrainingSession({
     };
   }, [mic]);
 
-  const repeat = useCallback(() => dispatch({ type: 'repeatRequested' }), []);
+  const repeat = useCallback(() => dispatchNow({ type: 'repeatRequested' }), [dispatchNow]);
   const giveUp = useCallback(() => {
     stopPlaybackRef.current();
     exit();
   }, [exit]);
 
   const boxes = useMemo(() => selectNoteBoxes(state), [state]);
-  return { state, boxes, canAct: selectCanAct(state), repeat, giveUp };
+  return {
+    state,
+    boxes,
+    canRepeat: selectCanRepeat(state),
+    canGiveUp: selectCanGiveUp(state),
+    repeat,
+    giveUp,
+    graph,
+    revealedName: selectRevealedName(state),
+  };
 }

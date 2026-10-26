@@ -7,8 +7,11 @@ import {
   SHARP_SIGN,
   WRITTEN_RANGE,
   centsFrom,
+  centsOffset,
+  hzToMidi,
   isInWrittenRange,
   midiToHz,
+  nearestMidi,
   noteName,
   writtenToConcert,
 } from './notes';
@@ -126,5 +129,54 @@ describe('noteName', () => {
     expect(noteName(59, 'sharp')).toBe('Si3');
     expect(noteName(60, 'sharp')).toBe('Do4');
     expect(noteName(72, 'sharp')).toBe('Do5');
+  });
+});
+
+describe('hzToMidi', () => {
+  it.each([
+    [440, 69],
+    [220, 57],
+    [466.164, 70],
+    [443, 69.1176],
+    [446.5, 69.2539],
+  ])('%s Hz → %s', (hz, m) => {
+    expect(hzToMidi(hz)).toBeCloseTo(m, 3);
+  });
+
+  it('is the inverse of midiToHz', () => {
+    for (const m of [54, 60.37, 69, 72.5]) expect(hzToMidi(midiToHz(m))).toBeCloseTo(m, 10);
+  });
+});
+
+describe('nearestMidi and centsOffset', () => {
+  it.each([
+    [hzToMidi(440), 69, 0],
+    [hzToMidi(220), 57, 0],
+    [hzToMidi(466.164), 70, 0],
+    [hzToMidi(443), 69, 11.76],
+    [hzToMidi(446.5), 69, 25.39],
+    [69.25, 69, 25],
+    [69.49, 69, 49],
+    [hzToMidi(440 * 2 ** (50 / 1200)), 70, -50],
+    [69.5, 70, -50],
+    [69.51, 70, -49],
+    [68.5, 69, -50],
+    [68.49, 68, 49],
+    [69.2, 69, 20],
+  ])('m = %s → nearest %s, %s c', (m, nearest, cents) => {
+    expect(nearestMidi(m)).toBe(nearest);
+    expect(centsOffset(m)).toBeCloseTo(cents, 2);
+  });
+
+  it('gives exactly +25 c for m = 69.25', () => {
+    expect(centsOffset(69.25)).toBe(25);
+  });
+
+  it('keeps centsOffset in [−50, +50)', () => {
+    for (let m = 60; m < 62; m += 0.01) {
+      const c = centsOffset(m);
+      expect(c).toBeGreaterThanOrEqual(-50);
+      expect(c).toBeLessThan(50);
+    }
   });
 });

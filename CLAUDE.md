@@ -2,9 +2,13 @@
 
 Frontend-only web app for B♭ trumpet ear training: it plays a random melody, listens through
 the microphone while the user plays it back, and marks each note green once it is played in tune
-(±25 cents) and held for 0.5 s. A Settings panel (gear, top right on every screen) configures the
-scale (or scale group), melody length (3–8), max interval, note duration (tempo) and playback
-volume. No backend, no accounts; settings and the mic threshold are saved in `localStorage`.
+(±25 cents) and held for 0.5 s (judged on the smoothed pitch). A live pitch graph below the buttons
+shows the cents from the closest note (never its name), fills the tolerance band while a note is
+held, then turns green (expected note, revealed for 0.5 s in a large overlay card) or red (another
+note; red marks persist per melody note until it is guessed). A Settings panel (gear, top right
+on every screen) configures the scale (or scale group), melody length (3–8), max interval, note
+duration (tempo) and playback volume. No backend, no accounts; settings and the mic threshold are
+saved in `localStorage`.
 
 - Product source of truth: `specs/create-mvp/IDEA.md`
 - Specs: `specs/create-mvp/prd.md` (Part 1: scaffold, constants, music + audio domain, adapters)
@@ -15,6 +19,11 @@ volume. No backend, no accounts; settings and the mic threshold are saved in `lo
   constants, scale catalog, spelling in key, exercise generator, settings model + storage adapter,
   synth volume) and `prd2.md` (Part 2: hook, Settings dialog, scale combobox, App wiring, `?melody=`
   3–8 notes, e2e). Status: both parts implemented.
+- Pitch feedback graph: `specs/pitch-feedback-graph/idea.md` (source of truth; smoothing deviates
+  from its §8 by user request, see prd.md), `prd.md` (Part 1: constants, `hzToMidi`/`nearestMidi`/
+  `centsOffset`, pitch smoother, hold tracker, pitch graph model + view, reducer `reveal` phase +
+  `wrongNotes`, minimal hook/screen changes) and `prd2.md` (Part 2: graph store, `PitchGraph`,
+  `NoteRevealOverlay`, layout, CSS, component tests, e2e). Status: both parts implemented.
 
 ## Stack
 
@@ -48,7 +57,8 @@ and is unit-tested. Browser APIs are wrapped in thin adapters that contain no de
 
 ```
 src/config/constants.ts        all tunables (ranges, durations, tolerances, synth, fft size,
-                               exercise-setting DEFAULT_/MIN_/MAX_ limits, storage keys)
+                               exercise-setting DEFAULT_/MIN_/MAX_ limits, storage keys,
+                               NOTE_REVEAL_MS, PITCH_SMOOTHING_MS, PITCH_TRAIL_MS, PITCH_GRAPH_*)
 src/config/settings.ts         pure Settings model: DEFAULT_SETTINGS, selectScale (raises
                                maxInterval to the scale minimum), resetSettings('all'|'training'),
                                normalizeSettings (field-by-field validation, off-step volume →
@@ -57,9 +67,11 @@ src/config/settings.ts         pure Settings model: DEFAULT_SETTINGS, selectScal
 src/config/settingsStorage.ts  ADAPTER: getBrowserStorage, load/saveSettings, load/saveThreshold
                                on an injected Storage | null; never throws, invalid data → defaults
 src/music/notes.ts             types (WrittenMidi, ConcertMidi, Melody, Accidental), range,
-                               transposition, midiToHz, centsFrom, noteName (Latin solfège);
-                               letter/accidental primitives NOTE_LETTERS, LETTER_PITCH_CLASSES,
-                               SHARP_SIGN, FLAT_SIGN, alterSign (PITCH_CLASS_NAMES derived)
+                               transposition, midiToHz, centsFrom, hzToMidi, nearestMidi
+                               (Math.round: ties go up), centsOffset ([−50, +50)), noteName (Latin
+                               solfège); letter/accidental primitives NOTE_LETTERS,
+                               LETTER_PITCH_CLASSES, SHARP_SIGN, FLAT_SIGN, alterSign
+                               (PITCH_CLASS_NAMES derived)
 src/music/scales.ts            scale catalog generated from rules (9 types × 15 key signatures):
                                SPECIFIC_SCALES (135), SCALE_OPTIONS (146: chromatic, 10 groups,
                                135 scales), keySignatureAlters, getScaleOption, getSpecificScale,
@@ -73,7 +85,21 @@ src/music/melody.ts            Exercise { notes, scale } (scale = specific scale
                                generateExercise(rng, { length, maxInterval, scaleId }): random walk
 src/audio/level.ts             computeLevelDb: RMS in dBFS, clamped to [-100, 0]
 src/audio/pitchDetector.ts     detectPitch: pitchy wrapper + range/clarity filtering
-src/training/sustainTracker.ts clock-injected "held ±25 c for 500 ms" detector
+src/audio/pitchSmoother.ts     createPitchSmoother: time-based EMA on fractional MIDI (τ =
+                               PITCH_SMOOTHING_MS, α = 1 − e^(−Δt/τ)); null frame / reset() → next
+                               reading unchanged
+src/training/holdTracker.ts    clock-injected "nearest semitone held ±25 c for 500 ms" detector:
+                               push({ timeMs, midi }, wrongNotes) → { note, progress, completed }
+                               (completed once per run; wrong notes never fill); no target, no
+                               threshold
+src/training/pitchGraph.ts     pure graph model (advancePitchGraph: trail readings + gap markers,
+                               centre persists through silence) and view (computePitchGraphView:
+                               edge-clipped polylines, dot at PITCH_GRAPH_DOT_X, band state
+                               green > idle(no centre) > red > filling > idle, fill), viewsEqual;
+                               drawn by PitchGraph
+src/training/pitchGraphStore.ts  createPitchGraphStore: external store for the per-frame
+                               PitchGraphView (getSnapshot / subscribe / publish; equal views
+                               skipped via viewsEqual, snapshot reference kept); no React
 src/audio/audioContext.ts      ADAPTER: single shared AudioContext + unlockAudio() (no-op without
                                Web Audio; services.openMicrophone then rejects 'unsupported')
 src/audio/synth.ts             ADAPTER: playSequence(ctx, freqs, { noteDurationMs, volume }) →
@@ -81,13 +107,23 @@ src/audio/synth.ts             ADAPTER: playSequence(ctx, freqs, { noteDurationM
 src/audio/microphone.ts        ADAPTER: openMicrophone → MicrophoneSession, MicrophoneError
 src/audio/services.ts          AudioServices interface + createBrowserAudioServices()
 src/audio/AudioServicesContext.tsx  AudioServicesProvider + useAudioServices()
-src/training/trainingReducer.ts  pure state machine playing → guard → listening → complete,
-                               createInitialTrainingState(exercise) (names via spellExercise),
-                               selectNoteBoxes, selectCanAct
-src/training/useTrainingSession.ts  hook wiring reducer + tracker to AudioServices (effects keyed
-                               on phase: play / guard timer / mic subscription / complete timer);
+src/training/trainingReducer.ts  pure state machine playing → guard → listening ⇄ reveal →
+                               complete; wrongNotes (red marks: wrongNoteHeld, kept by Repeat,
+                               cleared by noteMatched), createInitialTrainingState(exercise) (names
+                               via spellExercise), selectNoteBoxes, selectExpectedNote,
+                               selectCanRepeat (listening), selectCanGiveUp (listening + reveal),
+                               selectRevealedName
+src/training/useTrainingSession.ts  hook wiring reducer + smoother + hold tracker to AudioServices
+                               (effects keyed on phase: play / guard timer / reveal timer / complete
+                               timer, plus ONE mic subscription for the whole session that judges
+                               frames only while listening); dispatchNow + stateRef = synchronous
+                               reducer mirror (tracker/smoother reset on every phase change);
                                live noteDurationMs (read via ref when a playback starts) and
-                               volume (volume effect → Playback.setVolume on the running playback)
+                               volume (volume effect → Playback.setVolume on the running playback);
+                               graph: every frame advances the graph model (null reading outside
+                               listening) and publishes the view to the session's PitchGraphStore
+                               after any dispatch; a sync effect on [phase, wrongNotes] republishes;
+                               returns graph (stable) and revealedName
 src/testing/testMelody.ts      e2e hook: `?melody=` with 3–8 notes, only when VITE_E2E === 'true';
                                getTestExercise(scaleId) spells in the selected specific scale
 src/components/App.tsx         root: Home ⇄ Training + SettingsDialog; props { storage }; settings
@@ -102,8 +138,14 @@ src/components/settingsText.ts formatNoteDuration / formatVolume / formatMelodyL
 src/components/HomeScreen.tsx  title, Start training, start error, MicLevelMeter
 src/components/MicLevelMeter.tsx  Test microphone toggle, role="meter" bar + overlaid threshold slider
 src/components/micErrorMessage.ts  MicrophoneErrorKind → user-facing text
-src/components/TrainingScreen.tsx  status line, one NoteBox per note (3–8, wrapping rows),
-                               Repeat melody / Give up
+src/components/TrainingScreen.tsx  status line (advances at once in reveal), one NoteBox per note
+                               (3–8, wrapping rows), Repeat melody (canRepeat) / Give up (canGiveUp),
+                               PitchGraph (always rendered) and NoteRevealOverlay
+src/components/PitchGraph.tsx  useSyncExternalStore(store) → SVG (viewBox 320 × 200, aria-hidden,
+                               data-band-state, band / fill / 6 dashed guides / centre / trail
+                               polylines / dot; no text); the only per-frame re-render
+src/components/NoteRevealOverlay.tsx  always-mounted role="status" region; name → dim+blur
+                               backdrop and centred card (both pointer-events: none)
 src/components/NoteBox.tsx     pending / active / done box (data-testid note-box-{i}, data-state)
 src/main.tsx                   createRoot + <AudioServicesProvider services={createBrowserAudioServices()}>
                                + <App storage={getBrowserStorage()} />
@@ -111,14 +153,17 @@ src/test/                      setup.ts (jest-dom + RTL cleanup + HTMLDialogElem
                                stubs for jsdom), signals.ts (sine/sawtooth/seeded
                                noise), fakeWebAudio.ts (recording Web Audio node fakes),
                                fakeAudioServices.ts (createFakeAudioServices), sessionDriver.ts
-                               (FRAME_MS, LOUD_DB, concertHz, createSessionDriver: act-wrapped
-                               finishPlayback/elapse/toListening/hold, shared by App and hook
-                               tests), appTestUtils.tsx (renderApp(fake, { storage }) = driver +
+                               (FRAME_MS, LOUD_DB, concertHz, detune(hz, cents),
+                               createSessionDriver: act-wrapped finishPlayback/elapse/toListening/
+                               hold/reveal/matchNote, shared by App and hook tests),
+                               appTestUtils.tsx (renderApp(fake, { storage }) = driver +
                                click/startTraining/openSettings; boxStates counts rendered boxes),
                                fakeStorage.ts (createFakeStorage, createThrowingStorage),
                                scales.ts (requireSpecificScale: getSpecificScale or throw)
-e2e/                           training.spec.ts, mic-meter.spec.ts, settings.spec.ts (dialog,
-                               persistence, combobox, training mode, 8-box layout, invalid storage);
+e2e/                           training.spec.ts (reveal overlay per note, red band kept through
+                               Repeat, Give up clickable through the overlay), mic-meter.spec.ts,
+                               settings.spec.ts (dialog, persistence, combobox, training mode, 8-box
+                               layout, invalid storage);
                                fake mic = looping 440 Hz tone
 scripts/generate-test-tones.mjs  fake-mic WAV fixture (Node built-ins only)
 scripts/release.mjs            release versioning: validate | release | notes (Node built-ins only)
@@ -174,6 +219,23 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
   boundary checks ("not yet" / "now") use `TIMER_DRIFT_MARGIN_MS`, never a 1 ms margin:
   `shouldAdvanceTime` moves the fake clock with real time. Vitest
   runs without `globals`, so RTL cleanup is registered in `src/test/setup.ts`.
+- **Judging pitch:** the hook gates level (threshold) → detector → `hzToMidi` → smoother →
+  hold tracker; the **smoothed** pitch drives both acceptance and the graph. The tracker
+  follows the nearest semitone; the hook compares `completed` with `selectExpectedNote`
+  (`noteMatched`, else `wrongNoteHeld`, octave errors included). All dispatches go through
+  `dispatchNow` (never `dispatch` directly) so `stateRef` is current for frames delivered before
+  React commits; outside `listening` frames are ignored without running the detector.
+- **Per-frame UI goes through `PitchGraphStore` + `useSyncExternalStore`**, never hook state: mic
+  frames re-render only `PitchGraph`, the hook renders only on reducer changes. The graph is
+  decorative (`aria-hidden`, no text) and wrong notes are visual only (never announced); the
+  revealed name is announced by the always-mounted `role="status"` region of `NoteRevealOverlay`.
+- **Graph/overlay colours are theme tokens** (`--color-graph-*`, `--color-reveal-*`) in `:root` with
+  dark overrides; no hard-coded colours in their rules. Overlay layers use `pointer-events: none`
+  so Give up stays clickable; reduced motion disables their animations.
+- **E2E and the 500 ms overlay:** wait for `note-reveal` and check it in one in-page step
+  (`page.waitForFunction` returning the checked condition, or
+  `locator.waitFor({ state: 'visible' })` when nothing else is checked), not `expect(...)` retries
+  or a separate round trip after the wait.
 - **Effects must survive React StrictMode** (dev double-mount): `useTrainingSession` defers the
   unmount `mic.release()` by a microtask and stops playback only if it is still running.
 - **E2E melody hook:** in the `dev:e2e` build (`VITE_E2E=true`) `?melody=` with 3–8 written MIDI

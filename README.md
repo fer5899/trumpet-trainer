@@ -15,7 +15,14 @@ Latin solfège (Do, Re, Mi…).
 3. The app plays a random melody (by default 5 notes of Do major, 1 s each, leaps of at most an
    octave, written range Fa#3–Do5). It does not listen while playing, so speakers are fine.
 4. Play the notes back. The highlighted box is the note to play; hold it in tune (±25 cents, right
-   octave) for 0.5 s and it turns green with its name. Wrong notes simply do nothing.
+   octave) for 0.5 s and it turns green with its name. The detected pitch is lightly smoothed, so
+   a brief wobble does not restart the hold. The **pitch graph** below the buttons shows how many
+   cents you are above or below the closest note (without naming it), with a 1 s trail; the band
+   around the centre fills while you hold a note in tune. After each correct note the band turns
+   green and the note name appears in a large card for 0.5 s (the microphone is ignored meanwhile,
+   so the tail of that note cannot count for the next one), then the app listens for the next
+   note. Holding a wrong note (including the right name in the wrong octave) turns the band red
+   whenever you are on that note again, until you find the right one; it does not advance.
 5. **Repeat melody** plays it again and keeps your progress; **Give up** returns Home. After the
    last note the app returns Home on its own.
 

@@ -1,8 +1,8 @@
 import type { Exercise } from '../music/melody';
-import type { Melody } from '../music/notes';
+import { writtenToConcert, type ConcertMidi, type Melody } from '../music/notes';
 import { spellExercise } from '../music/spelling';
 
-export type TrainingPhase = 'playing' | 'guard' | 'listening' | 'complete';
+export type TrainingPhase = 'playing' | 'guard' | 'listening' | 'reveal' | 'complete';
 
 export interface TrainingState {
   phase: TrainingPhase;
@@ -10,14 +10,18 @@ export interface TrainingState {
   melody: Melody;
   /** spellExercise(exercise), computed once: key signature for scales, contextual for chromatic. */
   names: readonly string[];
-  /** 0..melody.length; also the active index while < length. */
+  /** 0..melody.length; also the active index while < length. Incremented when the reveal starts. */
   matchedCount: number;
+  /** Concert notes (integers) held to completion that are not the current expected note. Insertion order, no duplicates. */
+  wrongNotes: readonly ConcertMidi[];
 }
 
 export type TrainingAction =
   | { type: 'playbackEnded' }
   | { type: 'guardElapsed' }
   | { type: 'noteMatched' }
+  | { type: 'wrongNoteHeld'; midi: ConcertMidi }
+  | { type: 'revealElapsed' }
   | { type: 'repeatRequested' };
 
 export type NoteBoxState = 'pending' | 'active' | 'done';
@@ -28,7 +32,12 @@ export interface NoteBoxView {
 }
 
 export function createInitialTrainingState(exercise: Exercise): TrainingState {
-  return { phase: 'playing', melody: exercise.notes, names: spellExercise(exercise), matchedCount: 0 };
+  return { phase: 'playing', melody: exercise.notes, names: spellExercise(exercise), matchedCount: 0, wrongNotes: [] };
+}
+
+/** writtenToConcert(melody[matchedCount]), or null when every note is matched. */
+export function selectExpectedNote(state: TrainingState): ConcertMidi | null {
+  return state.matchedCount < state.melody.length ? writtenToConcert(state.melody[state.matchedCount]) : null;
 }
 
 /** Pure state machine. Any phase/action pair not listed in the PRD returns `state` unchanged. */
@@ -39,16 +48,21 @@ export function trainingReducer(state: TrainingState, action: TrainingAction): T
     case 'guard':
       return action.type === 'guardElapsed' ? { ...state, phase: 'listening' } : state;
     case 'listening':
-      if (action.type === 'repeatRequested') return { ...state, phase: 'playing' };
-      if (action.type === 'noteMatched') {
-        const matchedCount = state.matchedCount + 1;
-        return {
-          ...state,
-          matchedCount,
-          phase: matchedCount >= state.melody.length ? 'complete' : 'listening',
-        };
+      switch (action.type) {
+        case 'repeatRequested':
+          return { ...state, phase: 'playing' };
+        case 'noteMatched':
+          return { ...state, phase: 'reveal', matchedCount: state.matchedCount + 1, wrongNotes: [] };
+        case 'wrongNoteHeld':
+          // Invariant: no duplicates, and the expected note is never red.
+          if (state.wrongNotes.includes(action.midi) || action.midi === selectExpectedNote(state)) return state;
+          return { ...state, wrongNotes: [...state.wrongNotes, action.midi] };
+        default:
+          return state;
       }
-      return state;
+    case 'reveal':
+      if (action.type !== 'revealElapsed') return state;
+      return { ...state, phase: state.matchedCount >= state.melody.length ? 'complete' : 'listening' };
     case 'complete':
       return state;
   }
@@ -62,6 +76,15 @@ export function selectNoteBoxes(state: TrainingState): NoteBoxView[] {
   });
 }
 
-export function selectCanAct(state: TrainingState): boolean {
+export function selectCanRepeat(state: TrainingState): boolean {
   return state.phase === 'listening';
+}
+
+export function selectCanGiveUp(state: TrainingState): boolean {
+  return state.phase === 'listening' || state.phase === 'reveal';
+}
+
+/** names[matchedCount − 1] during 'reveal', else null. */
+export function selectRevealedName(state: TrainingState): string | null {
+  return state.phase === 'reveal' ? state.names[state.matchedCount - 1] : null;
 }

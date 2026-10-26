@@ -2,6 +2,7 @@ import {
   A4_HZ,
   A4_MIDI,
   CENTS_PER_OCTAVE,
+  CENTS_PER_SEMITONE,
   SEMITONES_PER_OCTAVE,
   TRANSPOSITION_SEMITONES,
   WRITTEN_MAX_MIDI,
@@ -29,6 +30,21 @@ export function writtenToConcert(w: WrittenMidi): ConcertMidi {
 
 export function midiToHz(m: number): number {
   return A4_HZ * 2 ** ((m - A4_MIDI) / SEMITONES_PER_OCTAVE);
+}
+
+/** Fractional MIDI number of a frequency (A4 = 440 Hz = 69). Inverse of midiToHz. */
+export function hzToMidi(hz: number): number {
+  return A4_MIDI + SEMITONES_PER_OCTAVE * Math.log2(hz / A4_HZ);
+}
+
+/** Closest semitone: Math.round(m). Exact half-semitone ties go up (69.5 → 70, 68.5 → 69). */
+export function nearestMidi(m: number): number {
+  return Math.round(m);
+}
+
+/** Signed cents from m to nearestMidi(m): (m − nearestMidi(m)) × CENTS_PER_SEMITONE, in [−50, +50). */
+export function centsOffset(m: number): number {
+  return (m - nearestMidi(m)) * CENTS_PER_SEMITONE;
 }
 
 /** Signed distance in cents from `hz` to the target MIDI note (octave errors count: ±1200). */

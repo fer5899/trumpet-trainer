@@ -10,7 +10,9 @@ import {
   DEFAULT_VOLUME,
   LISTEN_GUARD_MS,
   METER_MAX_DB,
+  NOTE_REVEAL_MS,
   METER_MIN_DB,
+  PITCH_TRAIL_MS,
   SETTINGS_STORAGE_KEY,
   SUSTAIN_MS,
   THRESHOLD_STEP_DB,
@@ -22,7 +24,7 @@ import { boxStates, noteBox, renderApp } from '../test/appTestUtils';
 import { createFakeAudioServices } from '../test/fakeAudioServices';
 import { createFakeStorage, createThrowingStorage } from '../test/fakeStorage';
 import { requireSpecificScale } from '../test/scales';
-import { concertHz, FRAME_MS, TIMER_DRIFT_MARGIN_MS } from '../test/sessionDriver';
+import { concertHz, detune, FRAME_MS, TIMER_DRIFT_MARGIN_MS } from '../test/sessionDriver';
 import { micErrorMessage } from './micErrorMessage';
 
 // Deterministic melody: written Si4, Do4, Do5, Fa#3, Fa#4 (spelled Si4 Do4 Do5 Sol♭3 Fa#4).
@@ -298,6 +300,35 @@ describe('App — Training flow', () => {
     expect(status()).toHaveTextContent('Your turn: play note 2 of 5');
   });
 
+  it('after a match the reveal lasts NOTE_REVEAL_MS: Repeat disabled, Give up enabled, then listening resumes', async () => {
+    const { startTraining, toListening, hold, elapse } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    expect(noteBox(0)).toHaveAttribute('data-state', 'done');
+    expect(status()).toHaveTextContent('Your turn: play note 2 of 5');
+    expect(repeatButton()).toBeDisabled();
+    expect(giveUpButton()).toBeEnabled();
+    // The same pitch during the reveal never fills the next note.
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS * 2);
+    expect(boxStates()).toEqual(['done', 'active', 'pending', 'pending', 'pending']);
+    await elapse(NOTE_REVEAL_MS - TIMER_DRIFT_MARGIN_MS);
+    expect(repeatButton()).toBeDisabled();
+    await elapse(TIMER_DRIFT_MARGIN_MS);
+    expect(repeatButton()).toBeEnabled();
+    expect(status()).toHaveTextContent('Your turn: play note 2 of 5');
+  });
+
+  it('Give up during the reveal releases the mic and shows Home', async () => {
+    const { fake, startTraining, toListening, hold, click } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    await click('Give up');
+    expect(fake.sessions[0].released).toBe(true);
+    expect(startButton()).toBeInTheDocument();
+  });
+
   it.each([
     ['a wrong note', concertHz(MELODY[0] + 1), -20],
     ['the right note an octave up', concertHz(MELODY[0] + 12), -20],
@@ -313,11 +344,12 @@ describe('App — Training flow', () => {
   });
 
   it('Repeat: disables buttons, replays, keeps progress and active index, resets sustain, keeps the mic', async () => {
-    const { fake, startTraining, toListening, hold, click, elapse, finishPlayback } = renderApp();
+    const { fake, startTraining, toListening, hold, click, elapse, finishPlayback, reveal } = renderApp();
     await startTraining();
     await toListening();
     await hold(concertHz(MELODY[0]), SUSTAIN_MS);
     expect(noteBox(0)).toHaveAttribute('data-state', 'done');
+    await reveal();
     // Partial sustain on note 2, then Repeat.
     await hold(concertHz(MELODY[1]), SUSTAIN_MS - FRAME_MS * 3);
 
@@ -362,11 +394,18 @@ describe('App — Training flow', () => {
     expect(screen.queryByTestId('note-box-0')).not.toBeInTheDocument();
   });
 
-  it('after the 5th match: all green, buttons disabled, then after 1500 ms mic released and Home shown', async () => {
-    const { fake, startTraining, toListening, hold, elapse } = renderApp();
+  it('after the 5th match and its reveal: all green, buttons disabled, then after 1500 ms mic released and Home shown', async () => {
+    const { fake, startTraining, toListening, hold, elapse, matchNote } = renderApp();
     await startTraining();
     await toListening();
-    for (const note of MELODY) await hold(concertHz(note), SUSTAIN_MS + FRAME_MS);
+    for (const note of MELODY.slice(0, -1)) await matchNote(concertHz(note));
+    await hold(concertHz(MELODY[4]), SUSTAIN_MS);
+    // The last note is revealed too: Well done! at once, Give up still usable.
+    expect(boxStates()).toEqual(['done', 'done', 'done', 'done', 'done']);
+    expect(status()).toHaveTextContent('Well done!');
+    expect(repeatButton()).toBeDisabled();
+    expect(giveUpButton()).toBeEnabled();
+    await elapse(NOTE_REVEAL_MS);
 
     expect(boxStates()).toEqual(['done', 'done', 'done', 'done', 'done']);
     NAMES.forEach((name, i) => expect(noteBox(i)).toHaveTextContent(name));
@@ -548,7 +587,7 @@ describe('App — Settings', () => {
   });
 
   it('dialog during training: volume applies to the running playback, nothing restarts, listening continues', async () => {
-    const { fake, startTraining, toListening, hold, openSettings, click, storage } = renderApp();
+    const { fake, startTraining, toListening, matchNote, openSettings, click, storage } = renderApp();
     await startTraining();
     await openSettings();
     fireEvent.change(settingSlider('Playback volume'), { target: { value: '80' } });
@@ -560,7 +599,7 @@ describe('App — Settings', () => {
 
     // Listening continues behind the open dialog.
     await toListening();
-    await hold(concertHz(MELODY[0]), SUSTAIN_MS + FRAME_MS);
+    await matchNote(concertHz(MELODY[0]));
     expect(boxStates()).toEqual(['done', 'active', 'pending', 'pending', 'pending']);
     expect(settingsDialog()).toBeInTheDocument();
 
@@ -590,16 +629,251 @@ describe('App — Settings', () => {
 
   it('the dialog stays open when the exercise completes and switches to the Home controls', async () => {
     vi.mocked(melodyModule.generateExercise).mockReturnValue({ notes: [71, 71, 71], scale: 'chromatic' });
-    const { startTraining, toListening, hold, openSettings, elapse } = renderApp();
+    const { startTraining, toListening, openSettings, elapse, matchNote } = renderApp();
     await startTraining();
     await toListening();
     await openSettings();
-    for (let i = 0; i < 3; i += 1) await hold(concertHz(71), SUSTAIN_MS + FRAME_MS);
+    for (let i = 0; i < 3; i += 1) await matchNote(concertHz(71));
     expect(status()).toHaveTextContent('Well done!');
     await elapse(COMPLETE_PAUSE_MS);
     expect(startButton()).toBeInTheDocument();
     expect(settingsDialog()).toBeInTheDocument();
     expect(scaleInput()).toBeInTheDocument();
     expect(within(settingsDialog()).getAllByRole('slider')).toHaveLength(4);
+  });
+});
+
+describe('App — Pitch graph and reveal overlay', () => {
+  const graph = () => screen.getByTestId('pitch-graph');
+  const bandState = () => graph().getAttribute('data-band-state');
+  const dot = () => screen.queryByTestId('pitch-graph-dot');
+  const trails = () => screen.queryAllByTestId('pitch-graph-trail');
+  const fillWidth = () => Number(screen.getByTestId('pitch-graph-fill').getAttribute('width'));
+  const overlay = () => screen.queryByTestId('note-reveal');
+  const revealRegion = () => screen.getByTestId('note-reveal-region');
+
+  it('the graph is rendered below the buttons in every phase, decorative and without text', async () => {
+    const { startTraining, finishPlayback, elapse, hold, reveal } = renderApp();
+    expect(screen.queryByTestId('pitch-graph')).not.toBeInTheDocument();
+    await startTraining();
+    const seen: string[] = [];
+    const check = (phase: string) => {
+      expect(graph()).toHaveAttribute('aria-hidden', 'true');
+      expect(graph().textContent).toBe('');
+      // Below the buttons: the actions row precedes the graph in document order.
+      expect(giveUpButton().compareDocumentPosition(graph()) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      seen.push(phase);
+    };
+    check('playing');
+    await finishPlayback();
+    check('guard');
+    await elapse(LISTEN_GUARD_MS);
+    check('listening');
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    expect(overlay()).toBeInTheDocument();
+    check('reveal');
+    await reveal();
+    for (const note of MELODY.slice(1)) {
+      await hold(concertHz(note), SUSTAIN_MS);
+      await reveal();
+    }
+    expect(status()).toHaveTextContent('Well done!');
+    expect(overlay()).not.toBeInTheDocument();
+    check('complete');
+    expect(seen).toEqual(['playing', 'guard', 'listening', 'reveal', 'complete']);
+  });
+
+  it('before any pitch: idle band, no trail, no dot, no overlay, empty status region', async () => {
+    const { startTraining, toListening } = renderApp();
+    await startTraining();
+    expect(bandState()).toBe('idle');
+    expect(trails()).toHaveLength(0);
+    expect(dot()).toBeNull();
+    await toListening();
+    expect(bandState()).toBe('idle');
+    expect(dot()).toBeNull();
+    expect(overlay()).toBeNull();
+    expect(revealRegion()).toHaveAttribute('role', 'status');
+    expect(revealRegion()).toBeEmptyDOMElement();
+  });
+
+  it('a tone during playing or the guard shows no dot and no trail', async () => {
+    const { startTraining, finishPlayback, hold } = renderApp();
+    await startTraining();
+    await hold(concertHz(MELODY[0]), 200);
+    expect(dot()).toBeNull();
+    expect(trails()).toHaveLength(0);
+    await finishPlayback();
+    await hold(concertHz(MELODY[0]), 200);
+    expect(dot()).toBeNull();
+    expect(trails()).toHaveLength(0);
+    expect(bandState()).toBe('idle');
+  });
+
+  it('listening: the dot sits at x 256 and follows the cents (+10 c → cy 80); a null frame removes it', async () => {
+    const { startTraining, toListening, hold } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(detune(concertHz(MELODY[0] + 1), 10), 100);
+    expect(dot()).toHaveAttribute('cx', '256');
+    expect(Number(dot()!.getAttribute('cy'))).toBeCloseTo(80, 1);
+    expect(trails()).toHaveLength(1);
+    // Nothing to the right of 80 %.
+    for (const point of trails()[0].getAttribute('points')!.split(' ')) {
+      expect(Number(point.split(',')[0])).toBeLessThanOrEqual(256);
+    }
+    await hold(null, 0);
+    expect(dot()).toBeNull();
+    expect(trails()).toHaveLength(1);
+  });
+
+  it('in tune: filling with fill width = progress × 320 (240 ms → 153.6); a null frame resets it', async () => {
+    const { startTraining, toListening, hold } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), 240);
+    expect(bandState()).toBe('filling');
+    expect(fillWidth()).toBeCloseTo(153.6, 1);
+    await hold(null, 0);
+    expect(bandState()).toBe('idle');
+    expect(screen.queryByTestId('pitch-graph-fill')).not.toBeInTheDocument();
+  });
+
+  it('leaving the band removes the fill', async () => {
+    const { startTraining, toListening, hold } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), 240);
+    expect(bandState()).toBe('filling');
+    await hold(detune(concertHz(MELODY[0]), 40), 200);
+    expect(bandState()).toBe('idle');
+    expect(screen.queryByTestId('pitch-graph-fill')).not.toBeInTheDocument();
+  });
+
+  it('correct note: green band + overlay with the box name until NOTE_REVEAL_MS, then idle', async () => {
+    const { startTraining, toListening, hold, elapse } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    expect(bandState()).toBe('green');
+    // The accepting frame itself already hides the dot under the card.
+    expect(dot()).toBeNull();
+    expect(overlay()).toHaveTextContent(NAMES[0]);
+    expect(revealRegion()).toHaveTextContent(NAMES[0]);
+    expect(noteBox(0)).toHaveAttribute('data-state', 'done');
+    expect(status()).toHaveTextContent('Your turn: play note 2 of 5');
+    expect(repeatButton()).toBeDisabled();
+    expect(giveUpButton()).toBeEnabled();
+
+    // A tone during the reveal: no dot, no fill, still green.
+    await hold(concertHz(MELODY[0]), 200);
+    expect(dot()).toBeNull();
+    expect(bandState()).toBe('green');
+
+    await elapse(NOTE_REVEAL_MS - TIMER_DRIFT_MARGIN_MS);
+    expect(overlay()).toHaveTextContent(NAMES[0]);
+    expect(bandState()).toBe('green');
+    await elapse(TIMER_DRIFT_MARGIN_MS);
+    expect(overlay()).toBeNull();
+    expect(revealRegion()).toBeEmptyDOMElement();
+    expect(bandState()).toBe('idle');
+  });
+
+  it.each([
+    ['a semitone up', 1],
+    ['an octave up', 12],
+  ])('wrong note (%s): red band, no fill, boxes and status unchanged, no overlay', async (_label, offset) => {
+    const { startTraining, toListening, hold } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0] + offset), SUSTAIN_MS);
+    expect(bandState()).toBe('red');
+    expect(screen.queryByTestId('pitch-graph-fill')).not.toBeInTheDocument();
+    expect(boxStates()).toEqual(['active', 'pending', 'pending', 'pending', 'pending']);
+    expect(status()).toHaveTextContent('Your turn: play note 1 of 5');
+    expect(overlay()).toBeNull();
+    expect(revealRegion()).toBeEmptyDOMElement();
+    // Holding it longer changes nothing.
+    await hold(concertHz(MELODY[0] + offset), SUSTAIN_MS);
+    expect(bandState()).toBe('red');
+    expect(screen.queryByTestId('pitch-graph-fill')).not.toBeInTheDocument();
+  });
+
+  it('red persists through silence and Repeat → guard → listening; after the correct note that pitch fills again', async () => {
+    const { startTraining, toListening, hold, click, finishPlayback, elapse, matchNote } = renderApp();
+    await startTraining();
+    await toListening();
+    const wrongHz = concertHz(MELODY[0] + 1);
+    await hold(wrongHz, SUSTAIN_MS);
+    await hold(null, 200);
+    expect(bandState()).toBe('red');
+    await click('Repeat melody');
+    expect(status()).toHaveTextContent('Listen…');
+    expect(bandState()).toBe('red');
+    await hold(null, 100);
+    expect(bandState()).toBe('red');
+    await finishPlayback();
+    expect(bandState()).toBe('red');
+    await elapse(LISTEN_GUARD_MS);
+    expect(repeatButton()).toBeEnabled();
+    expect(bandState()).toBe('red');
+    await hold(wrongHz, 240);
+    expect(bandState()).toBe('red');
+
+    // A silent frame resets the smoother, so the correct note is accepted after exactly SUSTAIN_MS.
+    await hold(null, 0);
+    await matchNote(concertHz(MELODY[0]));
+    expect(noteBox(0)).toHaveAttribute('data-state', 'done');
+    await hold(wrongHz, 240);
+    expect(bandState()).toBe('filling');
+  });
+
+  it('Give up during the overlay returns Home and releases the mic', async () => {
+    const { fake, startTraining, toListening, hold, click } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(concertHz(MELODY[0]), SUSTAIN_MS);
+    expect(overlay()).toBeInTheDocument();
+    await click('Give up');
+    expect(fake.sessions[0].released).toBe(true);
+    expect(startButton()).toBeInTheDocument();
+    expect(overlay()).toBeNull();
+    expect(screen.queryByTestId('pitch-graph')).not.toBeInTheDocument();
+  });
+
+  it('last note: overlay with its name and Well done!, Home only after NOTE_REVEAL_MS + COMPLETE_PAUSE_MS', async () => {
+    const { fake, startTraining, toListening, hold, elapse, matchNote } = renderApp();
+    await startTraining();
+    await toListening();
+    for (const note of MELODY.slice(0, -1)) await matchNote(concertHz(note));
+    await hold(concertHz(MELODY[4]), SUSTAIN_MS);
+    expect(overlay()).toHaveTextContent(NAMES[4]);
+    expect(status()).toHaveTextContent('Well done!');
+    expect(bandState()).toBe('green');
+    await elapse(NOTE_REVEAL_MS);
+    expect(overlay()).toBeNull();
+    expect(bandState()).toBe('idle');
+    expect(status()).toHaveTextContent('Well done!');
+    await elapse(COMPLETE_PAUSE_MS - TIMER_DRIFT_MARGIN_MS);
+    expect(fake.sessions[0].released).toBe(false);
+    expect(graph()).toBeInTheDocument();
+    await elapse(TIMER_DRIFT_MARGIN_MS);
+    expect(fake.sessions[0].released).toBe(true);
+    expect(startButton()).toBeInTheDocument();
+  });
+
+  it('silence: the trail is still there after PITCH_TRAIL_MS − 200 ms and gone after PITCH_TRAIL_MS + FRAME_MS', async () => {
+    const { startTraining, toListening, hold } = renderApp();
+    await startTraining();
+    await toListening();
+    await hold(detune(concertHz(MELODY[0] + 1), 10), 200);
+    expect(trails()).toHaveLength(1);
+    // Null frames from 220 ms after the first reading.
+    await hold(null, PITCH_TRAIL_MS - 200);
+    expect(trails()).toHaveLength(1);
+    expect(dot()).toBeNull();
+    await hold(null, 200 + FRAME_MS);
+    expect(trails()).toHaveLength(0);
+    expect(dot()).toBeNull();
   });
 });
