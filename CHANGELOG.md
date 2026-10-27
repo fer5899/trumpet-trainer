@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.4.0] - Released on 2026-10-27 by fer5899
+
 ### Added
 - Live pitch graph below the training buttons. It shows how many cents you are above or below the closest note (never the note's name), with a trail of the last second. The tolerance band fills while you hold a note in tune.
 - When the expected note is held, the band turns green and a large card shows the note's name for one second over a dimmed, blurred screen. Give up still works through it.
