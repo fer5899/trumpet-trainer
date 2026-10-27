@@ -1,0 +1,22 @@
+{
+  "hit": {
+    "x": 887.84375,
+    "y": 240,
+    "hitIsButton": true,
+    "card": "Si4"
+  },
+  "click": {
+    "t": 6387.899999999907,
+    "target": "Give up",
+    "cardPresent": true,
+    "backdropPresent": true
+  },
+  "homeAfterClickMs": 5.7999999998137355,
+  "stillHome": true,
+  "status": null,
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}

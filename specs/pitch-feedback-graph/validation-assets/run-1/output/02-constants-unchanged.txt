@@ -1,0 +1,13 @@
+Step 2: Existing constants unchanged
+Page: http://localhost:5173/
+
+Action (statements):
+(none)
+
+Action (expression):
+[c.TOLERANCE_CENTS, c.SUSTAIN_MS, c.DEFAULT_THRESHOLD_DB]
+
+Expected: [25,500,-40]
+Actual:   [25,500,-40]
+
+Result: PASS

@@ -1,0 +1,36 @@
+{
+  "hit": {
+    "x": 922,
+    "y": 46,
+    "hitIsGear": true,
+    "card": "Si4"
+  },
+  "top": {
+    "open": true,
+    "topIsDialog": true,
+    "card": "Si4",
+    "click": {
+      "t": 6349,
+      "target": "Settings",
+      "cardPresent": true,
+      "backdropPresent": true
+    }
+  },
+  "vt": {
+    "volume": "80%",
+    "duration": "500 ms"
+  },
+  "after": {
+    "status": "Your turn: play note 2 of 5",
+    "boxes": [
+      "done",
+      "active"
+    ],
+    "secondCard": "Si4"
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}

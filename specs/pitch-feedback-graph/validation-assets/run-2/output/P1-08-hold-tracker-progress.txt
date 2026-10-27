@@ -1,0 +1,13 @@
+Step P1-8: Hold tracker: progress and a single completion at 500 ms
+Page: http://localhost:5173/
+
+Action (statements):
+const h = await import('/src/training/holdTracker.ts'); const tr = h.createHoldTracker(); const out = []; for (let t = 0; t <= 520; t += 20) { const r = tr.push({ timeMs: t, midi: 69 }, []); if (r.completed !== null || t === 240) out.push([t, r.progress, r.completed]); }
+
+Action (expression):
+out
+
+Expected: [[240,0.48,null],[500,1,69]]
+Actual:   [[240,0.48,null],[500,1,69]]
+
+Result: PASS

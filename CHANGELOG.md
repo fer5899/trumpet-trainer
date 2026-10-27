@@ -8,13 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - Live pitch graph below the training buttons. It shows how many cents you are above or below the closest note (never the note's name), with a trail of the last second. The tolerance band fills while you hold a note in tune.
-- When the expected note is held, the band turns green and a large card shows the note's name for half a second over a dimmed, blurred screen. Give up still works through it.
+- When the expected note is held, the band turns green and a large card shows the note's name for one second over a dimmed, blurred screen. Give up still works through it.
 - A note held in tune that is not the expected one, octave errors included, turns the band red. Red marks stay through "Repeat melody" until the right note is played; they are only visual and never announced.
 - Light and dark themes for the graph and the card, and no animations when reduced motion is on.
 
 ### Changed
+- A note now counts as in tune within ±12.5 cents of the target (it was ±25 cents).
 - Pitch is smoothed before it is judged, so a gentle vibrato or a small wobble no longer restarts the hold. A gap in the tone still does.
-- After each correct note there is a half-second pause before the next note is judged, so the end of one note never counts for the next. "Repeat melody" is disabled during that pause.
+- After each correct note there is a one-second pause, while its name is shown, before the next note is judged, so the end of one note never counts for the next. "Repeat melody" is disabled during that pause.
 
 ## [0.3.0] - Released on 2026-10-09 by fer5899
 

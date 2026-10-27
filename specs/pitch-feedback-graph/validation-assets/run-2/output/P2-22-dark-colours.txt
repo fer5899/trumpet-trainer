@@ -1,0 +1,176 @@
+{
+  "scheme": "dark",
+  "tokens": {
+    "--color-graph-bg": "#111317",
+    "--color-graph-border": "#d4d4d4",
+    "--color-graph-centre": "#e5e5e5",
+    "--color-graph-guide": "#d4d4d4",
+    "--color-graph-band": "#5f5f5f",
+    "--color-graph-fill": "#5c4d16",
+    "--color-graph-trail": "#ffe135",
+    "--color-graph-dot": "#ffffff",
+    "--color-graph-green": "#2f5e32",
+    "--color-graph-red": "#5c1010",
+    "--color-reveal-card": "#86ff6b",
+    "--color-reveal-text": "#0b0b0b",
+    "--color-reveal-backdrop": "rgb(0 0 0 / 0.6)"
+  },
+  "measured": {
+    "dot-trail": {
+      "bandState": "idle",
+      "graphBg": "rgb(17, 19, 23)",
+      "graphBorder": "rgb(212, 212, 212)",
+      "band": "rgb(95, 95, 95)",
+      "centre": "rgb(229, 229, 229)",
+      "guide": "rgb(212, 212, 212)",
+      "trail": "rgb(255, 225, 53)",
+      "dot": "rgb(255, 255, 255)",
+      "fill": null,
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(22, 24, 29)"
+    },
+    "filling": {
+      "bandState": "filling",
+      "graphBg": "rgb(17, 19, 23)",
+      "graphBorder": "rgb(212, 212, 212)",
+      "band": "rgb(95, 95, 95)",
+      "centre": "rgb(229, 229, 229)",
+      "guide": "rgb(212, 212, 212)",
+      "trail": "rgb(255, 225, 53)",
+      "dot": "rgb(255, 255, 255)",
+      "fill": "rgb(92, 77, 22)",
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(22, 24, 29)"
+    },
+    "card": {
+      "bandState": "green",
+      "graphBg": "rgb(17, 19, 23)",
+      "graphBorder": "rgb(212, 212, 212)",
+      "band": "rgb(47, 94, 50)",
+      "centre": "rgb(229, 229, 229)",
+      "guide": "rgb(212, 212, 212)",
+      "trail": "rgb(255, 225, 53)",
+      "dot": null,
+      "fill": null,
+      "card": "rgb(134, 255, 107)",
+      "cardText": "rgb(11, 11, 11)",
+      "backdrop": "rgba(0, 0, 0, 0.6)",
+      "pageBg": "rgb(22, 24, 29)"
+    },
+    "red": {
+      "bandState": "red",
+      "graphBg": "rgb(17, 19, 23)",
+      "graphBorder": "rgb(212, 212, 212)",
+      "band": "rgb(92, 16, 16)",
+      "centre": "rgb(229, 229, 229)",
+      "guide": "rgb(212, 212, 212)",
+      "trail": "rgb(255, 225, 53)",
+      "dot": "rgb(255, 255, 255)",
+      "fill": null,
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(22, 24, 29)"
+    }
+  },
+  "rows": [
+    {
+      "token": "--color-graph-bg",
+      "element": "graphBg (dot-trail)",
+      "expected": "#111317",
+      "actual": "rgb(17, 19, 23)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-border",
+      "element": "graphBorder (dot-trail)",
+      "expected": "#d4d4d4",
+      "actual": "rgb(212, 212, 212)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-band",
+      "element": "band (dot-trail)",
+      "expected": "#5f5f5f",
+      "actual": "rgb(95, 95, 95)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-centre",
+      "element": "centre (dot-trail)",
+      "expected": "#e5e5e5",
+      "actual": "rgb(229, 229, 229)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-guide",
+      "element": "guide (dot-trail)",
+      "expected": "#d4d4d4",
+      "actual": "rgb(212, 212, 212)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-trail",
+      "element": "trail (dot-trail)",
+      "expected": "#ffe135",
+      "actual": "rgb(255, 225, 53)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-dot",
+      "element": "dot (dot-trail)",
+      "expected": "#ffffff",
+      "actual": "rgb(255, 255, 255)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-fill",
+      "element": "fill (filling)",
+      "expected": "#5c4d16",
+      "actual": "rgb(92, 77, 22)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-green",
+      "element": "band (card)",
+      "expected": "#2f5e32",
+      "actual": "rgb(47, 94, 50)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-card",
+      "element": "card (card)",
+      "expected": "#86ff6b",
+      "actual": "rgb(134, 255, 107)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-text",
+      "element": "cardText (card)",
+      "expected": "#0b0b0b",
+      "actual": "rgb(11, 11, 11)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-backdrop",
+      "element": "backdrop (card)",
+      "expected": "rgb(0 0 0 / 0.6)",
+      "actual": "rgba(0, 0, 0, 0.6)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-red",
+      "element": "band (red)",
+      "expected": "#5c1010",
+      "actual": "rgb(92, 16, 16)",
+      "match": true
+    }
+  ],
+  "cardContrast": 15.49,
+  "dotContrast": 18.59,
+  "trailContrast": 14.23
+}

@@ -1,0 +1,13 @@
+Step 9: Hold tracker: a wrong note never fills or completes
+Page: http://localhost:5173/
+
+Action (statements):
+const w = h.createHoldTracker(); let done = null; for (let t = 0; t <= 2000; t += 20) done ??= w.push({ timeMs: t, midi: 69 }, [69]).completed;
+
+Action (expression):
+[done, w.push({ timeMs: 2020, midi: 69 }, [69]).progress]
+
+Expected: [null,0]
+Actual:   [null,0]
+
+Result: PASS

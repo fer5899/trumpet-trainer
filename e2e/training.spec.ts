@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 // The fake microphone loops a 440 Hz tone (concert A4 = written Si4, MIDI 71); see playwright.config.ts.
-// The reveal overlay lives for only 500 ms: wait for it and check it in the page in one step
+// The reveal overlay lives for only NOTE_REVEAL_MS (1 s): wait for it and check it in the page in one step
 // (page.waitForFunction / locator.waitFor poll in the page), never with expect(...) retries or a
 // separate round trip after the wait.
 
@@ -57,7 +57,7 @@ test('Give up stays clickable through the reveal overlay', async ({ page }) => {
   await page.goto('/?melody=71,60,60,60,60');
   await page.getByRole('button', { name: 'Start training' }).click();
 
-  // Waits for the card and hit-tests the Give up centre in the same in-page poll (the card lives 500 ms).
+  // Waits for the card and hit-tests the Give up centre in the same in-page poll (the card lives 1 s).
   const hitsGiveUp = await page.waitForFunction(
     () => {
       if (document.querySelector('[data-testid="note-reveal"]') === null) return null;

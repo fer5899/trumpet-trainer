@@ -1,0 +1,18 @@
+{
+  "toneStart": 3528.1999999997206,
+  "green": 4093.7999999998137,
+  "repeatDisabledAtClick": true,
+  "clickAt": 4244.199999999721,
+  "home": 4246.799999999814,
+  "clickAfterGreenMs": 150.39999999990687,
+  "homeAfterClickMs": 2.6000000000931323,
+  "after3s": {
+    "onHome": true,
+    "status": null
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}

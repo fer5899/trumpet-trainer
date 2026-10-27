@@ -1,0 +1,7 @@
+{
+  "toneHz": 440,
+  "vibratoCents": 12,
+  "vibratoHz": 5,
+  "acceptMs": 548.2000000011176,
+  "box0Text": "Si4"
+}

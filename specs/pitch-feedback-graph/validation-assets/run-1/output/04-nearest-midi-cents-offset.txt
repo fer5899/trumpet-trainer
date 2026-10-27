@@ -1,0 +1,13 @@
+Step 4: nearestMidi (ties up) and centsOffset
+Page: http://localhost:5173/
+
+Action (statements):
+(none)
+
+Action (expression):
+[[69.5, 68.5, 68.49, 69.49].map(n.nearestMidi), [69.5, 68.5, 69.25, 69.49].map((m) => Math.round(n.centsOffset(m)))]
+
+Expected: [[70,69,68,69],[-50,-50,25,49]]
+Actual:   [[70,69,68,69],[-50,-50,25,49]]
+
+Result: PASS

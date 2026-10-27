@@ -18,7 +18,7 @@
   --color-graph-green: #a7e8b8;
   --color-graph-red: #f6b4b4;
   --color-reveal-card: #86efac;
-  --color-reveal-text: #052e16;
+  --color-reveal-text: #ffffff;
   --color-reveal-backdrop: rgb(0 0 0 / 0.35);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
@@ -43,7 +43,7 @@
     --color-graph-green: #2f5e32;
     --color-graph-red: #5c1010;
     --color-reveal-card: #86ff6b;
-    --color-reveal-text: #0b0b0b;
+    --color-reveal-text: #ffffff;
     --color-reveal-backdrop: rgb(0 0 0 / 0.6);
   }
 }

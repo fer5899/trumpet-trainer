@@ -1,0 +1,13 @@
+Step P1-7: Smoother: frame-rate independent
+Page: http://localhost:5173/
+
+Action (statements):
+const run = (step) => { const x = ps.createPitchSmoother(); let v = x.push(0, 69); for (let t = step; t <= 100; t += step) v = x.push(t, 70); return v.toFixed(4); };
+
+Action (expression):
+[run(10), run(20)]
+
+Expected: ["69.8647","69.8647"]
+Actual:   ["69.8647","69.8647"]
+
+Result: PASS

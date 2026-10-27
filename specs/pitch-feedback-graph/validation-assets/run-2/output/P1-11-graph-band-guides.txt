@@ -1,0 +1,13 @@
+Step P1-11: Graph band half-height and guide levels
+Page: http://localhost:5173/
+
+Action (statements):
+const g = await import('/src/training/pitchGraph.ts');
+
+Action (expression):
+[g.PITCH_GRAPH_BAND_HALF_HEIGHT, g.PITCH_GRAPH_GUIDE_LEVELS]
+
+Expected: [0.5,[-0.75,-0.5,-0.25,0.25,0.5,0.75]]
+Actual:   [0.5,[-0.75,-0.5,-0.25,0.25,0.5,0.75]]
+
+Result: PASS

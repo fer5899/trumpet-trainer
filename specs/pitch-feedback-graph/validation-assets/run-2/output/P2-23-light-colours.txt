@@ -1,0 +1,176 @@
+{
+  "scheme": "light",
+  "tokens": {
+    "--color-graph-bg": "#ffffff",
+    "--color-graph-border": "#9ca3af",
+    "--color-graph-centre": "#6b7280",
+    "--color-graph-guide": "#9ca3af",
+    "--color-graph-band": "#e5e7eb",
+    "--color-graph-fill": "#f2dc8a",
+    "--color-graph-trail": "#d97706",
+    "--color-graph-dot": "#1f2328",
+    "--color-graph-green": "#a7e8b8",
+    "--color-graph-red": "#f6b4b4",
+    "--color-reveal-card": "#86efac",
+    "--color-reveal-text": "#052e16",
+    "--color-reveal-backdrop": "rgb(0 0 0 / 0.35)"
+  },
+  "measured": {
+    "dot-trail": {
+      "bandState": "idle",
+      "graphBg": "rgb(255, 255, 255)",
+      "graphBorder": "rgb(156, 163, 175)",
+      "band": "rgb(229, 231, 235)",
+      "centre": "rgb(107, 114, 128)",
+      "guide": "rgb(156, 163, 175)",
+      "trail": "rgb(217, 119, 6)",
+      "dot": "rgb(31, 35, 40)",
+      "fill": null,
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(247, 247, 245)"
+    },
+    "filling": {
+      "bandState": "filling",
+      "graphBg": "rgb(255, 255, 255)",
+      "graphBorder": "rgb(156, 163, 175)",
+      "band": "rgb(229, 231, 235)",
+      "centre": "rgb(107, 114, 128)",
+      "guide": "rgb(156, 163, 175)",
+      "trail": "rgb(217, 119, 6)",
+      "dot": "rgb(31, 35, 40)",
+      "fill": "rgb(242, 220, 138)",
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(247, 247, 245)"
+    },
+    "card": {
+      "bandState": "green",
+      "graphBg": "rgb(255, 255, 255)",
+      "graphBorder": "rgb(156, 163, 175)",
+      "band": "rgb(167, 232, 184)",
+      "centre": "rgb(107, 114, 128)",
+      "guide": "rgb(156, 163, 175)",
+      "trail": "rgb(217, 119, 6)",
+      "dot": "rgb(31, 35, 40)",
+      "fill": null,
+      "card": "rgb(134, 239, 172)",
+      "cardText": "rgb(5, 46, 22)",
+      "backdrop": "rgba(0, 0, 0, 0.35)",
+      "pageBg": "rgb(247, 247, 245)"
+    },
+    "red": {
+      "bandState": "red",
+      "graphBg": "rgb(255, 255, 255)",
+      "graphBorder": "rgb(156, 163, 175)",
+      "band": "rgb(246, 180, 180)",
+      "centre": "rgb(107, 114, 128)",
+      "guide": "rgb(156, 163, 175)",
+      "trail": "rgb(217, 119, 6)",
+      "dot": "rgb(31, 35, 40)",
+      "fill": null,
+      "card": null,
+      "cardText": null,
+      "backdrop": null,
+      "pageBg": "rgb(247, 247, 245)"
+    }
+  },
+  "rows": [
+    {
+      "token": "--color-graph-bg",
+      "element": "graphBg (dot-trail)",
+      "expected": "#ffffff",
+      "actual": "rgb(255, 255, 255)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-border",
+      "element": "graphBorder (dot-trail)",
+      "expected": "#9ca3af",
+      "actual": "rgb(156, 163, 175)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-band",
+      "element": "band (dot-trail)",
+      "expected": "#e5e7eb",
+      "actual": "rgb(229, 231, 235)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-centre",
+      "element": "centre (dot-trail)",
+      "expected": "#6b7280",
+      "actual": "rgb(107, 114, 128)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-guide",
+      "element": "guide (dot-trail)",
+      "expected": "#9ca3af",
+      "actual": "rgb(156, 163, 175)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-trail",
+      "element": "trail (dot-trail)",
+      "expected": "#d97706",
+      "actual": "rgb(217, 119, 6)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-dot",
+      "element": "dot (dot-trail)",
+      "expected": "#1f2328",
+      "actual": "rgb(31, 35, 40)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-fill",
+      "element": "fill (filling)",
+      "expected": "#f2dc8a",
+      "actual": "rgb(242, 220, 138)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-green",
+      "element": "band (card)",
+      "expected": "#a7e8b8",
+      "actual": "rgb(167, 232, 184)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-card",
+      "element": "card (card)",
+      "expected": "#86efac",
+      "actual": "rgb(134, 239, 172)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-text",
+      "element": "cardText (card)",
+      "expected": "#052e16",
+      "actual": "rgb(5, 46, 22)",
+      "match": true
+    },
+    {
+      "token": "--color-reveal-backdrop",
+      "element": "backdrop (card)",
+      "expected": "rgb(0 0 0 / 0.35)",
+      "actual": "rgba(0, 0, 0, 0.35)",
+      "match": true
+    },
+    {
+      "token": "--color-graph-red",
+      "element": "band (red)",
+      "expected": "#f6b4b4",
+      "actual": "rgb(246, 180, 180)",
+      "match": true
+    }
+  ],
+  "cardContrast": 10.62,
+  "dotContrast": 15.8,
+  "trailContrast": 3.19
+}

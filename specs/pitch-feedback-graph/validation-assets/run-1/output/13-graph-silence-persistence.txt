@@ -1,0 +1,13 @@
+Step 13: Graph centre and red persist through silence
+Page: http://localhost:5173/
+
+Action (statements):
+let q = g.EMPTY_PITCH_GRAPH_MODEL; for (let t = 0; t <= 200; t += 20) q = g.advancePitchGraph(q, { timeMs: t, midi: 70 }); for (let t = 220; t <= 2220; t += 20) q = g.advancePitchGraph(q, { timeMs: t, midi: null });
+
+Action (expression):
+[q.centre, g.computePitchGraphView(q, { progress: 0, wrongNotes: [70], revealing: false })]
+
+Expected: [70,{"segments":[],"dot":null,"bandState":"red","fill":0}]
+Actual:   [70,{"segments":[],"dot":null,"bandState":"red","fill":0}]
+
+Result: PASS

@@ -66,7 +66,7 @@ export const EMPTY_PITCH_GRAPH_VIEW: PitchGraphView = Object.freeze({
   fill: 0,
 });
 
-/** Band half-height in y units: TOLERANCE_CENTS / PITCH_GRAPH_RANGE_CENTS (= 0.5). */
+/** Band half-height in y units: TOLERANCE_CENTS / PITCH_GRAPH_RANGE_CENTS (= 0.25). */
 export const PITCH_GRAPH_BAND_HALF_HEIGHT = TOLERANCE_CENTS / PITCH_GRAPH_RANGE_CENTS;
 
 /** Dashed guide levels in y units, excluding 0: multiples of GUIDE/RANGE strictly inside (−1, 1). */

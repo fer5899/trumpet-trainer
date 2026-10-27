@@ -1,0 +1,3742 @@
+{
+  "total": 5,
+  "freqs": [
+    261.63,
+    466.16,
+    349.23,
+    220,
+    261.63
+  ],
+  "g0": {
+    "ariaHidden": "true",
+    "state": "idle"
+  },
+  "notes": [
+    {
+      "card": null,
+      "box": "Re4"
+    },
+    {
+      "t0": 6719,
+      "cardAt": 7288.800000000279,
+      "card": "Do5",
+      "box": "Do5",
+      "boxState": "done",
+      "state": "green",
+      "status": "Your turn: play note 3 of 5",
+      "cardGone": 7790.4000000003725,
+      "afterState": "idle"
+    },
+    {
+      "t0": 7795.100000000093,
+      "cardAt": 8389.30000000028,
+      "card": "Sol4",
+      "box": "Sol4",
+      "boxState": "done",
+      "state": "green",
+      "status": "Your turn: play note 4 of 5",
+      "cardGone": 8891.200000000186,
+      "afterState": "idle"
+    },
+    {
+      "t0": 8897.100000000093,
+      "cardAt": 9472.900000000373,
+      "card": "Si3",
+      "box": "Si3",
+      "boxState": "done",
+      "state": "green",
+      "status": "Your turn: play note 5 of 5",
+      "cardGone": 9974.100000000093,
+      "afterState": "idle"
+    },
+    {
+      "t0": 9980.600000000093,
+      "cardAt": 10538.400000000373,
+      "card": "Re4",
+      "box": "Re4",
+      "boxState": "done",
+      "state": "green",
+      "status": "Well done!",
+      "cardGone": 11039.80000000028,
+      "afterState": "idle"
+    }
+  ],
+  "cardsVsBoxes": [
+    {
+      "card": "Re4",
+      "box": "Re4",
+      "boxState": "done"
+    },
+    {
+      "card": "Do5",
+      "box": "Do5",
+      "boxState": "done"
+    },
+    {
+      "card": "Sol4",
+      "box": "Sol4",
+      "boxState": "done"
+    },
+    {
+      "card": "Si3",
+      "box": "Si3",
+      "boxState": "done"
+    },
+    {
+      "card": "Re4",
+      "box": "Re4",
+      "boxState": "done"
+    }
+  ],
+  "checks": [
+    {
+      "name": "graph bg",
+      "actual": "rgb(255, 255, 255)",
+      "expected": "#ffffff",
+      "match": true
+    },
+    {
+      "name": "band",
+      "actual": "rgb(229, 231, 235)",
+      "expected": "#e5e7eb",
+      "match": true
+    },
+    {
+      "name": "fill",
+      "actual": "rgb(242, 220, 138)",
+      "expected": "#f2dc8a",
+      "match": true
+    },
+    {
+      "name": "trail",
+      "actual": "rgb(217, 119, 6)",
+      "expected": "#d97706",
+      "match": true
+    },
+    {
+      "name": "green band",
+      "actual": "rgb(167, 232, 184)",
+      "expected": "#a7e8b8",
+      "match": true
+    },
+    {
+      "name": "card",
+      "actual": "rgb(134, 239, 172)",
+      "expected": "#86efac",
+      "match": true
+    },
+    {
+      "name": "card text",
+      "actual": "rgb(5, 46, 22)",
+      "expected": "#052e16",
+      "match": true
+    },
+    {
+      "name": "dim layer",
+      "actual": "rgba(0, 0, 0, 0.35)",
+      "expected": "rgb(0 0 0 / 0.35)",
+      "match": true
+    }
+  ],
+  "cssUrl": "http://localhost:4173/trumpet-trainer/assets/index-BMAYwom6.css",
+  "log": [
+    {
+      "t": 5510.100000000093,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5555.100000000093,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 86.05
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5573,
+      "graph": true,
+      "state": "filling",
+      "fill": 10.82,
+      "dot": {
+        "cx": 256,
+        "cy": 87.36
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5586.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 21.31,
+      "dot": {
+        "cx": 256,
+        "cy": 90.87
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5604.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 32.19,
+      "dot": {
+        "cx": 256,
+        "cy": 93.49
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5621.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 42.88,
+      "dot": {
+        "cx": 256,
+        "cy": 95.32
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5637.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 53.44,
+      "dot": {
+        "cx": 256,
+        "cy": 96.62
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5654.4000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 64.26,
+      "dot": {
+        "cx": 256,
+        "cy": 97.57
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5671.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 74.94,
+      "dot": {
+        "cx": 256,
+        "cy": 98.24
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5688,
+      "graph": true,
+      "state": "filling",
+      "fill": 85.7,
+      "dot": {
+        "cx": 256,
+        "cy": 98.73
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5703.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 96.13,
+      "dot": {
+        "cx": 256,
+        "cy": 99.07
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5720.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 106.88,
+      "dot": {
+        "cx": 256,
+        "cy": 99.32
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5737,
+      "graph": true,
+      "state": "filling",
+      "fill": 117.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.49
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5753.4000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 128.06,
+      "dot": {
+        "cx": 256,
+        "cy": 99.62
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5770.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 139.01,
+      "dot": {
+        "cx": 256,
+        "cy": 99.71
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5787.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 149.5,
+      "dot": {
+        "cx": 256,
+        "cy": 99.78
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5804.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 160.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.82
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5820.4000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 170.82,
+      "dot": {
+        "cx": 256,
+        "cy": 99.86
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5837.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 181.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.88
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5854.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 192.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.9
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5870.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 202.75,
+      "dot": {
+        "cx": 256,
+        "cy": 99.91
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5887.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 213.57,
+      "dot": {
+        "cx": 256,
+        "cy": 99.92
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5904.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 224.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5920,
+      "graph": true,
+      "state": "filling",
+      "fill": 234.75,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5937.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 245.57,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5954.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 256.32,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5971.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 267.01,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 5987.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 277.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6004.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 288.45,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6021.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 299.07,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6037.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 309.57,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6056.4000000003725,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 5",
+      "boxes": "active/pending/pending/pending/pending",
+      "names": "    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6060.700000000186,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": "Re4",
+      "region": "Re4",
+      "backdrop": true,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6077.600000000093,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Re4",
+      "region": "Re4",
+      "backdrop": true,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6560.700000000186,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6620.300000000279,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6671,
+      "graph": true,
+      "state": "filling",
+      "fill": 32.19,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6686.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 42.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6703,
+      "graph": true,
+      "state": "filling",
+      "fill": 52.86,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6720,
+      "graph": true,
+      "state": "filling",
+      "fill": 64,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6736.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 74.24,
+      "dot": {
+        "cx": 256,
+        "cy": 98.23
+      },
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6752.9000000003725,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 2,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6787.5,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.02
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6804.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 11.01,
+      "dot": {
+        "cx": 256,
+        "cy": 100.02
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6820.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 21.7,
+      "dot": {
+        "cx": 256,
+        "cy": 100.02
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6837.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 32.13,
+      "dot": {
+        "cx": 256,
+        "cy": 100.02
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6854,
+      "graph": true,
+      "state": "filling",
+      "fill": 42.88,
+      "dot": {
+        "cx": 256,
+        "cy": 100.02
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6870.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 53.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6887.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 64.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6903.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 74.75,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6920,
+      "graph": true,
+      "state": "filling",
+      "fill": 85.38,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6937.4000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 96.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6953.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 106.82,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6971.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 117.5,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 6987.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 128.32,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7004.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 138.82,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7020.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 149.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7036.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 159.94,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7053.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 170.82,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7070.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 181.57,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7087.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 192.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7103.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 202.75,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7120.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 213.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7137.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 224.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7153.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 234.75,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7169.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 245.25,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7187.4000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 256.13,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7203.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 266.69,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7220.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 277.5,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7236.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 288.13,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7253.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 298.56,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7270.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 309.57,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7287.300000000279,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 5",
+      "boxes": "done/active/pending/pending/pending",
+      "names": "Re4    ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7288.800000000279,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.03
+      },
+      "trailCount": 1,
+      "card": "Do5",
+      "region": "Do5",
+      "backdrop": true,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7305.600000000093,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Do5",
+      "region": "Do5",
+      "backdrop": true,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7790.4000000003725,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7870.4000000003725,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7887.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 10.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7903.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 21.18,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7920.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 31.87,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7936.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 42.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7953.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 53.12,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7970.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 63.62,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 7986.800000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 74.37,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8003.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 84.93,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8020.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 95.87,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8036.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 106.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8053.9000000003725,
+      "graph": true,
+      "state": "filling",
+      "fill": 117.12,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8070.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 127.94,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8087.300000000279,
+      "graph": true,
+      "state": "filling",
+      "fill": 138.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8104,
+      "graph": true,
+      "state": "filling",
+      "fill": 149.12,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8120.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 159.68,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8136.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 170.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8153.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 181.06,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8170.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 191.68,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8187.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 202.37,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8203.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 212.86,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8220.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 223.74,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8236.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 234.24,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8253.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 244.93,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8271.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 256.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8286.80000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 266.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8303.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 277.06,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8320.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 287.87,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8336.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 298.3,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8353.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 308.99,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8370.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 319.68,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8387.600000000093,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 3 of 5",
+      "boxes": "done/done/active/pending/pending",
+      "names": "Re4 Do5   ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8389.30000000028,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.98
+      },
+      "trailCount": 1,
+      "card": "Sol4",
+      "region": "Sol4",
+      "backdrop": true,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8405.200000000186,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Sol4",
+      "region": "Sol4",
+      "backdrop": true,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8891.200000000186,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8966.600000000093,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8969.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 1.6,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 8986.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 12.61,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9002.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 23.23,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9019.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 33.79,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9036.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 44.42,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9053,
+      "graph": true,
+      "state": "filling",
+      "fill": 55.23,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9069.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 65.86,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9086.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 76.48,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9103.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 87.42,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9120.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 98.05,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9137.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 108.93,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9153,
+      "graph": true,
+      "state": "filling",
+      "fill": 119.23,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9170.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 129.98,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9187.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 140.8,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9203.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 151.3,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9220.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 162.11,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9236.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 172.67,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9253.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 183.23,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9271.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 194.37,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9286.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 204.61,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9304.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 215.55,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9320.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 226.11,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9337.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 236.67,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9353.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 247.3,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9370.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 257.98,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9387.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 268.93,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9403.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 279.36,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9420.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 290.05,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9437.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 300.74,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9452.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 311.17,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9471,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 4 of 5",
+      "boxes": "done/done/done/active/pending",
+      "names": "Re4 Do5 Sol4  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9472.900000000373,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100
+      },
+      "trailCount": 1,
+      "card": "Si3",
+      "region": "Si3",
+      "backdrop": true,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9487.80000000028,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Si3",
+      "region": "Si3",
+      "backdrop": true,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 9974.100000000093,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10036.200000000186,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 97.83
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10053.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 10.82,
+      "dot": {
+        "cx": 256,
+        "cy": 98.44
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10069.80000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 21.5,
+      "dot": {
+        "cx": 256,
+        "cy": 98.87
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10086.80000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 32.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.17
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10103.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 42.94,
+      "dot": {
+        "cx": 256,
+        "cy": 99.39
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10120.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 53.57,
+      "dot": {
+        "cx": 256,
+        "cy": 99.55
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10137.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 64.45,
+      "dot": {
+        "cx": 256,
+        "cy": 99.66
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10153.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 75.01,
+      "dot": {
+        "cx": 256,
+        "cy": 99.74
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10169.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 85.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.8
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10187.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 96.38,
+      "dot": {
+        "cx": 256,
+        "cy": 99.84
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10203.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 106.94,
+      "dot": {
+        "cx": 256,
+        "cy": 99.87
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10220.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 117.82,
+      "dot": {
+        "cx": 256,
+        "cy": 99.89
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10236.900000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 128.26,
+      "dot": {
+        "cx": 256,
+        "cy": 99.9
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10253.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 138.75,
+      "dot": {
+        "cx": 256,
+        "cy": 99.91
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10269.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 149.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.92
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10286.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 160.19,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10304.200000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 171.07,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10320.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 181.95,
+      "dot": {
+        "cx": 256,
+        "cy": 99.93
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10336.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 192.06,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10354.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 203.01,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10369.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 213.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10388,
+      "graph": true,
+      "state": "filling",
+      "fill": 224.51,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10403.80000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 235.14,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10420.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 245.76,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10437.30000000028,
+      "graph": true,
+      "state": "filling",
+      "fill": 256.45,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10453.400000000373,
+      "graph": true,
+      "state": "filling",
+      "fill": 266.94,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10469.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 277.44,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10486.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 288.19,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10503.700000000186,
+      "graph": true,
+      "state": "filling",
+      "fill": 299.01,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10520.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 309.63,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10537,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 5 of 5",
+      "boxes": "done/done/done/done/active",
+      "names": "Re4 Do5 Sol4 Si3 ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10538.400000000373,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 99.94
+      },
+      "trailCount": 1,
+      "card": "Re4",
+      "region": "Re4",
+      "backdrop": true,
+      "status": "Well done!",
+      "boxes": "done/done/done/done/done",
+      "names": "Re4 Do5 Sol4 Si3 Re4",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 10555.80000000028,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Re4",
+      "region": "Re4",
+      "backdrop": true,
+      "status": "Well done!",
+      "boxes": "done/done/done/done/done",
+      "names": "Re4 Do5 Sol4 Si3 Re4",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 11039.80000000028,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Well done!",
+      "boxes": "done/done/done/done/done",
+      "names": "Re4 Do5 Sol4 Si3 Re4",
+      "repeatDisabled": true,
+      "giveUpDisabled": true,
+      "home": false
+    },
+    {
+      "t": 11536.200000000186,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Well done!",
+      "boxes": "done/done/done/done/done",
+      "names": "Re4 Do5 Sol4 Si3 Re4",
+      "repeatDisabled": true,
+      "giveUpDisabled": true,
+      "home": false
+    },
+    {
+      "t": 12547,
+      "graph": false,
+      "state": null,
+      "fill": 0,
+      "dot": null,
+      "trailCount": 0,
+      "card": null,
+      "region": null,
+      "backdrop": false,
+      "status": null,
+      "boxes": "",
+      "names": "",
+      "repeatDisabled": null,
+      "giveUpDisabled": null,
+      "home": true
+    }
+  ]
+}

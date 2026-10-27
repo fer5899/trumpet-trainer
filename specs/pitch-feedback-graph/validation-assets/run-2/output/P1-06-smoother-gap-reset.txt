@@ -1,0 +1,13 @@
+Step P1-6: Smoother: a gap resets it
+Page: http://localhost:5173/
+
+Action (statements):
+(none)
+
+Action (expression):
+[s.push(40, null), s.push(60, 70)]
+
+Expected: [null,70]
+Actual:   [null,70]
+
+Result: PASS

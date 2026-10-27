@@ -1,0 +1,13 @@
+Step 3: hzToMidi
+Page: http://localhost:5173/
+
+Action (statements):
+const n = await import('/src/music/notes.ts');
+
+Action (expression):
+[n.hzToMidi(440), n.hzToMidi(220), n.hzToMidi(443).toFixed(4), n.hzToMidi(446.5).toFixed(4)]
+
+Expected: [69,57,"69.1176","69.2539"]
+Actual:   [69,57,"69.1176","69.2539"]
+
+Result: PASS

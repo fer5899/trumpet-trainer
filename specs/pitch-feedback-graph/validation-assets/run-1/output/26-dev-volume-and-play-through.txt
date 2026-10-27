@@ -1,0 +1,117 @@
+{
+  "before": {
+    "valuetext": "50%",
+    "status": "Listen…",
+    "synth": [
+      {
+        "at": 203.90000000037253,
+        "initialVolume": 0.5,
+        "freqs": [
+          261.63,
+          349.23,
+          293.66,
+          349.23,
+          174.61
+        ],
+        "ramps": [
+          {
+            "value": 0,
+            "at": 205.80000000074506
+          }
+        ]
+      },
+      {
+        "at": 205.90000000037253,
+        "initialVolume": 0.5,
+        "freqs": [
+          261.63,
+          349.23,
+          293.66,
+          349.23,
+          174.61
+        ],
+        "ramps": []
+      }
+    ]
+  },
+  "valuetextAfter": "80%",
+  "sliders": 2,
+  "afterChange": {
+    "status": "Listen…",
+    "boxes": [
+      "active",
+      "pending",
+      "pending",
+      "pending",
+      "pending"
+    ],
+    "synth": [
+      {
+        "at": 203.90000000037253,
+        "initialVolume": 0.5,
+        "freqs": [
+          261.63,
+          349.23,
+          293.66,
+          349.23,
+          174.61
+        ],
+        "ramps": [
+          {
+            "value": 0,
+            "at": 205.80000000074506
+          }
+        ]
+      },
+      {
+        "at": 205.90000000037253,
+        "initialVolume": 0.5,
+        "freqs": [
+          261.63,
+          349.23,
+          293.66,
+          349.23,
+          174.61
+        ],
+        "ramps": [
+          {
+            "value": 0.8,
+            "at": 308.2000000011176
+          }
+        ]
+      }
+    ]
+  },
+  "play": {
+    "freqs": [
+      261.63,
+      349.23,
+      293.66,
+      349.23,
+      174.61
+    ],
+    "accepts": [
+      565,
+      1032,
+      1033,
+      1032,
+      1034
+    ],
+    "names": [
+      "Re4",
+      "Sol4",
+      "Mi4",
+      "Sol4",
+      "Sol3"
+    ],
+    "statusAtLast": "Well done!",
+    "lastDone": 10206.700000001118,
+    "home": 12220.800000000745,
+    "homeAfterMs": 2014
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}

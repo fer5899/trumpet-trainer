@@ -1,0 +1,72 @@
+{
+  "tag": "svg",
+  "ariaHidden": "true",
+  "bandState": "idle",
+  "viewBox": "0 0 320 200",
+  "graph": {
+    "x": 336,
+    "y": 286,
+    "w": 608,
+    "h": 380.75,
+    "bottom": 666.75
+  },
+  "actions": {
+    "x": 336,
+    "y": 218,
+    "w": 608,
+    "h": 44,
+    "bottom": 262
+  },
+  "training": {
+    "x": 336,
+    "y": 76,
+    "w": 608,
+    "h": 590.75,
+    "bottom": 666.75
+  },
+  "band": {
+    "x": 0,
+    "y": 50,
+    "width": 320,
+    "height": 100,
+    "fill": "rgb(229, 231, 235)"
+  },
+  "guides": [
+    {
+      "y": 175,
+      "dash": "4px, 4px"
+    },
+    {
+      "y": 150,
+      "dash": "4px, 4px"
+    },
+    {
+      "y": 125,
+      "dash": "4px, 4px"
+    },
+    {
+      "y": 75,
+      "dash": "4px, 4px"
+    },
+    {
+      "y": 50,
+      "dash": "4px, 4px"
+    },
+    {
+      "y": 25,
+      "dash": "4px, 4px"
+    }
+  ],
+  "centres": [
+    {
+      "y": 100,
+      "dash": "none"
+    }
+  ],
+  "textEls": 0,
+  "textContent": "",
+  "polylines": 0,
+  "circles": 0,
+  "fillRect": false,
+  "outerHTML": "<svg class=\"pitch-graph\" data-testid=\"pitch-graph\" data-band-state=\"idle\" viewBox=\"0 0 320 200\" aria-hidden=\"true\" focusable=\"false\"><rect class=\"pitch-graph__band pitch-graph__band--idle\" data-testid=\"pitch-graph-band\" x=\"0\" y=\"50\" width=\"320\" height=\"100\"></rect><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"175\" y2=\"175\"></line><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"150\" y2=\"150\"></line><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"125\" y2=\"125\"></line><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"75\" y2=\"75\"></line><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"50\" y2=\"50\"></line><line class=\"pitch-graph__guide\" x1=\"0\" x2=\"320\" y1=\"25\" y2=\"25\"></line><line class=\"pitch-graph__centre\" x1=\"0\" x2=\"320\" y1=\"100\" y2=\"100\"></line></svg>"
+}

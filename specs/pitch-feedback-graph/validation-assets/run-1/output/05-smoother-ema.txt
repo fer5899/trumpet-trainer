@@ -1,0 +1,13 @@
+Step 5: Smoother: first reading unchanged, then EMA
+Page: http://localhost:5173/
+
+Action (statements):
+const ps = await import('/src/audio/pitchSmoother.ts'); const s = ps.createPitchSmoother();
+
+Action (expression):
+[s.push(0, 69), s.push(20, 70).toFixed(4)]
+
+Expected: [69,"69.3297"]
+Actual:   [69,"69.3297"]
+
+Result: PASS

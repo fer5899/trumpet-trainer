@@ -1,0 +1,10 @@
+{
+  "at200": {
+    "repeatDisabled": true,
+    "giveUpDisabled": false
+  },
+  "repeatEnabled": 4686.800000000745,
+  "repeatBackMs": 507.2000000011176,
+  "statusAfter": "Your turn: play note 2 of 3",
+  "box1State": "active"
+}

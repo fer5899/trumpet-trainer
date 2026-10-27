@@ -491,15 +491,15 @@ describe('useTrainingSession — smoothing', () => {
     expect(result.current.state.matchedCount).toBe(1);
   });
 
-  it('a jump from the semitone above is accepted at the 4th target frame + SUSTAIN_MS', async () => {
+  it('a jump from the semitone above is accepted at the 6th target frame + SUSTAIN_MS', async () => {
     const { result } = await setup();
     await toListening();
     await hold(concertHz(MELODY[0] + 1), 200); // t 1000..1200
-    // Target frames from t 1220; smoothed +67, +45, +30, then +20 c (inside the band) at t 1280.
-    await hold(concertHz(MELODY[0]), 40 + SUSTAIN_MS); // t 1220..1760
+    // Target frames from t 1220; smoothed +67, +45, +30, +20, +14, then +9 c (inside the band) at t 1320.
+    await hold(concertHz(MELODY[0]), 80 + SUSTAIN_MS); // t 1220..1800
     expect(result.current.state.matchedCount).toBe(0);
     expect(result.current.state.wrongNotes).toEqual([]);
-    await hold(concertHz(MELODY[0]), 0); // t 1780 = 1280 + 500
+    await hold(concertHz(MELODY[0]), 0); // t 1820 = 1320 + 500
     expect(result.current.state.matchedCount).toBe(1);
   });
 

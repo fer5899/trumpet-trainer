@@ -2,9 +2,9 @@
 
 Frontend-only web app for B♭ trumpet ear training: it plays a random melody, listens through
 the microphone while the user plays it back, and marks each note green once it is played in tune
-(±25 cents) and held for 0.5 s (judged on the smoothed pitch). A live pitch graph below the buttons
+(±12.5 cents) and held for 0.5 s (judged on the smoothed pitch). A live pitch graph below the buttons
 shows the cents from the closest note (never its name), fills the tolerance band while a note is
-held, then turns green (expected note, revealed for 0.5 s in a large overlay card) or red (another
+held, then turns green (expected note, revealed for 1 s in a large overlay card) or red (another
 note; red marks persist per melody note until it is guessed). A Settings panel (gear, top right
 on every screen) configures the scale (or scale group), melody length (3–8), max interval, note
 duration (tempo) and playback volume. No backend, no accounts; settings and the mic threshold are
@@ -88,7 +88,7 @@ src/audio/pitchDetector.ts     detectPitch: pitchy wrapper + range/clarity filte
 src/audio/pitchSmoother.ts     createPitchSmoother: time-based EMA on fractional MIDI (τ =
                                PITCH_SMOOTHING_MS, α = 1 − e^(−Δt/τ)); null frame / reset() → next
                                reading unchanged
-src/training/holdTracker.ts    clock-injected "nearest semitone held ±25 c for 500 ms" detector:
+src/training/holdTracker.ts    clock-injected "nearest semitone held ±12.5 c for 500 ms" detector:
                                push({ timeMs, midi }, wrongNotes) → { note, progress, completed }
                                (completed once per run; wrong notes never fill); no target, no
                                threshold
@@ -232,7 +232,7 @@ playwright.config.ts           Chromium with --use-fake-device/ui-for-media-stre
 - **Graph/overlay colours are theme tokens** (`--color-graph-*`, `--color-reveal-*`) in `:root` with
   dark overrides; no hard-coded colours in their rules. Overlay layers use `pointer-events: none`
   so Give up stays clickable; reduced motion disables their animations.
-- **E2E and the 500 ms overlay:** wait for `note-reveal` and check it in one in-page step
+- **E2E and the 1 s overlay:** wait for `note-reveal` and check it in one in-page step
   (`page.waitForFunction` returning the checked condition, or
   `locator.waitFor({ state: 'visible' })` when nothing else is checked), not `expect(...)` retries
   or a separate round trip after the wait.

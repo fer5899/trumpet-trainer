@@ -1,0 +1,25 @@
+{
+  "melody": "71,71,71",
+  "toneHz": 440,
+  "times": [
+    8712,
+    9729.400000000373,
+    10762.400000000373
+  ],
+  "toneStart": 8157.9000000003725,
+  "statusAtLast": "Well done!",
+  "onHomeAtLast": false,
+  "lastDone": 10762.400000000373,
+  "home": 12766.900000000373,
+  "homeAfterMs": 2004.5,
+  "firstAcceptMs": 554.0999999996275,
+  "intervals": [
+    1017.4000000003725,
+    1033
+  ],
+  "names": [
+    null,
+    null,
+    null
+  ]
+}

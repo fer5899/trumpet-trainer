@@ -1,0 +1,34 @@
+{
+  "card": {
+    "animationName": "note-reveal-pop",
+    "animationDuration": "0.15s",
+    "transitionDuration": "0s",
+    "opacity": "0",
+    "running": [
+      {
+        "name": "note-reveal-pop",
+        "state": "running",
+        "duration": 150
+      }
+    ]
+  },
+  "backdrop": {
+    "animationName": "note-reveal-fade",
+    "animationDuration": "0.12s",
+    "transitionDuration": "0s",
+    "opacity": "0",
+    "running": [
+      {
+        "name": "note-reveal-fade",
+        "state": "running",
+        "duration": 120
+      }
+    ]
+  },
+  "appearAt": 6100.699999999721,
+  "removedAt": 6603.399999999907,
+  "cardConnected": false,
+  "backdropConnected": false,
+  "leftovers": 0,
+  "regionChildren": 0
+}

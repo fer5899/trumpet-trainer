@@ -43,8 +43,8 @@ const xAt = (t: number, now: number, trailMs = PITCH_TRAIL_MS): number =>
   PITCH_GRAPH_DOT_X * (1 - (now - t) / trailMs);
 
 describe('pitch graph constants', () => {
-  it('band half-height is TOLERANCE / RANGE = 0.5', () => {
-    expect(PITCH_GRAPH_BAND_HALF_HEIGHT).toBe(0.5);
+  it('band half-height is TOLERANCE / RANGE = 0.25', () => {
+    expect(PITCH_GRAPH_BAND_HALF_HEIGHT).toBe(0.25);
   });
 
   it('guide levels are the multiples of 0.25 strictly inside (−1, 1), without 0', () => {

@@ -1,0 +1,15 @@
+{
+  "srcHasWebkit": true,
+  "previewCss": "http://localhost:4173/trumpet-trainer/assets/index-BMAYwom6.css",
+  "hit": {
+    "x": 339.84375,
+    "y": 233.796875,
+    "hitIsButton": true,
+    "cardInside": true,
+    "viewport": [
+      412,
+      839
+    ]
+  },
+  "homeOk": true
+}

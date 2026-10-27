@@ -1,0 +1,38 @@
+{
+  "listening": {
+    "viewport": {
+      "w": 320,
+      "h": 640
+    },
+    "graph": {
+      "x": 16,
+      "y": 432,
+      "w": 288,
+      "h": 180.75
+    },
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "card": null
+  },
+  "card": {
+    "viewport": {
+      "w": 320,
+      "h": 640
+    },
+    "graph": {
+      "x": 16,
+      "y": 432,
+      "w": 288,
+      "h": 180.75
+    },
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "card": {
+      "left": 40,
+      "top": 200,
+      "right": 280,
+      "bottom": 440,
+      "w": 240
+    }
+  }
+}

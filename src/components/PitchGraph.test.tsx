@@ -45,13 +45,13 @@ describe('PitchGraph', () => {
     expect(graph().textContent).toBe('');
   });
 
-  it('empty view: idle band (y 50, height 100, full width), no fill, no trail, no dot', () => {
+  it('empty view: idle band (y 75, height 50, full width), no fill, no trail, no dot', () => {
     renderGraph();
     expect(graph()).toHaveAttribute('data-band-state', 'idle');
     expect(band()).toHaveAttribute('x', '0');
-    expect(band()).toHaveAttribute('y', '50');
+    expect(band()).toHaveAttribute('y', '75');
     expect(band()).toHaveAttribute('width', '320');
-    expect(band()).toHaveAttribute('height', '100');
+    expect(band()).toHaveAttribute('height', '50');
     expect(band()).toHaveClass('pitch-graph__band', 'pitch-graph__band--idle');
     expect(fillRect()).toBeNull();
     expect(trails()).toHaveLength(0);
@@ -79,9 +79,9 @@ describe('PitchGraph', () => {
     expect(graph()).toHaveAttribute('data-band-state', 'filling');
     expect(band()).toHaveClass('pitch-graph__band--filling');
     expect(fillRect()).toHaveAttribute('x', '0');
-    expect(fillRect()).toHaveAttribute('y', '50');
+    expect(fillRect()).toHaveAttribute('y', '75');
     expect(fillRect()).toHaveAttribute('width', '128');
-    expect(fillRect()).toHaveAttribute('height', '100');
+    expect(fillRect()).toHaveAttribute('height', '50');
     expect(fillRect()).toHaveClass('pitch-graph__fill');
   });
 

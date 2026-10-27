@@ -1,0 +1,716 @@
+{
+  "tone": 164.81,
+  "firstCardSnapshot": {
+    "t": 4089.2999999998137,
+    "graph": true,
+    "state": "green",
+    "fill": 0,
+    "dot": {
+      "cx": 256,
+      "cy": 100.08
+    },
+    "trailCount": 1,
+    "card": "Fa#3",
+    "region": "Fa#3",
+    "backdrop": true,
+    "status": "Your turn: play note 2 of 3",
+    "boxes": "done/active/pending",
+    "names": "Fa#3  ",
+    "repeatDisabled": true,
+    "giveUpDisabled": false,
+    "home": false
+  },
+  "log": [
+    {
+      "t": 3522.100000000093,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3586.2000000001863,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.06
+      },
+      "trailCount": 0,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3601.2999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 10.88,
+      "dot": {
+        "cx": 256,
+        "cy": 100.06
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3618.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 21.38,
+      "dot": {
+        "cx": 256,
+        "cy": 100.07
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3635.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 32.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.07
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3652.2999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 43.14,
+      "dot": {
+        "cx": 256,
+        "cy": 100.07
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3668.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 53.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.07
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3684.899999999907,
+      "graph": true,
+      "state": "filling",
+      "fill": 64.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3701.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 74.69,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3719.7000000001863,
+      "graph": true,
+      "state": "filling",
+      "fill": 85.76,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3734.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 96.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3751.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 106.82,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3768.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 117.5,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3785.2000000001863,
+      "graph": true,
+      "state": "filling",
+      "fill": 128.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3802.399999999907,
+      "graph": true,
+      "state": "filling",
+      "fill": 139.01,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3817.600000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 149.38,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3834.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 160.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3851.7000000001863,
+      "graph": true,
+      "state": "filling",
+      "fill": 171.01,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3867.899999999907,
+      "graph": true,
+      "state": "filling",
+      "fill": 181.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3886.2000000001863,
+      "graph": true,
+      "state": "filling",
+      "fill": 192.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3901.2999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 202.94,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3918,
+      "graph": true,
+      "state": "filling",
+      "fill": 213.44,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3935.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 224.19,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3951.2000000001863,
+      "graph": true,
+      "state": "filling",
+      "fill": 234.75,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3969,
+      "graph": true,
+      "state": "filling",
+      "fill": 245.76,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 3984.100000000093,
+      "graph": true,
+      "state": "filling",
+      "fill": 256.06,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4000.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 266.62,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4017.7999999998137,
+      "graph": true,
+      "state": "filling",
+      "fill": 277.5,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4035,
+      "graph": true,
+      "state": "filling",
+      "fill": 288.13,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4051.5,
+      "graph": true,
+      "state": "filling",
+      "fill": 298.82,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4067.899999999907,
+      "graph": true,
+      "state": "filling",
+      "fill": 309.5,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4085.5,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 1 of 3",
+      "boxes": "active/pending/pending",
+      "names": "  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4089.2999999998137,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": {
+        "cx": 256,
+        "cy": 100.08
+      },
+      "trailCount": 1,
+      "card": "Fa#3",
+      "region": "Fa#3",
+      "backdrop": true,
+      "status": "Your turn: play note 2 of 3",
+      "boxes": "done/active/pending",
+      "names": "Fa#3  ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4104.299999999814,
+      "graph": true,
+      "state": "green",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": "Fa#3",
+      "region": "Fa#3",
+      "backdrop": true,
+      "status": "Your turn: play note 2 of 3",
+      "boxes": "done/active/pending",
+      "names": "Fa#3  ",
+      "repeatDisabled": true,
+      "giveUpDisabled": false,
+      "home": false
+    },
+    {
+      "t": 4592.700000000186,
+      "graph": true,
+      "state": "idle",
+      "fill": 0,
+      "dot": null,
+      "trailCount": 1,
+      "card": null,
+      "region": "",
+      "backdrop": false,
+      "status": "Your turn: play note 2 of 3",
+      "boxes": "done/active/pending",
+      "names": "Fa#3  ",
+      "repeatDisabled": false,
+      "giveUpDisabled": false,
+      "home": false
+    }
+  ]
+}

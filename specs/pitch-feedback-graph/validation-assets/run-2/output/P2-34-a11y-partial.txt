@@ -1,0 +1,20 @@
+{
+  "atCard": {
+    "region": "Si4",
+    "regionRole": "status",
+    "status": "Your turn: play note 2 of 3",
+    "statusLive": "polite",
+    "graphHidden": "true",
+    "backdropHidden": "true"
+  },
+  "regionChanges": [
+    "",
+    "Si4",
+    ""
+  ],
+  "statusChanges": [
+    "Your turn: play note 1 of 3",
+    "Your turn: play note 2 of 3"
+  ],
+  "ariaSnapshotDuringRed": "- main:\n  - button \"Settings\"\n  - paragraph: \"Your turn: play note 2 of 3\"\n  - list \"Melody notes\":\n    - 'listitem \"Note 1: done Si4\"': Si4\n    - 'listitem \"Note 2: active\"'\n    - 'listitem \"Note 3: pending\"'\n  - button \"Repeat melody\"\n  - button \"Give up\"\n  - status"
+}

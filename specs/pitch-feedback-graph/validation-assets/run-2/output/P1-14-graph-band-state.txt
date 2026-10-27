@@ -1,0 +1,13 @@
+Step P1-14: Graph band-state precedence
+Page: http://localhost:5173/
+
+Action (statements):
+const p = g.advancePitchGraph(g.EMPTY_PITCH_GRAPH_MODEL, { timeMs: 0, midi: 69 });
+
+Action (expression):
+['revealing', 'red', 'filling', 'idle'].map((k) => { const v = g.computePitchGraphView(p, { progress: k === 'filling' || k === 'red' ? 0.4 : 0, wrongNotes: k === 'red' ? [69] : [], revealing: k === 'revealing' }); return v.bandState + ' ' + v.fill; })
+
+Expected: ["green 0","red 0","filling 0.4","idle 0"]
+Actual:   ["green 0","red 0","filling 0.4","idle 0"]
+
+Result: PASS

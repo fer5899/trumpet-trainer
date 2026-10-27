@@ -1,0 +1,22 @@
+{
+  "card": {
+    "animationName": "none",
+    "animationDuration": "0s",
+    "transitionDuration": "0s",
+    "opacity": "1",
+    "running": []
+  },
+  "backdrop": {
+    "animationName": "none",
+    "animationDuration": "0s",
+    "transitionDuration": "0s",
+    "opacity": "1",
+    "running": []
+  },
+  "appearAt": 6124,
+  "removedAt": 6626.0999999996275,
+  "cardConnected": false,
+  "backdropConnected": false,
+  "leftovers": 0,
+  "regionChildren": 0
+}

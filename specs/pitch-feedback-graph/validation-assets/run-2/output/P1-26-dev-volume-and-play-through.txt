@@ -1,0 +1,141 @@
+{
+  "before": {
+    "valuetext": "50%",
+    "status": "Listen…",
+    "synth": [
+      {
+        "at": 226,
+        "initialVolume": 0.5,
+        "freqs": [
+          392,
+          440,
+          311.13,
+          311.13,
+          233.08
+        ],
+        "ramps": [
+          {
+            "value": 0,
+            "at": 229.10000000009313
+          }
+        ],
+        "noteSpacingMs": [
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      },
+      {
+        "at": 229.20000000018626,
+        "initialVolume": 0.5,
+        "freqs": [
+          392,
+          440,
+          311.13,
+          311.13,
+          233.08
+        ],
+        "ramps": [],
+        "noteSpacingMs": [
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      }
+    ]
+  },
+  "valuetextAfter": "80%",
+  "sliders": 2,
+  "afterChange": {
+    "status": "Listen…",
+    "boxes": [
+      "active",
+      "pending",
+      "pending",
+      "pending",
+      "pending"
+    ],
+    "synth": [
+      {
+        "at": 226,
+        "initialVolume": 0.5,
+        "freqs": [
+          392,
+          440,
+          311.13,
+          311.13,
+          233.08
+        ],
+        "ramps": [
+          {
+            "value": 0,
+            "at": 229.10000000009313
+          }
+        ],
+        "noteSpacingMs": [
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      },
+      {
+        "at": 229.20000000018626,
+        "initialVolume": 0.5,
+        "freqs": [
+          392,
+          440,
+          311.13,
+          311.13,
+          233.08
+        ],
+        "ramps": [
+          {
+            "value": 0.8,
+            "at": 333.39999999990687
+          }
+        ],
+        "noteSpacingMs": [
+          1000,
+          1000,
+          1000,
+          1000
+        ]
+      }
+    ]
+  },
+  "play": {
+    "freqs": [
+      392,
+      440,
+      311.13,
+      311.13,
+      233.08
+    ],
+    "accepts": [
+      567,
+      1031,
+      1052,
+      1049,
+      1049
+    ],
+    "names": [
+      "La4",
+      "Si4",
+      "Fa4",
+      "Fa4",
+      "Do4"
+    ],
+    "statusAtLast": "Well done!",
+    "lastDone": 10295,
+    "home": 12299.700000000186,
+    "homeAfterMs": 2005
+  },
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}

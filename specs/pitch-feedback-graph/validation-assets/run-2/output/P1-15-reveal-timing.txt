@@ -1,0 +1,29 @@
+{
+  "melody": "71,71,71",
+  "toneHz": 440,
+  "toneStart": 3632.100000000093,
+  "statusAtGreen": "Your turn: play note 2 of 3",
+  "box0Text": "Si4",
+  "box1State": "active",
+  "repeatDisabledAtGreen": true,
+  "giveUpDisabledAtGreen": false,
+  "done": 4196.399999999907,
+  "acceptMs": 564.2999999998137,
+  "tone": {
+    "ctxState": "running",
+    "sampleRate": 44100,
+    "hz": null
+  },
+  "gumCalls": [
+    {
+      "at": 260.79999999981374,
+      "constraints": {
+        "audio": {
+          "echoCancellation": false,
+          "noiseSuppression": false,
+          "autoGainControl": false
+        }
+      }
+    }
+  ]
+}

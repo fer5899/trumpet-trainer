@@ -1,0 +1,15 @@
+{
+  "melody": "71,72,72",
+  "firstNoteAcceptMs": 567.8000000002794,
+  "statusStart": "Your turn: play note 2 of 3",
+  "toneHz": 440,
+  "statusAfter2s": "Your turn: play note 2 of 3",
+  "boxes": [
+    "done",
+    "active",
+    "pending"
+  ],
+  "box1Text": "",
+  "bandState": "red",
+  "card": null
+}

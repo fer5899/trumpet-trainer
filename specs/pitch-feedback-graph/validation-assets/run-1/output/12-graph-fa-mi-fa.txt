@@ -1,0 +1,13 @@
+Step 12: Graph Fa/Mi/Fa trail (idea §4.3)
+Page: http://localhost:5173/
+
+Action (statements):
+const feed = (until) => { let m = g.EMPTY_PITCH_GRAPH_MODEL; for (let t = 0; t <= until; t += 20) m = g.advancePitchGraph(m, { timeMs: t, midi: t < 200 || t >= 700 ? 65 : 64 }); return m; }; const show = (m) => { const v = g.computePitchGraphView(m, { progress: 0, wrongNotes: [], revealing: false }); return [m.centre, v.segments.map((s) => s.map((p) => p.x.toFixed(3) + ',' + p.y.toFixed(2)).filter((_, i, a) => i === 0 || i === a.length - 1)), v.dot]; };
+
+Action (expression):
+[show(feed(900)), show(feed(600))]
+
+Expected: [[65,[["0.080,0.00","0.232,-1.00"],["0.632,-1.00","0.800,0.00"]],{"x":0.8,"y":0}],[64,[["0.472,1.00","0.800,0.00"]]]]
+Actual:   [[65,[["0.080,0.00","0.232,-1.00"],["0.632,-1.00","0.800,0.00"]],{"x":0.8,"y":0}],[64,[["0.472,1.00","0.800,0.00"]],{"x":0.8,"y":0}]]
+
+Result: PASS

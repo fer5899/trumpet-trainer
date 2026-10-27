@@ -24,7 +24,7 @@ export const LISTEN_GUARD_MS = 250;
 /** All-green pause before returning home. */
 export const COMPLETE_PAUSE_MS = 1500;
 /** How long a correct note's name is shown (microphone ignored) before listening resumes. */
-export const NOTE_REVEAL_MS = 500;
+export const NOTE_REVEAL_MS = 1000;
 
 // --- Exercise settings (user-adjustable; defaults and limits) ---
 /** Duration of each played note. */
@@ -55,7 +55,7 @@ export const THRESHOLD_STORAGE_KEY = 'trumpet-trainer.thresholdDb';
 
 // --- Success criteria ---
 /** Inclusive: abs(cents) <= TOLERANCE_CENTS. */
-export const TOLERANCE_CENTS = 25;
+export const TOLERANCE_CENTS = 12.5;
 /** Required continuous in-tolerance time. */
 export const SUSTAIN_MS = 500;
 
@@ -75,7 +75,7 @@ export const PITCH_TRAIL_MS = 1000;
 export const PITCH_GRAPH_RANGE_CENTS = 50;
 /** Horizontal position of the leading dot as a fraction of the graph width. */
 export const PITCH_GRAPH_DOT_X = 0.8;
-/** Spacing of the dashed guide lines (±12.5, ±25 = band edges, ±37.5 c); 0 c is the solid centre line. */
+/** Spacing of the dashed guide lines (±12.5 = band edges, ±25, ±37.5 c); 0 c is the solid centre line. */
 export const PITCH_GRAPH_GUIDE_CENTS = 12.5;
 /** SVG viewBox in user units (8:5); the graph scales uniformly to the column width. */
 export const PITCH_GRAPH_VIEWBOX_WIDTH = 320;

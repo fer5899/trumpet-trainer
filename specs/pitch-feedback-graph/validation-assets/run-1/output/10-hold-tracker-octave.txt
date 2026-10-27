@@ -1,0 +1,13 @@
+Step 10: Hold tracker: any note completes (octave included)
+Page: http://localhost:5173/
+
+Action (statements):
+const o = h.createHoldTracker(); let first = null; for (let t = 0; t <= 600; t += 20) { const r = o.push({ timeMs: t, midi: 57 }, []); if (r.completed !== null && first === null) first = [t, r.completed]; }
+
+Action (expression):
+first
+
+Expected: [500,57]
+Actual:   [500,57]
+
+Result: PASS

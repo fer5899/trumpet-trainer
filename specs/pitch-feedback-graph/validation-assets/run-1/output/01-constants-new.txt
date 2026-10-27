@@ -1,0 +1,13 @@
+Step 1: New constants
+Page: http://localhost:5173/
+
+Action (statements):
+const c = await import('/src/config/constants.ts');
+
+Action (expression):
+[c.CENTS_PER_SEMITONE, c.NOTE_REVEAL_MS, c.PITCH_SMOOTHING_MS, c.PITCH_TRAIL_MS, c.PITCH_GRAPH_RANGE_CENTS, c.PITCH_GRAPH_DOT_X, c.PITCH_GRAPH_GUIDE_CENTS, c.PITCH_GRAPH_VIEWBOX_WIDTH, c.PITCH_GRAPH_VIEWBOX_HEIGHT, c.PITCH_GRAPH_DOT_RADIUS]
+
+Expected: [100,500,50,1000,50,0.8,12.5,320,200,6]
+Actual:   [100,500,50,1000,50,0.8,12.5,320,200,6]
+
+Result: PASS

@@ -1,0 +1,13 @@
+{
+  "melody": "71,71,71",
+  "toneHz": 220,
+  "boxes": [
+    "active",
+    "pending",
+    "pending"
+  ],
+  "status": "Your turn: play note 1 of 3",
+  "control440": {
+    "acceptedMs": 577.7999999988824
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "pattern": "440 Hz 300 ms / silence 150 ms / 440 Hz 300 ms, then silence",
+  "boxesAfterPattern": [
+    "active",
+    "pending",
+    "pending"
+  ],
+  "statusAfterPattern": "Your turn: play note 1 of 3",
+  "continuousAcceptMs": 562.5
+}

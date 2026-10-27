@@ -1,0 +1,7 @@
+{
+  "toneStart": 6724.200000000186,
+  "done": 7347.4000000003725,
+  "acceptMs": 623.2000000001863,
+  "box1Text": "Do5",
+  "status": "Your turn: play note 3 of 3"
+}

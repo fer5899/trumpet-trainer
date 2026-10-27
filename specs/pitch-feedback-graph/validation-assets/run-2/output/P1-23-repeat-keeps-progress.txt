@@ -1,0 +1,71 @@
+{
+  "stuckBeforeRepeat": {
+    "boxes": [
+      "done",
+      "active",
+      "pending"
+    ],
+    "status": "Your turn: play note 2 of 3"
+  },
+  "clickAt": 6254.899999999907,
+  "playing": 6255,
+  "boxesDuringPlayback": [
+    "done",
+    "active",
+    "pending"
+  ],
+  "listening": 9548.100000000093,
+  "box0AtListening": "done",
+  "done": 10067.899999999907,
+  "acceptAfterListeningMs": 519.7999999998137,
+  "box1Text": "Do5",
+  "synth": [
+    {
+      "at": 249.6999999997206,
+      "initialVolume": 0.5,
+      "freqs": [
+        440,
+        466.16,
+        466.16
+      ],
+      "ramps": [
+        {
+          "value": 0,
+          "at": 253
+        }
+      ],
+      "noteSpacingMs": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "at": 253.10000000009313,
+      "initialVolume": 0.5,
+      "freqs": [
+        440,
+        466.16,
+        466.16
+      ],
+      "ramps": [],
+      "noteSpacingMs": [
+        1000,
+        1000
+      ]
+    },
+    {
+      "at": 6244.799999999814,
+      "initialVolume": 0.5,
+      "freqs": [
+        440,
+        466.16,
+        466.16
+      ],
+      "ramps": [],
+      "noteSpacingMs": [
+        1000,
+        1000
+      ]
+    }
+  ]
+}

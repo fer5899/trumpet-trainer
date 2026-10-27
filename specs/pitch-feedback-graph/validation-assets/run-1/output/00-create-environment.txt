@@ -1,0 +1,104 @@
+==> Installing dependencies
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 291 packages, and audited 292 packages in 5s
+
+68 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (3 moderate, 1 high, 2 critical)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+==> Unit tests
+
+> trumpet-trainer@0.3.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /home/fer5899/repos/trumpet-trainer
+
+ ✓ src/training/holdTracker.test.ts (15 tests) 25ms
+ ✓ src/audio/synth.test.ts (21 tests) 103ms
+ ✓ src/config/settings.test.ts (85 tests) 41ms
+ ✓ src/music/notes.test.ts (71 tests) 48ms
+ ✓ src/training/trainingReducer.test.ts (70 tests) 35ms
+ ✓ src/music/spelling.test.ts (32 tests) 90ms
+ ✓ src/training/pitchGraph.test.ts (38 tests) 50ms
+ ✓ src/music/scales.test.ts (417 tests) 178ms
+ ✓ src/audio/microphone.test.ts (22 tests) 69ms
+ ✓ src/music/melody.test.ts (315 tests) 394ms
+ ✓ src/components/MicLevelMeter.test.tsx (6 tests) 643ms
+   ✓ MicLevelMeter > fill width follows the clamped level and uses the ok colour at or above the threshold 319ms
+ ✓ src/training/useTrainingSession.test.tsx (40 tests) 839ms
+ ✓ src/config/settingsStorage.test.ts (23 tests) 25ms
+ ✓ src/config/constants.test.ts (61 tests) 71ms
+ ✓ src/testing/testMelody.test.ts (28 tests) 56ms
+ ✓ src/test/fakeAudioServices.test.ts (7 tests) 76ms
+ ✓ src/audio/pitchSmoother.test.ts (14 tests) 18ms
+ ✓ src/audio/pitchDetector.test.ts (28 tests) 255ms
+ ✓ src/audio/audioContext.test.ts (7 tests) 106ms
+ ✓ src/audio/services.test.ts (7 tests) 20ms
+ ✓ src/audio/AudioServicesContext.test.tsx (3 tests) 132ms
+ ✓ src/components/SettingsDialog.test.tsx (27 tests) 2561ms
+   ✓ SettingsDialog — open / close > is a modal dialog named Settings while open; closed, nothing is shown 421ms
+   ✓ SettingsDialog — Home mode > selecting a scale calls onChange with selectScale (raises max interval) 303ms
+ ✓ src/audio/level.test.ts (8 tests) 29ms
+ ✓ src/config/viteConfig.test.ts (7 tests) 13ms
+ ✓ src/components/SettingsButton.test.tsx (2 tests) 248ms
+ ✓ src/components/settingsText.test.ts (15 tests) 10ms
+ ✓ src/components/micErrorMessage.test.ts (3 tests) 3ms
+ ✓ src/components/NoteBox.test.tsx (3 tests) 88ms
+ ✓ src/components/ScaleCombobox.test.tsx (17 tests) 3371ms
+   ✓ ScaleCombobox — open > focus opens all 146 options in catalog order with the current value active and the text selected 632ms
+   ✓ ScaleCombobox — open > typing filters with searchScaleOptions and activates the first result 361ms
+   ✓ ScaleCombobox — open > no results: one disabled, unselected "No matching scales" and no active descendant 362ms
+   ✓ ScaleCombobox — open > ArrowDown / ArrowUp move the active option, clamped at both ends 405ms
+ ✓ src/components/App.test.tsx (40 tests) 3925ms
+   ✓ App — Home / microphone > shows the title, Start, an unpressed Test microphone, a meter at −60 and the threshold slider 336ms
+
+ Test Files  30 passed (30)
+      Tests  1432 passed (1432)
+   Start at  14:30:21
+   Duration  6.68s (transform 2.93s, setup 9.81s, collect 6.04s, tests 13.52s, environment 30.85s, prepare 4.98s)
+
+==> Generating fake-mic tone fixture (for npm run test:e2e)
+
+> trumpet-trainer@0.3.0 generate:tones
+> node scripts/generate-test-tones.mjs
+
+Wrote /home/fer5899/repos/trumpet-trainer/e2e/fixtures/tone-a4-440hz.wav (384044 bytes)
+==> Building the production bundle
+
+> trumpet-trainer@0.3.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 61 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.43 kB │ gzip:  0.28 kB
+dist/assets/index-DGZQ-Oh2.css    5.48 kB │ gzip:  1.62 kB
+dist/assets/index-CYNh2I48.js   175.62 kB │ gzip: 57.86 kB
+✓ built in 9.33s
+==> Starting Vite dev server on 5173
+==> Starting Vite dev server in e2e mode on 5174 (enables ?melody=)
+==> Starting production preview on 4173
+
+Services running:
+  App (dev):                  http://localhost:5173/
+  App (dev, e2e mode):        http://localhost:5174/
+    5 x Si4 (= concert A4):   http://localhost:5174/?melody=71,71,71,71,71
+    3 x Si4 (short):          http://localhost:5174/?melody=71,71,71
+    Si4 then Do5 (wrong A4):  http://localhost:5174/?melody=71,72,72
+  Production preview:         http://localhost:4173/trumpet-trainer/
+
+Written Si4 (71) sounds concert A4 = 440 Hz: play it on a B-flat trumpet, or use any 440 Hz tone
+generator; 466.16 Hz (concert B-flat 4) is the 'semitone above' / wrong-note tone for Si4.
+Press Ctrl+C to stop.
+specs/pitch-feedback-graph/create-environment.sh: line 85: 46445 Killed                     "$VITE" --port "$DEV_PORT" --strictPort > /dev/null 2>&1
+specs/pitch-feedback-graph/create-environment.sh: line 86: 46447 Killed                     "$VITE" preview --port "$PREVIEW_PORT" --strictPort > /dev/null 2>&1

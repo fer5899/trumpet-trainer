@@ -64,9 +64,9 @@ describe('createHoldTracker (ported sustain cases)', () => {
     expect(run(500, constant(69.1176)).firstCompleted).toEqual({ timeMs: 500, note: 69 });
   });
 
-  it('includes the tolerance boundary (exactly +25 c); 69.2501 never fills', () => {
-    expect(run(500, constant(69.25)).firstCompleted).toEqual({ timeMs: 500, note: 69 });
-    const outside = run(2000, constant(69.2501));
+  it('includes the tolerance boundary (exactly +12.5 c); 69.1251 never fills', () => {
+    expect(run(500, constant(69.125)).firstCompleted).toEqual({ timeMs: 500, note: 69 });
+    const outside = run(2000, constant(69.1251));
     expect(outside.firstCompleted).toBeNull();
     for (const s of outside.status.values()) expect(s.progress).toBe(0);
   });

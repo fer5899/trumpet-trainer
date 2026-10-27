@@ -1,0 +1,35 @@
+{
+  "assets": [
+    "http://localhost:4173/trumpet-trainer/assets/index-B9Zz1SD1.js",
+    "http://localhost:4173/trumpet-trainer/assets/index-BMAYwom6.css"
+  ],
+  "listen": 196.89999999990687,
+  "boxes": 5,
+  "listening": 5488.899999999907,
+  "status": "Your turn: play note 1 of 5",
+  "synth": [
+    {
+      "at": 183.60000000009313,
+      "initialVolume": 0.5,
+      "freqs": [
+        261.63,
+        196,
+        392,
+        196,
+        233.08
+      ],
+      "ramps": [],
+      "noteSpacingMs": [
+        1000,
+        1000,
+        1000,
+        1000
+      ]
+    }
+  ],
+  "errors": {
+    "page": [],
+    "console": [],
+    "http": []
+  }
+}
